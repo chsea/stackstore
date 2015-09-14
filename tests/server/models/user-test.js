@@ -103,7 +103,7 @@ describe('User model', function () {
             var saltSpy;
 
             var createUser = function () {
-                return User.create({ email: 'obama@gmail.com', password: 'potus' });
+                return User.create({ email: 'obama@gmail.com', password: 'potus', firstName: 'John', lastName: 'Smith' });
             };
 
             beforeEach(function () {
@@ -114,6 +114,15 @@ describe('User model', function () {
             afterEach(function () {
                 encryptSpy.restore();
                 saltSpy.restore();
+            });
+
+            it('should require important fields', function(done){
+                User.create({email: 'hi@aol.com'}).then(function(){
+                }).then(null, function(err){
+                    console.log(err.name);
+                    expect(err.name).to.equal('ValidationError');
+                    done();
+                });
             });
 
             it('should call User.encryptPassword with the given password and generated salt', function (done) {
