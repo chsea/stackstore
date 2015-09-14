@@ -5,7 +5,8 @@ var mongoose = require('mongoose');
 var schema = new mongoose.Schema({
     email: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -63,6 +64,11 @@ schema.pre('save', function (next) {
     next();
 
 });
+
+schema.path("email").validate(function (email) {
+    return (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).test(email);
+}, "Invalid Email Address");
+
 
 schema.statics.generateSalt = generateSalt;
 schema.statics.encryptPassword = encryptPassword;
