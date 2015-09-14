@@ -2,7 +2,7 @@
 // so the rest of the application can simply call mongoose.model('User')
 // anywhere the User model needs to be used.
 require('./user');
-require('./transaction');
-require('./product');
-require('./ticket');
 require('./venue');
+require('./product');
+//require('./ticket');
+require('./transaction');
