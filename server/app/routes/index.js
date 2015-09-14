@@ -4,6 +4,8 @@ module.exports = router;
 
 router.use('/users', require('./users'));
 
+router.use('/transactions', require('./transactions'));
+
 router.use('/members', require('./members'));
 
 // Make sure this is after all of
