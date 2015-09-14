@@ -13,9 +13,9 @@ var schema = new mongoose.Schema({
 		ref: 'User',
 		required: true
 	},
-	product: {
+	ticket: {
 		type: mongoose.Schema.Types.ObjectId,
-		ref: 'Product',
+		ref: 'Ticket',
 		required: true
 	},
 	date: {
