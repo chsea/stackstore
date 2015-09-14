@@ -11,4 +11,4 @@ var schema = new mongoose.Schema({
     seatingMapUrl: {type: String}
 });
 
-module.exports = mongoose.model('Venue', schema);
+mongoose.model('Venue', schema);

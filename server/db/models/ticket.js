@@ -9,4 +9,11 @@ var schema = new mongoose.Schema({
     sold: {type: Boolean, required: true, default: false} // if sold, obvs not avail anymore
 });
 
-module.exports = mongoose.model('Ticket', schema);
+schema.statics.findAndUpdate = function (old, changes) {
+	Object.keys(changes).forEach(function(key){
+		old[key] = changes[key];
+	});
+	return old.save();
+};
+
+mongoose.model('Ticket', schema);
