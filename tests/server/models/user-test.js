@@ -103,7 +103,7 @@ describe('User model', function () {
             var saltSpy;
 
             var createUser = function () {
-                return User.create({ email: 'obama@gmail.com', password: 'potus' });
+                return User.create({ email: 'obama@gmail.com', password: 'potus', firstName: 'John', lastName: 'Smith' });
             };
 
             beforeEach(function () {
@@ -115,6 +115,9 @@ describe('User model', function () {
                 encryptSpy.restore();
                 saltSpy.restore();
             });
+
+
+
 
             it('should call User.encryptPassword with the given password and generated salt', function (done) {
                 createUser().then(function () {
@@ -142,6 +145,92 @@ describe('User model', function () {
 
         });
 
+    });
+
+
+    describe("creation", function () {
+
+        it("shouldn't allow user with same email address", function (done) {
+            var duplicateEmail = "duplicate@email.com",
+                userObj1 = {email: duplicateEmail, password: 'otus', firstName: 'Don', lastName: 'Joe' },
+                userObj2 = {email: duplicateEmail, password: 'secret', firstName: 'John', lastName: 'Smith' };
+            User.create(userObj1)
+            .then(function () {
+                return User.create(userObj2);
+            })
+            .then(function () {
+                done(new Error("shouldn't allow to save user with already used email address"));
+            })
+            .then(null, function (error) {
+                try {
+                    expect(error.message).to.contain("duplicate key error");
+                    done();
+                } catch (e) {
+                    done(e);
+                }
+            });
+
+        });
+
+        it("should allow user with valid email address", function () {
+            return User.create({ email: "valid@email.com", password: 'potus', firstName: 'John', lastName: 'Smith' })
+            .then(function (user) {
+                return user.save();
+            });
+        });
+
+        var invalidEmailAddresses = [
+            "123",
+            "test@com",
+            "test@something..com",
+            "test@something.",
+            "test@@something.com",
+            "@something.com"
+        ];
+
+        invalidEmailAddresses.forEach(function (invalidEmail) {
+            var userObj = { email: invalidEmail, password: 'potus', firstName: 'John', lastName: 'Smith' };
+            it("should reject invalid email address " + invalidEmail, function (done) {
+                User.create(userObj)
+                .then(function (savedUser) {
+                    done(new Error("Invalid email address should throw validation error"));
+                })
+                .then(null, function (error) {
+                    expect(error.errors.hasOwnProperty("email")).to.equal(true);
+                    expect(error.errors.email.properties.message).to.equal("Invalid Email Address");
+                    done();
+                });
+            });
+        });
+
+
+        var userRequiredFieldsTests = [
+            {userObj: {password: "secret", firstName: 'John', lastName: 'Smith'}, reqField: "email"},
+            {userObj: {email: "som@thing.com", firstName: 'John', lastName: 'Smith'}, reqField: "password"},
+            {userObj: {email: "som@thing.com", password: "secret", lastName: 'Smith'}, reqField: "firstName"},
+            {userObj: {email: "som@thing.com", password: "secret", firstName: 'John'}, reqField: "lastName"}
+        ];
+
+        userRequiredFieldsTests.forEach(function (test) {
+            it("should require " + test.reqField, function (done) {
+                User.create(test.userObj)
+                .then(function(){
+                    done(new Error("User should require a " + test.reqField + "."));
+                })
+                .then(null, function(err){
+                    try {
+                        expect(err.errors.hasOwnProperty(test.reqField)).to.equal(true);
+                        expect(err.errors[test.reqField].name).to.equal('ValidatorError');
+                        expect(err.errors[test.reqField].properties.path).to.equal(test.reqField);
+                        expect(err.errors[test.reqField].properties.type).to.equal('required');
+                        done();
+                    } catch (e) {
+                        console.error("ERROR:", e);
+                        done(e);
+                    }
+                });
+            });
+        });
     });
 
 });
