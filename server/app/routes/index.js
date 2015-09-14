@@ -2,6 +2,10 @@
 var router = require('express').Router();
 module.exports = router;
 
+router.use('/users', require('./users'));
+
+router.use('/transactions', require('./transactions'));
+
 router.use('/members', require('./members'));
 
 router.use('/events', require('./events'));

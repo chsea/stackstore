@@ -28,7 +28,7 @@ router.get('/:id',function(req,res,next){
 	res.json(req.e);
 });
 
-router.post('/:id',function(req,res,next){
+router.post('/',function(req,res,next){
 	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
 	var newEvent = req.body;
 	newEvent.save().then(
@@ -60,4 +60,6 @@ router.delete('/:id',function(req,res,next){
 		});
 });
 
-router.use('/:id/tickets', require('./tickets'));
+router.use('/:id/tickets', require('./tickets.router.js'));
+
+module.exports = router;

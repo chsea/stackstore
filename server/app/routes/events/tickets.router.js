@@ -3,7 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Ticket = mongoose.model('Ticket');
 
-router.params('id',function(req,res,next,id){
+router.param('id',function(req,res,next,id){
 	Ticket.findById(id).then(
 		function(result){
 			req.ticket = result;
@@ -60,3 +60,5 @@ router.delete('/:id',function(req,res,next){
 			next(err);
 		});
 });
+
+module.exports = router;
