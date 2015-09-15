@@ -28,16 +28,15 @@ router.get('/:id',function(req,res,next){
 	res.json(req.ticket);
 });
 
-router.post('/:id',function(req,res,next){
-	var newTicket = req.body;
-	newTicket.eventProduct = req.e._id;
-	newTicket.save().then(
-		function (saved) {res.json(saved); },
-		function (err) {
+router.post('/',function(req,res,next){
+	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
+	req.body.eventProduct = req.e._id;
+	Ticket.create(req.body).then(function (ticket) {
+		res.json(ticket);
+	}, function (err) {
 			err.status = 500;
 			next(err);
-		}
-	);
+	});
 });
 
 router.put('/:id',function(req,res,next){
