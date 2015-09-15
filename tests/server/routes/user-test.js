@@ -29,7 +29,7 @@ describe('Users Route', function () {
 		guestAgent = supertest.agent(app);
 	});
 
-	beforeEach('Create a user', function (done) {
+	beforeEach('Create users', function (done) {
 		guestAgent = supertest.agent(app);
 		User.create({
             email: 'testing@fsa.com',
