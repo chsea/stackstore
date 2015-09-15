@@ -4,7 +4,7 @@ require('../../../server/db/models');
 var Transaction = mongoose.model('Transaction');
 var User = mongoose.model('User');
 var Ticket = mongoose.model('Ticket');
-var eventProduct = mongoose.model('eventProduct');
+var eventProduct = mongoose.model('EventProduct');
 
 var expect = require('chai').expect;
 
