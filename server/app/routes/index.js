@@ -10,6 +10,8 @@ router.use('/members', require('./members'));
 
 router.use('/events', require('./events'));
 
+router.use('/venues',require('./venues'));
+
 // Make sure this is after all of
 // the registered routes!
 router.use(function (req, res) {
