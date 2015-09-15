@@ -17,7 +17,7 @@ router.get('/', function(req, res, next){
 router.post('/', function(req, res, next){
 	User.create(req.body).then(function(createdUser){
 		res.send(createdUser);
-	});//.then(null, next);
+	}).then(null, next);
 });
 
 router.put('/:id', function(req, res, next){
@@ -25,7 +25,6 @@ router.put('/:id', function(req, res, next){
 		req.user[i] = req.body[i];
 	}
 	req.user.save().then(function(updatedUser){
-		//console.log(updatedUser);
 		res.send(updatedUser);
 	}).then(null, next);
 });
