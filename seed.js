@@ -119,7 +119,7 @@ var seedEvents = function() {
                 delete e.venueName;
             });
         })
-        .then(function(){Event.createAsync(events);});
+        .then(function(){Event.createAsync(events); });
 };
 
 connectToDb.then(function() {
