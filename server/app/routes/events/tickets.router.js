@@ -32,7 +32,7 @@ router.post('/:id',function(req,res,next){
 	var newTicket = req.body;
 	newTicket.eventProduct = req.e._id;
 	newTicket.save().then(
-		function (saved) {res.json(saved);},
+		function (saved) {res.json(saved); },
 		function (err) {
 			err.status = 500;
 			next(err);
@@ -43,7 +43,7 @@ router.post('/:id',function(req,res,next){
 router.put('/:id',function(req,res,next){
 	// TODO: only seller can edit, else 403 (Forbidden)
 	Ticket.findAndUpdate(req.ticket,req.body).then(
-		function (saved) {res.json(saved);},
+		function (saved) {res.json(saved); },
 		function (err) {
 			err.status = 500;
 			next(err);
@@ -54,7 +54,7 @@ router.put('/:id',function(req,res,next){
 router.delete('/:id',function(req,res,next){
 	// TODO: only seller and admin can edit, else 403 (Forbidden)
 	Ticket.remove(req.ticket).then(
-		function(){res.status(204).send();},
+		function(){res.status(204).send(); },
 		function(err){
 			err.status = 500;
 			next(err);

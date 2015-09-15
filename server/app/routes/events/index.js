@@ -32,7 +32,7 @@ router.post('/',function(req,res,next){
 	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
 	var newEvent = req.body;
 	newEvent.save().then(
-		function (saved) {res.json(saved);},
+		function (saved) {res.json(saved); },
 		function (err) {
 			err.status = 500;
 			next(err);
@@ -43,7 +43,7 @@ router.post('/',function(req,res,next){
 router.put('/:id',function(req,res,next){
 	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
 	EventProduct.findAndUpdate(req.e,req.body).then(
-		function (saved) {res.json(saved);},
+		function (saved) {res.json(saved); },
 		function (err) {
 			err.status = 500;
 			next(err);
@@ -53,7 +53,7 @@ router.put('/:id',function(req,res,next){
 
 router.delete('/:id',function(req,res,next){
 	EventProduct.remove(req.e).then(
-		function(){res.status(204).send();},
+		function(){res.status(204).send(); },
 		function(err){
 			err.status = 500;
 			next(err);

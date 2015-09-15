@@ -11,7 +11,6 @@ router.param('id',function(req,res,next,id){
 		},
 		function (err) {
 			err.status = 404;
-			console.error(err);
 			next(err);
 		}
 	);
@@ -19,7 +18,6 @@ router.param('id',function(req,res,next,id){
 
 router.get('/',function(req,res,next){
 	Venue.find().then(function(e){
-		console.log('here are your venues');
 		res.send(e);
 	});
 });
@@ -30,9 +28,9 @@ router.get('/:id',function(req,res,next){
 
 router.post('/',function(req,res,next){
 	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
-	var newVenue = req.body;
+	var newVenue = new Venue(req.body);
 	newVenue.save().then(
-		function (saved) {res.status(204).json(saved);},
+		function (saved) {res.status(201).json(saved); },
 		function (err) {
 			err.status = 500;
 			next(err);
@@ -43,7 +41,7 @@ router.post('/',function(req,res,next){
 router.put('/:id',function(req,res,next){
 	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
 	Venue.findAndUpdate(req.venue,req.body).then(
-		function (saved) {res.json(saved);},
+		function (saved) {res.json(saved); },
 		function (err) {
 			err.status = 500;
 			next(err);
@@ -53,7 +51,7 @@ router.put('/:id',function(req,res,next){
 
 router.delete('/:id',function(req,res,next){
 	Venue.remove(req.venue).then(
-		function(){res.status(204).send();},
+		function(){res.status(204).send(); },
 		function(err){
 			err.status = 500;
 			next(err);

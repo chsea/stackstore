@@ -25,6 +25,14 @@ describe('Venue model', function () {
       expect(Venue).to.be.a('function');
   });
 
+  var validVenue = {
+      name: 'Madison Square Garden',
+      streetAddress: 'somewhere along 7th Ave and 32nd St.',
+      city: 'New York',
+      state: 'NY',
+      zip: 10001
+    };
+
   describe("creation", function () {
 
     var missingName = {
@@ -46,7 +54,7 @@ describe('Venue model', function () {
     var missingCity = {
       name: 'Madison Square Garden',
       streetAddress: 'somewhere along 7th Ave and 32nd St.',
-      city: 'New York',
+      //city: 'New York',
       state: 'NY',
       zip: 10001
     };
@@ -55,16 +63,16 @@ describe('Venue model', function () {
       name: 'Richard Rodgers Theater',
       streetAddress: 'somewhere in the Theater District',
       city: 'New York',
-      state: 'NY',
+      //state: 'NY',
       zip: 10036
     };
 
     var missingZip = {
-      name: 'Richard Rodgers Theater',
-      streetAddress: 'somewhere in the Theater District',
+      name: 'Webster Hall',
+      streetAddress: 'somewhere in the East Village',
       city: 'New York',
       state: 'NY',
-      zip: 10036
+      //zip: 10036
     };
 
     var venueRequiredFieldsTests = [
@@ -79,7 +87,7 @@ describe('Venue model', function () {
       it("should require " + test.reqField, function (done) {
         Venue.create(test.venue)
         .then(function(){
-          done(new Error("Event should require a " + test.reqField + "."));
+          done(new Error("Venue should require a " + test.reqField + "."));
         })
         .then(null, function(err){
           try {
@@ -96,67 +104,36 @@ describe('Venue model', function () {
       });
     });
 
-    xit('should save category with the correct default value', function(done) {
-      EventProduct.create({name: 'BSB at MSG', date: new Date()}).then(function(e) {
-        expect(e.category).to.equal('Other');
+    it('should save category with the correct default value', function(done) {
+      Venue.create(validVenue).then(function(created) {
+        expect(created.category).to.equal('Other');
         done();
       });
     });
   });
 
   describe("statics", function() {
-    xit('should have a function that finds and updates a document', function(done) {
-      EventProduct
-      .create({name: 'BSB at MSG', date: new Date()})
-      .then(function(e) {
-        return EventProduct.findAndUpdate(e._id, {name: 'KaChing Gallery Opening'});
-      })
-      .then(function(e) {
-        return EventProduct.findById(e._id).exec();
-      }).then(function(e) {
-        expect(e.name).to.equal('KaChing Gallery Opening');
-        done();
-      }).then(null, function(err) {
-        console.log('Errored with', err);
-        done(err);
-      });
+    it('should have a function that finds and updates a document', function(done) {
+      Venue
+        .create(validVenue)
+        .then(function(created) {
+          return Venue.findAndUpdate(created._id, {name: 'THE GARDEN'});
+        })
+        .then(function(updated) {
+          expect(updated.name).to.equal('THE GARDEN');
+          done();
+        }).then(null, function(err) {
+          console.log('Errored with', err);
+          done(err);
+        });
     });
   });
 
   describe("methods", function(done) {
-    xit('should keep the correct inventory', function(done) {
-      var userId, createdEvent;
-      User
-      .create({firstName: 'Omri', lastName: 'Bernstein', email: 'zeke@zeke.zeke', password: 'groovy'})
-      .then(function(user) {
-        console.log('user ', user);
-        var userId = user._id;
-        return EventProduct.create({name: 'BSB at MSG', date: new Date()});
-      }).then(function(e) {
-        console.log('event ', user);
-        createdEvent = e;
-        return Ticket.create([{eventProduct: e._id, seller: userId}, {eventProduct: e._id, seller: userId, sold: true}]);
-      }).then(function(ticket) {
-        expect(createdEvent.inventory()).to.equal(1);
-        expect(createdEvent.ticketsSold()).to.equal(1);
-        done();
-      }).then(null, function(err) {
-        done(err);
-      });
-    });
+    // none yet
   });
 
   describe("virtuals", function(done) {
-    xit('should have a property that denotes if the event has expired', function(done) {
-      EventProduct
-      .create({name: 'BSB at MSG', date: new Date(1995, 11, 19)})
-      .then(function(e) {
-        expect(e.expired).to.equal(true);
-        done();
-      })
-      .then(null, function(err) {
-        done(err);
-      });
-    });
+    // none yet
   });
 });
