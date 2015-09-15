@@ -88,14 +88,14 @@ describe('Event model', function () {
       User
       .create({firstName: 'Omri', lastName: 'Bernstein', email: 'zeke@zeke.zeke', password: 'groovy'})
       .then(function(user) {
-        console.log('user ', user);
         var userId = user._id;
         return EventProduct.create({name: 'BSB at MSG', date: new Date()});
       }).then(function(e) {
-        console.log('event ', user);
+        console.log('event ', e);
         createdEvent = e;
         return Ticket.create([{eventProduct: e._id, seller: userId}, {eventProduct: e._id, seller: userId, sold: true}]);
       }).then(function(ticket) {
+        console.log('ticket', ticket);
         expect(createdEvent.inventory()).to.equal(1);
         expect(createdEvent.ticketsSold()).to.equal(1);
         done();

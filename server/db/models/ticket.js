@@ -9,11 +9,13 @@ var schema = new mongoose.Schema({
     sold: {type: Boolean, required: true, default: false} // if sold, obvs not avail anymore
 });
 
-schema.statics.findAndUpdate = function (old, changes) {
-	Object.keys(changes).forEach(function(key){
-		old[key] = changes[key];
-	});
-	return old.save();
+schema.statics.findAndUpdate = function (id, changes) {
+	return this.findById(id).then(function(ticket) {
+  	Object.keys(changes).forEach(function(key){
+  		ticket[key] = changes[key];
+  	});
+    return ticket.save();
+  });
 };
 
 mongoose.model('Ticket', schema);

@@ -18,7 +18,6 @@ schema.statics.findAndUpdate = function (id, changes) {
 };
 
 schema.virtual('expired').get(function () {
-  console.log('hi');
   return new Date() > this.date;
 });
 

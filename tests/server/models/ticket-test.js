@@ -10,6 +10,7 @@ require('../../../server/db/models');
 
 var EventProduct = mongoose.model('EventProduct');
 var Ticket = mongoose.model('Ticket');
+var User = mongoose.model('User');
 
 describe('Ticket model', function () {
   beforeEach('Establish DB connection', function (done) {
@@ -17,12 +18,15 @@ describe('Ticket model', function () {
     mongoose.connect(dbURI, done);
   });
 
-  var eventId;
+  var eventId, userId;
   beforeEach('Create an event', function(done) {
     EventProduct
     .create({name: 'BSB at MSG', date: new Date(2205, 11, 19)})
     .then(function(e) {
       eventId = e._id;
+      return User.create({firstName: 'Omri', lastName: 'Bernstein', email: 'zeke@zeke.zeke', password: 'groovy'})
+    }).then(function(user) {
+      userId = user._id;
       done();
     })
   });
@@ -32,56 +36,21 @@ describe('Ticket model', function () {
   });
 
   it('should exist', function () {
-      expect(Ticket).to.be.a('function');
-  });
-
-  describe("creation", function () {
-
-    var eventRequiredFieldsTests = [
-      {eventObj: {date: new Date(), category: 'Concert'}, reqField: 'name'},
-      {eventObj: {name: "BSB at MSG", category: 'Concert'}, reqField: "date"}
-    ];
-
-    eventRequiredFieldsTests.forEach(function (test) {
-        it("should require " + test.reqField, function (done) {
-            Ticket.create(test.eventObj)
-            .then(function(){
-                done(new Error("Event should require a " + test.reqField + "."));
-            })
-            .then(null, function(err){
-                try {
-                    expect(err.errors.hasOwnProperty(test.reqField)).to.equal(true);
-                    expect(err.errors[test.reqField].name).to.equal('ValidatorError');
-                    expect(err.errors[test.reqField].properties.path).to.equal(test.reqField);
-                    expect(err.errors[test.reqField].properties.type).to.equal('required');
-                    done();
-                } catch (e) {
-                    console.error("ERROR:", e);
-                    done(e);
-                }
-            });
-        });
-    });
-
-    it('should save category with the correct default value', function(done) {
-      Ticket.create({name: 'BSB at MSG', date: new Date()}).then(function(e) {
-        expect(e.category).to.equal('Other');
-        done();
-      });
-    });
+    expect(Ticket).to.be.a('function');
   });
 
   describe("statics", function() {
     it('should have a function that finds and updates a document', function(done) {
       Ticket
-      .create({name: 'BSB at MSG', date: new Date()})
-      .then(function(e) {
-        return EventProduct.findAndUpdate(e._id, {name: 'KaChing Gallery Opening'});
+      .create({eventProduct: eventId, seller: userId})
+      .then(function(ticket) {
+        return Ticket.findAndUpdate(ticket._id, {seat: 'Row 10'});
       })
-      .then(function(e) {
-        return EventProduct.findById(e._id).exec();
-      }).then(function(e) {
-        expect(e.name).to.equal('KaChing Gallery Opening');
+      .then(function(ticket) {
+        console.log(ticket);
+        return Ticket.findById(ticket._id).exec();
+      }).then(function(ticket) {
+        expect(ticket.seat).to.equal('Row 10');
         done();
       }).then(null, function(err) {
         console.log('Errored with', err);
