@@ -18,4 +18,12 @@ schema.statics.findAndUpdate = function (id, changes) {
   });
 };
 
+schema.statics.inventory = function(eventId) {
+  return this.count({eventProduct: eventId, sold: false}).exec();
+};
+
+schema.statics.soldTickets = function(eventId) {
+  return this.count({eventProduct: eventId, sold: true}).exec();
+};
+
 mongoose.model('Ticket', schema);

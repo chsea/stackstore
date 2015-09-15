@@ -18,17 +18,24 @@ describe('Ticket model', function () {
     mongoose.connect(dbURI, done);
   });
 
-  var eventId, userId;
-  beforeEach('Create an event', function(done) {
-    EventProduct
-    .create({name: 'BSB at MSG', date: new Date(2205, 11, 19)})
-    .then(function(e) {
-      eventId = e._id;
-      return User.create({firstName: 'Omri', lastName: 'Bernstein', email: 'zeke@zeke.zeke', password: 'groovy'})
-    }).then(function(user) {
+  var ticket, eventId;
+  beforeEach('create user/event/tickets', function(done) {
+    var userId;
+    User
+    .create({firstName: 'Omri', lastName: 'Bernstein', email: 'zeke@zeke.zeke', password: 'groovy'})
+    .then(function(user) {
       userId = user._id;
+      return EventProduct.create({name: 'BSB at MSG', date: new Date()});
+    }).then(function(e) {
+      eventId = e._id;
+      return Ticket.create([{eventProduct: e._id, seller: userId}, {eventProduct: e._id, seller: userId, sold: true}]);
+    }).then(function(tickets) {
+      console.log(tickets);
+      ticket = tickets[0];
       done();
-    })
+    }).then(null, function(err) {
+      done(err);
+    });
   });
 
   afterEach('Clear test database', function (done) {
@@ -41,19 +48,33 @@ describe('Ticket model', function () {
 
   describe("statics", function() {
     it('should have a function that finds and updates a document', function(done) {
-      Ticket
-      .create({eventProduct: eventId, seller: userId})
+      console.log(ticket);
+      Ticket.findAndUpdate(ticket._id, {seat: 'Row 10'})
       .then(function(ticket) {
-        return Ticket.findAndUpdate(ticket._id, {seat: 'Row 10'});
-      })
-      .then(function(ticket) {
-        console.log(ticket);
         return Ticket.findById(ticket._id).exec();
       }).then(function(ticket) {
         expect(ticket.seat).to.equal('Row 10');
         done();
       }).then(null, function(err) {
         console.log('Errored with', err);
+        done(err);
+      });
+    });
+
+    it('should keep the correct inventory', function(done) {
+      Ticket.inventory(eventId).then(function(count) {
+        expect(count).to.equal(1);
+        done();
+      }).then(null, function(err) {
+        done(err);
+      });
+    });
+
+    it('should keep the correct tickets sold', function(done) {
+      Ticket.soldTickets(eventId).then(function(count) {
+        expect(count).to.equal(1);
+        done();
+      }).then(null, function(err) {
         done(err);
       });
     });

@@ -82,29 +82,6 @@ describe('Event model', function () {
     });
   });
 
-  describe("methods", function(done) {
-    it('should keep the correct inventory', function(done) {
-      var userId, createdEvent;
-      User
-      .create({firstName: 'Omri', lastName: 'Bernstein', email: 'zeke@zeke.zeke', password: 'groovy'})
-      .then(function(user) {
-        var userId = user._id;
-        return EventProduct.create({name: 'BSB at MSG', date: new Date()});
-      }).then(function(e) {
-        console.log('event ', e);
-        createdEvent = e;
-        return Ticket.create([{eventProduct: e._id, seller: userId}, {eventProduct: e._id, seller: userId, sold: true}]);
-      }).then(function(ticket) {
-        console.log('ticket', ticket);
-        expect(createdEvent.inventory()).to.equal(1);
-        expect(createdEvent.ticketsSold()).to.equal(1);
-        done();
-      }).then(null, function(err) {
-        done(err);
-      });
-    });
-  });
-
   describe("virtuals", function(done) {
     it('should have a property that denotes if the event has expired', function(done) {
       EventProduct
