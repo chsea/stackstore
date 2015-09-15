@@ -1,7 +1,9 @@
 app.factory('UserFactory', function($http, AuthService) {
   function getEvents() {
     return AuthService.getLoggedInUser().then(function(user) {
-      return user;
+      $http.get('/users/' + user._id).then(function(user) {
+        
+      });
     });
   }
 
