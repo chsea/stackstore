@@ -66,7 +66,7 @@ describe('Users Route', function () {
 				});
 		});
 
-		it('can get by id', function (done) {
+		it('can get by id through queries', function (done) {
 			guestAgent.get('/api/users?_id=' + user1._id)
 				.end(function(err, res){
 					if(err) done(err);
@@ -77,7 +77,7 @@ describe('Users Route', function () {
 	});
 
 	describe('Post', function () {
-		it('should get a 200 response', function (done) {
+		it('should get a 201 response', function (done) {
 			guestAgent.post('/api/users')
 				.send({
 		            email: 'testing3@fsa.com',
@@ -85,7 +85,7 @@ describe('Users Route', function () {
 		            firstName: 'Daniel',
 		            lastName: 'Perrelly'
 		        })
-	        	.expect(200)
+	        	.expect(201)
 				.end(done);
 		});
 
@@ -98,10 +98,10 @@ describe('Users Route', function () {
 		            lastName: 'M'
 		        })
 				.end(function(err, res){
-					guestAgent.get('/api/users')
+					guestAgent.get('/api/users?_id=' + res.body._id)
 						.end(function(err, res){
 							if(err) done(err);
-							expect(res.body.length).to.equal(3);
+							expect(res.body[0].email).to.equal('testing3@fsa.com');
 							done();
 						});
 				});
