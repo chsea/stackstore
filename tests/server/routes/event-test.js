@@ -21,8 +21,7 @@ describe('Events Route', function () {
 		clearDB(done);
 	});
 
-	var guestAgent;
-	var createdEvent;
+	var guestAgent, createdEvent;
 
 	beforeEach('Create guest agent', function () {
 		guestAgent = supertest.agent(app);
@@ -61,7 +60,7 @@ describe('Events Route', function () {
 	it('should create a new event', function (done) {
 		guestAgent.post('/api/events')
     .send({name: '3EB at MSG', date: new Date()})
-    .expect(200)
+    .expect(201)
     .end(function(err, res) {
       guestAgent.get('/api/events')
       .expect(200)
@@ -88,9 +87,9 @@ describe('Events Route', function () {
     });
 	});
 
-  it('should create a new event', function (done) {
+  it('should delete an event', function (done) {
 		guestAgent.delete('/api/events/' + createdEvent._id)
-    .expect(200)
+    .expect(204)
     .end(function(err, res) {
       guestAgent.get('/api/events')
       .expect(200)
@@ -101,50 +100,4 @@ describe('Events Route', function () {
       });
     });
 	});
-
-  //
-	// describe('Put', function () {
-	// 	it('should get a 200 response', function (done) {
-	// 		guestAgent.put('/api/users/' + user1._id)
-	// 			.expect(200)
-	// 			.end(done);
-	// 	});
-  //
-	// 	it('should update a user', function (done) {
-	// 		guestAgent.put('/api/users/' + user1._id)
-	// 			.send({
-	// 	            "firstName": "password7"
-	// 	        })
-	// 			.end(function(err, res){
-	// 				guestAgent.get('/api/users?_id=' + user1._id)
-	// 					.end(function(err, res){
-	// 						if(err) done(err);
-	// 						expect(res.body[0].firstName).to.equal('password7');
-	// 						done();
-	// 					});
-	// 			});
-	// 	});
-  //
-	// });
-  //
-	// describe('Delete', function () {
-	// 	it('should get a 200 response', function (done) {
-	// 		guestAgent.delete('/api/users/' + user1._id)
-	// 			.expect(200)
-	// 			.end(done);
-	// 	});
-  //
-	// 	it('should delete the user', function (done) {
-	// 		guestAgent.delete('/api/users/' + user1._id)
-	// 			.end(function(err, res){
-	// 				guestAgent.get('/api/users?_id=' + user1._id)
-	// 					.end(function(err, res){
-	// 						if(err) done(err);
-	// 						expect(res.body.length).to.equal(0);
-	// 						done();
-	// 					});
-	// 			});
-	// 	});
-	// });
-
 });
