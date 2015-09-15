@@ -43,7 +43,7 @@ describe('Ticket model', function () {
     ];
 
     eventRequiredFieldsTests.forEach(function (test) {
-        it("should require " + test.reqField, function (done) {
+        xit("should require " + test.reqField, function (done) {
             Ticket.create(test.eventObj)
             .then(function(){
                 done(new Error("Event should require a " + test.reqField + "."));
@@ -63,7 +63,7 @@ describe('Ticket model', function () {
         });
     });
 
-    it('should save category with the correct default value', function(done) {
+    xit('should save category with the correct default value', function(done) {
       Ticket.create({name: 'BSB at MSG', date: new Date()}).then(function(e) {
         expect(e.category).to.equal('Other');
         done();
@@ -72,7 +72,7 @@ describe('Ticket model', function () {
   });
 
   describe("statics", function() {
-    it('should have a function that finds and updates a document', function(done) {
+    xit('should have a function that finds and updates a document', function(done) {
       Ticket
       .create({name: 'BSB at MSG', date: new Date()})
       .then(function(e) {

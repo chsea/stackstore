@@ -83,7 +83,7 @@ describe('Event model', function () {
   });
 
   describe("methods", function(done) {
-    it('should keep the correct inventory', function(done) {
+    xit('should keep the correct inventory', function(done) {
       var userId, createdEvent;
       User
       .create({firstName: 'Omri', lastName: 'Bernstein', email: 'zeke@zeke.zeke', password: 'groovy'})
