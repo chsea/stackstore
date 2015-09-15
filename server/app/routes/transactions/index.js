@@ -19,7 +19,7 @@ router.get('/', function(req, res, next){
 
 router.post('/', function(req, res, next){
 	Transaction.create(req.body).then(function(createdTransaction){
-		res.send(createdTransaction);
+		res.status(201).send(createdTransaction);
 	}).then(null, next);
 });
 

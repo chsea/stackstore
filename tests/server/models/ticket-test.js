@@ -30,7 +30,6 @@ describe('Ticket model', function () {
       eventId = e._id;
       return Ticket.create([{eventProduct: e._id, seller: userId}, {eventProduct: e._id, seller: userId, sold: true}]);
     }).then(function(tickets) {
-      console.log(tickets);
       ticket = tickets[0];
       done();
     }).then(null, function(err) {
@@ -48,7 +47,6 @@ describe('Ticket model', function () {
 
   describe("statics", function() {
     it('should have a function that finds and updates a document', function(done) {
-      console.log(ticket);
       Ticket.findAndUpdate(ticket._id, {seat: 'Row 10'})
       .then(function(ticket) {
         return Ticket.findById(ticket._id).exec();

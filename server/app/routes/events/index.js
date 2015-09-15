@@ -30,14 +30,12 @@ router.get('/:id',function(req,res,next){
 
 router.post('/',function(req,res,next){
 	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
-	var newEvent = req.body;
-	newEvent.save().then(
-		function (saved) {res.json(saved);},
-		function (err) {
+	EventProduct.create(req.body).then(function (e) {
+		res.status(201).json(e);
+	}, function (err) {
 			err.status = 500;
 			next(err);
-		}
-	);
+	});
 });
 
 router.put('/:id',function(req,res,next){
