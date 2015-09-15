@@ -24,6 +24,7 @@ var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 var Venue = Promise.promisifyAll(mongoose.model('Venue'));
 var Event = Promise.promisifyAll(mongoose.model('EventProduct'));
+var Ticket = Promise.promisifyAll(mongoose.model('Ticket'));
 
 var seedUsers = function() {
 
@@ -75,14 +76,6 @@ var seedVenues = function() {
 
 };
 
-// var schema = new mongoose.Schema({
-//     name: {type: String, required: true},
-//     date: {type: Date, required: true},
-//     category: {type: String, required: true, default: 'Other'},
-//     venue: { type: mongoose.Schema.Types.ObjectId, ref: 'Venue'},
-// });
-
-
 var seedEvents = function() {
     var venueDict={};
     var events = [{
@@ -122,6 +115,76 @@ var seedEvents = function() {
         .then(function(){Event.createAsync(events); });
 };
 
+// var schema = new mongoose.Schema({
+//     eventProduct: { type: mongoose.Schema.Types.ObjectId, ref: 'EventProduct', required: true},
+//     seller: {type: mongoose.Schema.Types.ObjectId, ref:'User', required: true},
+//     price: {type: Number, required: true, default: 0.01}, //min $0.01
+//     seat: {type: String, required: true, default: 'General Admission'},
+//     sold: {type: Boolean, required: true, default: false} // if sold, obvs not avail anymore
+// });
+
+var seedTickets = function() {
+    var eventDict={};
+    var userDict={};
+
+    var tickets = [{
+        eventName: 'Hamilton',
+        sellerEmail: 'obama@gmail.com',
+        price: '1000'
+    }, {
+        eventName: 'Hamilton',
+        sellerEmail: 'obama@gmail.com',
+        price: '1000'
+    }, {
+        eventName: 'Stromae and Janelle Monae',
+        sellerEmail: 'testing@fsa.com',
+        price: '75'
+    }, {
+        eventName: 'Stromae and Janelle Monae',
+        sellerEmail: 'testing@fsa.com',
+        price: '75'
+    }, {
+        eventName: 'Washington Nationals at New York Mets',
+        sellerEmail: 'obama@gmail.com',
+        price: '50'
+    },{
+        eventName: 'Washington Nationals at New York Mets',
+        sellerEmail: 'obama@gmail.com',
+        price: '50'
+    }, {
+        eventName: 'Rudimental',
+        sellerEmail: 'testing@fsa.com',
+        price: '25'
+    }, {
+        eventName: 'Rudimental',
+        sellerEmail: 'testing@fsa.com',
+        price: '25'
+    }
+    ];
+
+    return Event.find({}).select('name _id')
+        .then(function(events){
+            return events.forEach(
+                function(e){eventDict[e.name]=e._id;
+            });
+        })
+        .then(function(){return User.find();})
+        .then(function(users){
+            return users.forEach(
+                    function(user){userDict[user.email]=user._id;
+                });
+        })
+        .then(function(){
+            tickets.forEach(function(ticket){
+                ticket.eventProduct = eventDict[ticket.eventName];
+                ticket.seller = userDict[ticket.sellerEmail];
+                delete ticket.eventName;
+                delete ticket.sellerEmail;
+            });
+        })
+        .then(function(){Ticket.createAsync(tickets); });
+};
+
 connectToDb.then(function() {
     User.findAsync({})
         .then(function(users) {
@@ -151,6 +214,16 @@ connectToDb.then(function() {
                 return seedEvents();
             } else {
                 console.log(chalk.magenta('Seems to already be event data, exiting!'));
+            }
+        })
+        .then(function() {
+            return Ticket.findAsync({});
+        })
+        .then(function(tickets){
+            if (tickets.length===0) {
+                return seedTickets();
+            } else {
+                console.log(chalk.magenta('Seems to already be ticket data, exiting!'));
                 process.kill(0);
             }
         })
