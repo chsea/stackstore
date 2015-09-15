@@ -40,7 +40,7 @@ describe('Venues Route', function () {
 			zip: 10001
 		};
 		RRT = {
-			name: 'Richard Rodgers Theater',
+			name: 'Richard Rodgers Theatre',
 			streetAddress: 'somewhere in the Theater District',
 			city: 'New York',
 			state: 'NY',
@@ -114,7 +114,7 @@ describe('Venues Route', function () {
 				.get('/api/venues/'+rrtID)
 				.expect(200)
 				.expect(function(res){
-					expect(res.body.name).to.equal('Richard Rodgers Theater');
+					expect(res.body.name).to.equal(RRT.name);
 				})
 				.end(done);
 		});

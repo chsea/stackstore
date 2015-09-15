@@ -22,41 +22,82 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
+var Venue = Promise.promisifyAll(mongoose.model('Venue'));
 
-var seedUsers = function () {
+var seedUsers = function() {
 
-    var users = [
-        {
-            email: 'testing@fsa.com',
-            password: 'password',
-            firstName: 'Tim',
-            lastName: 'Othy'
-        },
-        {
-            email: 'obama@gmail.com',
-            password: 'potus',
-            firstName: 'John',
-            lastName: 'Smith'
-        }
-    ];
+    var users = [{
+        email: 'testing@fsa.com',
+        password: 'password',
+        firstName: 'Tim',
+        lastName: 'Othy'
+    }, {
+        email: 'obama@gmail.com',
+        password: 'potus',
+        firstName: 'John',
+        lastName: 'Smith'
+    }];
 
     return User.createAsync(users);
 
 };
 
-connectToDb.then(function () {
-    User.findAsync({}).then(function (users) {
-        if (users.length === 0) {
-            return seedUsers();
-        } else {
-            console.log(chalk.magenta('Seems to already be user data, exiting!'));
-            process.kill(0);
-        }
-    }).then(function () {
-        console.log(chalk.green('Seed successful!'));
-        process.kill(0);
-    }).catch(function (err) {
-        console.error(err);
-        process.kill(1);
-    });
+var seedVenues = function() {
+
+    var venues = [{
+        name: 'Madison Square Garden',
+        streetAddress: '4 Pennsylvania Plaza',
+        city: 'New York',
+        state: 'NY',
+        zip: 10001
+    }, {
+        name: 'Richard Rodgers Theatre',
+        streetAddress: '226 West 46th Street',
+        city: 'New York',
+        state: 'NY',
+        zip: 10036
+    }, {
+        name: 'Citi Field',
+        streetAddress: '123-01 Roosevelt Ave',
+        city: 'New York',
+        state: 'NY',
+        zip: 11368
+    }, {
+        name: 'Webster Hall',
+        streetAddress: '125 East 11th St.',
+        city: 'New York',
+        state: 'NY',
+        zip: 10003
+    }];
+
+    return Venue.createAsync(venues);
+
+};
+
+connectToDb.then(function() {
+    User.findAsync({})
+        .then(function(users) {
+            if (users.length === 0) {
+                return seedUsers();
+            } else {
+                console.log(chalk.magenta('Seems to already be user data, exiting!'));
+        }})
+        .then(function() {
+            return console.log(chalk.green('User seed successful!'));
+        })
+        .then(function() {
+            return Venue.findAsync({});
+        })
+        .then(function(venues) {
+            if (venues.length === 0) {
+                return seedVenues();
+            } else {
+                console.log(chalk.magenta('Seems to already be venue data, exiting!'));
+                process.kill(0);
+            }
+        })
+        .catch(function(err) {
+            console.error(err);
+            process.kill(1);
+        });
 });
