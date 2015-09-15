@@ -75,10 +75,7 @@ describe('Event model', function () {
       }).then(function(e) {
         expect(e.name).to.equal('KaChing Gallery Opening');
         done();
-      }).then(null, function(err) {
-        console.log('Errored with', err);
-        done(err);
-      });
+      }).then(null, done);
     });
   });
 
@@ -90,9 +87,7 @@ describe('Event model', function () {
         expect(e.expired).to.equal(true);
         done();
       })
-      .then(null, function(err) {
-        done(err);
-      });
+      .then(null, done);
     });
   });
 });
