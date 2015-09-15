@@ -32,7 +32,7 @@ router.post('/',function(req,res,next){
 	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
 	var newVenue = req.body;
 	newVenue.save().then(
-		function (saved) {res.json(saved);},
+		function (saved) {res.status(204).json(saved);},
 		function (err) {
 			err.status = 500;
 			next(err);
