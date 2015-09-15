@@ -11,4 +11,11 @@ var schema = new mongoose.Schema({
     seatingMapUrl: {type: String}
 });
 
+schema.statics.findAndUpdate = function (old, changes) {
+	Object.keys(changes).forEach(function(key){
+		old[key] = changes[key];
+	});
+	return old.save();
+};
+
 mongoose.model('Venue', schema);
