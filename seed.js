@@ -354,7 +354,39 @@ var seedTransactions = function() {
         sellerEmail: 'obama@gmail.com',
         tickets: []
     }, {
+        buyerEmail: 'cristina@fsa.com',
+        sellerEmail: 'chsea@fsa.com',
+        tickets: []
+    }, {
+        buyerEmail: 'chsea@fsa.com',
+        sellerEmail: 'danielm@fsa.com',
+        tickets: []
+    }, {
+        buyerEmail: 'danielm@fsa.com',
+        sellerEmail: 'danielp@fsa.com',
+        tickets: []
+    }, {
+        buyerEmail: 'danielp@fsa.com',
+        sellerEmail: 'cristina@fsa.com',
+        tickets: []
+    }, {
+        buyerEmail: 'cristina@fsa.com',
+        sellerEmail: 'danielm@fsa.com',
+        tickets: []
+    }, {
+        buyerEmail: 'danielm@fsa.com',
+        sellerEmail: 'obama@gmail.com',
+        tickets: []
+    }, {
+        buyerEmail: 'danielp@fsa.com',
+        sellerEmail: 'testing@fsa.com',
+        tickets: []
+    }, {
         buyerEmail: 'obama@gmail.com',
+        sellerEmail: 'chsea@fsa.com',
+        tickets: []
+    }, {
+        buyerEmail: 'chsea@fsa.com',
         sellerEmail: 'testing@fsa.com',
         tickets: []
     }
@@ -379,7 +411,7 @@ var seedTransactions = function() {
                 delete t.buyerEmail;
             });
         })
-        .then(function(){Transaction.createAsync(transactions); });
+        .then(function(){return Transaction.createAsync(transactions); });
 };
 
 
