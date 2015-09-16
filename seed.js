@@ -248,22 +248,22 @@ var seedTickets = function() {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
-        price: '50'
+        price: '40'
     }, {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
-        price: '50'
+        price: '40'
     }, {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
-        price: '50'
+        price: '40'
     },{
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
-        price: '50'
+        price: '40'
     }, {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
@@ -283,22 +283,22 @@ var seedTickets = function() {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
         sellerEmail: 'cristina@fsa.com',
-        price: '50'
+        price: '75'
     }, {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
         sellerEmail: 'chsea@fsa.com',
-        price: '50'
+        price: '75'
     }, {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
         sellerEmail: 'chsea@fsa.com',
-        price: '50'
+        price: '75'
     }, {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
         sellerEmail: 'chsea@fsa.com',
-        price: '50'
+        price: '75'
     },{
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
