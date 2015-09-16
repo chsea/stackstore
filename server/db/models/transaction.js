@@ -36,4 +36,8 @@ schema.post('save', function(doc) {
 	});
 });
 
+schema.path('tickets').validate(function (tickets) {
+	return tickets && tickets.length > 0;
+}, "You need to specify tickets.");
+
 mongoose.model('Transaction', schema);

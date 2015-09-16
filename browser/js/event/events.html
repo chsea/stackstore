@@ -1,0 +1,10 @@
+<section id="event">
+    <table><tbody>
+    	<th>What</th><th>When</th><th>Where</th>
+    	<tr ng-repeat="e in eventData">
+    		<td><a ui-sref="event({id: e._id})">{{ e.name }}</a></td>
+    		<td>{{ e.date | date:'mediumDate' }} {{ e.date | date:'shortTime':'+0400' }}</td>
+    		<td><a ui-sref="venue({id: e.venue._id})">{{ e.venue.name }}</a></td>
+    	</tr>
+    </tbody></table>
+</section>

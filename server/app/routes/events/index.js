@@ -18,8 +18,7 @@ router.param('id',function(req,res,next,id){
 });
 
 router.get('/',function(req,res){
-	EventProduct.find().then(function(e){
-		console.log('here are your events');
+	EventProduct.find().populate('venue').then(function(e){
 		res.json(e);
 	});
 });
@@ -56,6 +55,11 @@ router.delete('/:id',function(req,res,next){
 			err.status = 500;
 			next(err);
 		});
+});
+
+router.get('/:id/dates',function(req,res){
+	EventProduct.find({"name": req.e.name}).select("_id date")
+		.then(function(eventList){res.send(eventList); });
 });
 
 router.use('/:id/tickets', require('./tickets.router.js'));

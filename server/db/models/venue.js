@@ -29,7 +29,8 @@ var schema = new mongoose.Schema({
     }, // stadium vs. art gallery etc.
     seatingMapUrl: {
         type: String
-    }
+    }, 
+    coordinates: [Number] // latitude and longitude
 });
 
 schema.statics.findAndUpdate = function(id, changes) {
