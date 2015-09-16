@@ -62,20 +62,20 @@ describe('Transaction model', function () {
 
         var getTransObj = function (reqField) {
             var transObjs = {
-                'buyer': {seller: user._id, ticket: ticket._id, date: new Date(), quantity: 1},
-                'seller': {buyer: user._id, ticket: ticket._id, date: new Date(), quantity: 1},
-                'ticket': {seller: user._id, buyer: user._id, date: new Date(), quantity: 1},
-                'quantity': {seller: user._id, buyer: user._id, ticket: ticket._id, date: new Date()}
+                'buyer': {seller: user._id, tickets: [ticket._id], date: new Date()},
+                'seller': {buyer: user._id, tickets: [ticket._id], date: new Date()},
+                'tickets': {seller: user._id, buyer: user._id, date: new Date()}
             };
             return transObjs[reqField];
         };
 
-        var transactionRequiredFieldsTests = ['buyer', 'seller', 'ticket', 'quantity'];
+        var transactionRequiredFieldsTests = ['buyer', 'seller', 'tickets'];
 
         transactionRequiredFieldsTests.forEach(function (reqField) {
             it("should require " + reqField, function (done) {
                 Transaction.create(getTransObj(reqField))
-                .then(function(){
+                .then(function(trans){
+                    console.log("trans", trans);
                     done(new Error("Transaction should require a " + reqField + "."));
                 })
                 .then(null, function(err){
@@ -83,7 +83,7 @@ describe('Transaction model', function () {
                         expect(err.errors.hasOwnProperty(reqField)).to.equal(true);
                         expect(err.errors[reqField].name).to.equal('ValidatorError');
                         expect(err.errors[reqField].properties.path).to.equal(reqField);
-                        expect(err.errors[reqField].properties.type).to.equal('required');
+                        expect(err.errors[reqField].properties.type).to.match(/^required|user defined$/);
                         done();
                     } catch (e) {
                         console.error("ERROR:", e);
