@@ -25,6 +25,7 @@ var User = Promise.promisifyAll(mongoose.model('User'));
 var Venue = Promise.promisifyAll(mongoose.model('Venue'));
 var Event = Promise.promisifyAll(mongoose.model('EventProduct'));
 var Ticket = Promise.promisifyAll(mongoose.model('Ticket'));
+var Transaction = Promise.promisifyAll(mongoose.model('Transaction'));
 
 var seedUsers = function() {
 
@@ -76,6 +77,7 @@ var seedVenues = function() {
 
 };
 
+var createdEvents;
 var seedEvents = function() {
     var venueDict={};
     var events = [{
@@ -112,17 +114,11 @@ var seedEvents = function() {
                 delete e.venueName;
             });
         })
-        .then(function(){Event.createAsync(events); });
+        .then(function(){return Event.createAsync(events); })
+        .then(function(created){createdEvents=created; });
 };
 
-// var schema = new mongoose.Schema({
-//     eventProduct: { type: mongoose.Schema.Types.ObjectId, ref: 'EventProduct', required: true},
-//     seller: {type: mongoose.Schema.Types.ObjectId, ref:'User', required: true},
-//     price: {type: Number, required: true, default: 0.01}, //min $0.01
-//     seat: {type: String, required: true, default: 'General Admission'},
-//     sold: {type: Boolean, required: true, default: false} // if sold, obvs not avail anymore
-// });
-
+var createdTickets;
 var seedTickets = function() {
     var eventDict={};
     var userDict={};
@@ -182,8 +178,47 @@ var seedTickets = function() {
                 delete ticket.sellerEmail;
             });
         })
-        .then(function(){Ticket.createAsync(tickets); });
+        .then(function(){ return Ticket.createAsync(tickets); })
+        .then(function(created){createdTickets=created; });
 };
+
+var seedTransactions = function() {
+    var userDict={};
+
+    var transactions = [{
+        buyerEmail: 'testing@fsa.com',
+        sellerEmail: 'obama@gmail.com',
+        tickets: []
+    }, {
+        buyerEmail: 'obama@gmail.com',
+        sellerEmail: 'testing@fsa.com',
+        tickets: []
+    }
+    ];
+
+    for (var i=0; i<createdTickets.length;i++) {
+        var nextTicket = createdTickets.shift();
+        transactions[i%transactions.length].tickets.push(nextTicket);
+    }
+
+    return User.find().select('email _id')
+        .then(function(users){
+            return users.forEach(function(user){
+                userDict[user.email]=user._id;            
+            });
+        })
+        .then(function(){
+            return transactions.forEach(function(t){
+                t.seller = userDict[t.sellerEmail];
+                t.buyer = userDict[t.buyerEmail];
+                delete t.sellerEmail;
+                delete t.buyerEmail;
+            });
+        })
+        .then(function(){Transaction.createAsync(transactions); });
+};
+
+
 
 connectToDb.then(function() {
     User.findAsync({})
@@ -191,41 +226,15 @@ connectToDb.then(function() {
             if (users.length === 0) {
                 return seedUsers();
             } else {
-                console.log(chalk.magenta('Seems to already be user data, exiting!'));
+                console.log(chalk.magenta('Seems to already have user data, moving on to others.'));
         }})
+        .then(function(venues) {return seedVenues(); })
+        .then(function(events){return seedEvents(); })
+        .then(function(tickets){return seedTickets(); })
+        .then(function(transactions){return seedTransactions(); })
         .then(function() {
-            return console.log(chalk.green('User seed successful!'));
-        })
-        .then(function() {
-            return Venue.findAsync({});
-        })
-        .then(function(venues) {
-            if (venues.length === 0) {
-                return seedVenues();
-            } else {
-                console.log(chalk.magenta('Seems to already be venue data, exiting!'));
-            }
-        })
-        .then(function() {
-            return Event.findAsync({});
-        })
-        .then(function(events){
-            if (events.length===0) {
-                return seedEvents();
-            } else {
-                console.log(chalk.magenta('Seems to already be event data, exiting!'));
-            }
-        })
-        .then(function() {
-            return Ticket.findAsync({});
-        })
-        .then(function(tickets){
-            if (tickets.length===0) {
-                return seedTickets();
-            } else {
-                console.log(chalk.magenta('Seems to already be ticket data, exiting!'));
-                process.kill(0);
-            }
+            return console.log(chalk.green('Seeding was successful!'));
+            process.kill(0);
         })
         .catch(function(err) {
             console.error(err);

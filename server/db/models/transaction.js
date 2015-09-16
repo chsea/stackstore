@@ -1,6 +1,5 @@
 'use strict';
 var mongoose = require('mongoose');
-//User = mongoose.model('User');
 
 var schema = new mongoose.Schema({
 	buyer: {
@@ -13,18 +12,14 @@ var schema = new mongoose.Schema({
 		ref: 'User',
 		required: true
 	},
-	ticket: {
+	tickets: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Ticket',
 		required: true
-	},
+	}],
 	date: {
 		type: Date, 
 		default: Date.now, 
-		required: true
-	},
-	quantity: {
-		type: Number,
 		required: true
 	}
 });
