@@ -4,11 +4,16 @@ app.config(function ($stateProvider) {
       controller: 'ActiveController',
       templateUrl: 'js/user/active.html',
       resolve: {
-        events: function(UserFactory) {
-          return UserFactory.getEvents();
+        tickets: function(Ticket, Event, AuthService){
+          return Event.findAll().then(function(events) {
+            return AuthService.getLoggedInUser();
+          }).then(function(user){
+            return Ticket.findAll();
+          });
         }
       }
   });
-}).controller('ActiveController', function($scope, events) {
-  console.log(events);
+}).controller('ActiveController', function($scope, tickets) {
+  $scope.tickets = tickets;
+  console.log('tickets', tickets);
 });
