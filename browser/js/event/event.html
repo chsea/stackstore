@@ -1,0 +1,10 @@
+<section id="event">
+    <div>
+    	<h3>{{ eventData.name }}</h3>
+    	<p>Venue: {{ eventData.venue.name }}</p>
+    	<p>Date: {{ eventData.date | date:'mediumDate' }}</p>
+    	<p>Time: {{ eventData.date | date:'shortTime' }}</p>
+    	<p>Other info:</p>
+    	<p>{{ eventData }}</p>
+    </div>
+</section>
