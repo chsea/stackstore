@@ -31,6 +31,7 @@ describe('transactions Route', function () {
 	var user1;
 	var ticket1;
 	var user2;
+	var ticket2;
 
 	beforeEach('Create guest agent', function () {
 		guestAgent = supertest.agent(app);
@@ -59,26 +60,32 @@ describe('transactions Route', function () {
 			});
         }).then(function(eventProduct){
         	event1 = eventProduct;
-        	return Ticket.create({
+        	return Ticket.create([{
 			    eventProduct: eventProduct._id,
 			    seller: user1._id,
 			    price: 3, //min $0.01
-			});
-        }).then(function(ticket){
-        	ticket1 = ticket;
+			}, {
+			    eventProduct: eventProduct._id,
+			    seller: user1._id,
+			    price: 3, //min $0.01
+			}
+			]);
+        }).then(function(tickets){
+        	ticket1 = tickets[0];
+        	ticket2 = tickets[1];
+
         	return Transaction.create({
 	            buyer: user1._id,
 	            seller: user2._id,
-	            ticket: ticket1._id,
-	            date: 342384929348,
-	            quantity: 2
+	            tickets: [ticket1._id, ticket2._id],
+	            date: 342384929348
         	});
         }).then(function(transaction){
         	transaction1 = transaction;
         	return Transaction.create({
 	            buyer: user2._id,
 	            seller: user1._id,
-	            ticket: ticket1._id,
+	            tickets: [ticket1._id, ticket2._id],
 	            date: 342384229348,
 	            quantity: 2
 	        });
@@ -120,9 +127,8 @@ describe('transactions Route', function () {
 				.send({
 		            buyer: user1._id,
 		            seller: user2._id,
-		            ticket: ticket1._id,
-		            date: 342384929348,
-		            quantity: 4
+		            ticket: [ticket1._id, ticket2._id],
+		            date: 342384929348
 		        })
 	        	.expect(201)
 				.end(done);
@@ -133,15 +139,15 @@ describe('transactions Route', function () {
 				.send({
 		            buyer: user1._id,
 		            seller: user2._id,
-		            ticket: ticket1._id,
-		            date: 342384929348,
-		            quantity: 4
+		            ticket: [ticket1._id,ticket2._id],
+		            date: new Date(2015,9,15,7,0,0)
 		        })
 				.end(function(err, res){
 					guestAgent.get('/api/transactions?_id=' + res.body._id)
 						.end(function(err, res){
 							if(err) done(err);
-							expect(res.body[0].quantity).to.equal(4);
+							expect(res.body[0].buyer.toString()).to.equal(user1._id.toString());
+							expect(res.body[0].seller.toString()).to.equal(user2._id.toString());
 							done();
 						});
 				});
@@ -156,15 +162,16 @@ describe('transactions Route', function () {
 		});
 
 		it('should update a transaction', function (done) {
+			var newDate = new Date(2015,9,14,7,0,0)
 			guestAgent.put('/api/transactions/' + transaction1._id)
 				.send({
-		            "quantity": 7
+		            "date": newDate
 		        })
 				.end(function(err, res){
 					guestAgent.get('/api/transactions?_id=' + transaction1._id)
-						.end(function(err, res){
+						.end(function (err, res){
 							if(err) done(err);
-							expect(res.body[0].quantity).to.equal(7);
+							expect(res.body[0].date).to.equal(newDate.toISOString());
 							done();
 						});
 				});
