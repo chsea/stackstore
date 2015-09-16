@@ -12,7 +12,7 @@ var schema = new mongoose.Schema({
 		ref: 'User',
 		required: true
 	},
-	ticket: [{
+	tickets: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Ticket',
 		required: true
@@ -23,5 +23,9 @@ var schema = new mongoose.Schema({
 		required: true
 	}
 });
+
+schema.path('tickets').validate(function (tickets) {
+	return tickets && tickets.length > 0;
+}, "You need to specify tickets.");
 
 mongoose.model('Transaction', schema);
