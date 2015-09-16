@@ -7,15 +7,32 @@ app.config(function ($stateProvider) {
         events: function(Event) {
           return Event.findAll();
         },
-        tickets: function(Ticket, events, User, AuthService){
+        users: function(User) {
+          return User.findAll();
+        },
+        ticketsForSale: function(Ticket, events, users, AuthService){
           return AuthService.getLoggedInUser()
           .then(function(user){
-            return Ticket.findAll({seller: user._id});
+            return Ticket.findAll({seller: user._id, sold: false});
+          }).then(function(tickets) {
+            return tickets.filter(function(ticket) {
+              return !ticket.expired();
+            });
+          });
+        },
+        ticketsBought: function(Ticket, events, AuthService){
+          return AuthService.getLoggedInUser()
+          .then(function(user){
+            return Ticket.findAll({buyer: user._id});
+          }).then(function(tickets) {
+            return tickets.filter(function(ticket) {
+              return !ticket.expired();
+            });
           });
         }
       }
   });
-}).controller('ActiveController', function($scope, tickets) {
-  console.log(tickets);
-  $scope.tickets = tickets;
+}).controller('ActiveController', function($scope, ticketsForSale, ticketsBought) {
+  $scope.ticketsForSale = ticketsForSale;
+  $scope.ticketsBought = ticketsBought;
 });

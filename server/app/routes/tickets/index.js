@@ -17,13 +17,13 @@ router.param('id',function(req,res,next,id){
 	);
 });
 
-router.get('/',function(req,res,next){
+router.get('/',function(req,res){
   Ticket.find(req.query).then(function(tickets){
 		res.send(tickets);
 	});
 });
 
-router.get('/:id',function(req,res,next){
+router.get('/:id',function(req,res){
 	res.json(req.ticket);
 });
 

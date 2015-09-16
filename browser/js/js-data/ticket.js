@@ -22,7 +22,11 @@ app.factory('Ticket', function(DS, $state) {
 				$state.go('ticket', {
 					userId: this._id
 				});
+			},
+			expired: function() {
+				return new Date() > new Date(this.eventInfo.date);
 			}
 		}
 	});
-}).run(function (Ticket) {});
+})
+.run(function (Ticket) {});

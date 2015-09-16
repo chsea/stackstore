@@ -14,7 +14,7 @@ router.get('/', function(req, res, next){
 	}).then(next);
 });
 
-router.get('/:id', function(req, res, next){
+router.get('/:id', function(req, res){
 	res.json(req.user);
 });
 

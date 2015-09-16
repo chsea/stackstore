@@ -1,5 +1,7 @@
 'use strict';
 var mongoose = require('mongoose');
+var Ticket = mongoose.model('Ticket');
+var Promise = require('bluebird');
 
 var schema = new mongoose.Schema({
 	buyer: {
@@ -12,7 +14,7 @@ var schema = new mongoose.Schema({
 		ref: 'User',
 		required: true
 	},
-	ticket: [{
+	tickets: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Ticket',
 		required: true
@@ -22,6 +24,16 @@ var schema = new mongoose.Schema({
 		default: Date.now,
 		required: true
 	}
+});
+
+schema.post('save', function(doc) {
+	var tickets = [];
+	doc.tickets.forEach(function(ticket) {
+		tickets.push(Ticket.findAndUpdate(ticket, {sold: true, buyer: doc.buyer}));
+	});
+	Promise.all(tickets).then(function(tickets) {
+		console.log(tickets.length + ' saved');
+	});
 });
 
 mongoose.model('Transaction', schema);
