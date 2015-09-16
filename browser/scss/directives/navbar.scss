@@ -37,10 +37,11 @@ navbar {
     }
   }
 
-  .login-button {
+  .btn {
     float: right;
     border: 1px solid black;
     margin-top: 10px;
+    margin-right: 3px;
     background: none;
     outline: none !important;
   }
@@ -57,7 +58,11 @@ navbar {
       cursor: pointer;
       margin: 5px;
     }
+    button {
+      margin-top: -2px;
+    }
   }
+
 
   .search {
     margin-top: 12px;

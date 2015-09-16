@@ -14,6 +14,8 @@ router.use('/venues',require('./venues'));
 
 router.use('/tickets',require('./tickets'));
 
+router.use('/cart', require('./cart'));
+
 // Make sure this is after all of
 // the registered routes!
 router.use(function (req, res) {
