@@ -17,17 +17,17 @@ router.param('id',function(req,res,next,id){
 	);
 });
 
-router.get('/',function(req,res,next){
+router.get('/',function(req,res){
 	Venue.find().then(function(e){
 		res.send(e);
 	});
 });
 
-router.get('/:id',function(req,res,next){
+router.get('/:id',function(req,res){
 	res.json(req.venue);
 });
 
-router.get('/:id/events',function(req,res,next){
+router.get('/:id/events',function(req,res){
 	EventProduct.find({"venue": req.venue._id}).then(function(events){res.send(events); });
 });
 
