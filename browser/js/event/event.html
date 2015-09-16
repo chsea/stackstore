@@ -1,7 +1,7 @@
 <section id="event">
     <div>
     	<h3>{{ eventData.name }}</h3>
-    	<p>Venue: {{ eventData.venue.name }}</p>
+    	<div>Venue: <a ui-sref="venue({id:eventData.venue._id})">{{ eventData.venue.name }}</a></div>
     	<p>Date: {{ eventData.date | date:'mediumDate' }}</p>
     	<p>Time: {{ eventData.date | date:'shortTime' }}</p>
     	<p>Other info:</p>
