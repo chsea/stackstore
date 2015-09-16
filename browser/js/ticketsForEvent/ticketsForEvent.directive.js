@@ -1,4 +1,4 @@
-app.directive('ticketsForEvent', function ($rootScope, $state) {
+app.directive('ticketsForEvent', function () {
 
     return {
         restrict: 'E',
