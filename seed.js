@@ -39,6 +39,26 @@ var seedUsers = function() {
         password: 'potus',
         firstName: 'John',
         lastName: 'Smith'
+    }, {
+        email: 'cristina@fsa.com',
+        password: 'millenium',
+        firstName: 'Cristina',
+        lastName: 'Colón'
+    }, {
+        email: 'chsea@fsa.com',
+        password: 'bsbforlife',
+        firstName: 'Chel',
+        lastName: 'Du'
+    }, {
+        email: 'danielp@fsa.com',
+        password: 'millenium',
+        firstName: 'Daniel',
+        lastName: 'Perelly'
+    }, {
+        email: 'danielm@fsa.com',
+        password: 'millenium',
+        firstName: 'Daniel',
+        lastName: 'Moenich'
     }];
 
     return User.createAsync(users);
@@ -52,25 +72,46 @@ var seedVenues = function() {
         streetAddress: '4 Pennsylvania Plaza',
         city: 'New York',
         state: 'NY',
-        zip: 10001
+        zip: 10001, 
+        coordinates: [40.7505045,-73.9934387], 
+        seatingMapUrl: '/images/madisonSqGardenSeatMap.png'
     }, {
         name: 'Richard Rodgers Theatre',
         streetAddress: '226 West 46th Street',
         city: 'New York',
         state: 'NY',
-        zip: 10036
+        zip: 10036, 
+        coordinates: [40.7590431,-73.9866326], 
+        seatingMapUrl: '/images/richardRodgersSeatMap.png'
     }, {
         name: 'Citi Field',
         streetAddress: '123-01 Roosevelt Ave',
         city: 'New York',
         state: 'NY',
-        zip: 11368
+        zip: 11368, 
+        coordinates: [40.7570877,-73.8458213], 
+        seatingMapUrl: '/images/citiFieldSeatMap.png'
     }, {
         name: 'Webster Hall',
         streetAddress: '125 East 11th St.',
         city: 'New York',
         state: 'NY',
-        zip: 10003
+        zip: 10003, 
+        coordinates: [40.731763,-73.9891298]
+    }, {
+        name: 'Barclays Center',
+        streetAddress: '620 Atlantic Ave',
+        city: 'Brooklyn',
+        state: 'NY',
+        zip: 11217, 
+        coordinates: [40.6825236,-73.9750134]
+    }, {
+        name: 'Yankee Stadium',
+        streetAddress: '620 Atlantic Ave',
+        city: 'Bronx',
+        state: 'NY',
+        zip: 11217, 
+        coordinates: [40.6825236,-73.9750134]
     }];
 
     return Venue.createAsync(venues);
@@ -87,12 +128,52 @@ var seedEvents = function() {
         category: 'Concert'
     }, {
         name: 'Hamilton',
-        date: new Date(2015,9,26,20,0,0),
+        date: new Date(2015,9,24,19,0,0), // thurs 9/24 @ 7pm
+        venueName: 'Richard Rodgers Theatre',
+        category: 'Theater'
+    }, {
+        name: 'Hamilton',
+        date: new Date(2015,9,25,20,0,0), // fri 9/25 @ 8pm
+        venueName: 'Richard Rodgers Theatre',
+        category: 'Theater'
+    }, {
+        name: 'Hamilton',
+        date: new Date(2015,9,26,14,0,0), // sat 9/26 @ 2pm
+        venueName: 'Richard Rodgers Theatre',
+        category: 'Theater'
+    }, {
+        name: 'Hamilton',
+        date: new Date(2015,9,26,20,0,0), // sat 9/26 @ 8pm
+        venueName: 'Richard Rodgers Theatre',
+        category: 'Theater'
+    }, {
+        name: 'Hamilton',
+        date: new Date(2015,9,27,15,0,0), // sun 9/27 @ 3pm
+        venueName: 'Richard Rodgers Theatre',
+        category: 'Theater'
+    }, {
+        name: 'Hamilton',
+        date: new Date(2015,9,29,19,0,0), // tues 9/29 @ 7pm
+        venueName: 'Richard Rodgers Theatre',
+        category: 'Theater'
+    }, {
+        name: 'Hamilton',
+        date: new Date(2015,9,30,14,0,0), // wed 9/30 @ 2pm
         venueName: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
         name: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,4,15,10,0),
+        date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
+        venueName: 'Citi Field',
+        category: 'Sports'
+    }, {
+        name: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
+        venueName: 'Citi Field',
+        category: 'Sports'
+    }, {
+        name: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
         venueName: 'Citi Field',
         category: 'Sports'
     }, {
@@ -126,42 +207,123 @@ var seedTickets = function() {
     var tickets = [{
         eventName: 'Hamilton',
         sellerEmail: 'obama@gmail.com',
+        date: new Date(2015,9,26,14,0,0), // sat 9/26 @ 2pm
         price: '1000'
     }, {
         eventName: 'Hamilton',
         sellerEmail: 'obama@gmail.com',
+        date: new Date(2015,9,26,14,0,0), // sat 9/26 @ 2pm
+        price: '1000'
+    }, {
+        eventName: 'Hamilton',
+        sellerEmail: 'chsea@fsa.com',
+        date: new Date(2015,9,27,15,0,0), // sun 9/27 @ 3pm
+        price: '700'
+    }, {
+        eventName: 'Hamilton',
+        sellerEmail: 'chsea@fsa.com',
+        date: new Date(2015,9,27,15,0,0), // sun 9/27 @ 3pm
+        price: '500'
+    }, {
+        eventName: 'Hamilton',
+        date: new Date(2015,9,29,19,0,0), // tues 9/29 @ 7pm
+        sellerEmail: 'danielp@fsa.com',
+        price: '500'
+    }, {
+        eventName: 'Hamilton',
+        date: new Date(2015,9,29,19,0,0), // tues 9/29 @ 7pm
+        sellerEmail: 'danielp@fsa.com',
         price: '1000'
     }, {
         eventName: 'Stromae and Janelle Monae',
-        sellerEmail: 'testing@fsa.com',
+        date: new Date(2015, 10, 1, 20, 0, 0),
+        sellerEmail: 'danielm@fsa.com',
         price: '75'
     }, {
         eventName: 'Stromae and Janelle Monae',
-        sellerEmail: 'testing@fsa.com',
+        date: new Date(2015, 10, 1, 20, 0, 0),
+        sellerEmail: 'danielm@fsa.com',
         price: '75'
     }, {
         eventName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
+        sellerEmail: 'obama@gmail.com',
+        price: '50'
+    }, {
+        eventName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
+        sellerEmail: 'obama@gmail.com',
+        price: '50'
+    }, {
+        eventName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
         price: '50'
     },{
         eventName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
         price: '50'
     }, {
+        eventName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
+        sellerEmail: 'cristina@fsa.com',
+        price: '50'
+    }, {
+        eventName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
+        sellerEmail: 'obama@gmail.com',
+        price: '50'
+    }, {
+        eventName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
+        sellerEmail: 'cristina@fsa.com',
+        price: '50'
+    },{
+        eventName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
+        sellerEmail: 'cristina@fsa.com',
+        price: '50'
+    }, {
+        eventName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
+        sellerEmail: 'chsea@fsa.com',
+        price: '50'
+    }, {
+        eventName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
+        sellerEmail: 'chsea@fsa.com',
+        price: '50'
+    }, {
+        eventName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
+        sellerEmail: 'chsea@fsa.com',
+        price: '50'
+    },{
+        eventName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
+        sellerEmail: 'chsea@fsa.com',
+        price: '50'
+    }, {
         eventName: 'Rudimental',
+        date: new Date(2015,9,29,19,0,0),
         sellerEmail: 'testing@fsa.com',
         price: '25'
     }, {
         eventName: 'Rudimental',
+        date: new Date(2015,9,29,19,0,0),
         sellerEmail: 'testing@fsa.com',
         price: '25'
     }
     ];
 
-    return Event.find({}).select('name _id')
+    return Event.find({}).select('name date _id')
         .then(function(events){
             return events.forEach(
-                function(e){eventDict[e.name]=e._id;
+                function(e){
+                    var key = e.name+e.date.toISOString();
+                    //console.log(key);
+                    eventDict[key]=e._id;
             });
         })
         .then(function(){return User.find();})
@@ -172,13 +334,21 @@ var seedTickets = function() {
         })
         .then(function(){
             tickets.forEach(function(ticket){
-                ticket.eventProduct = eventDict[ticket.eventName];
+                //console.log(eventDict);
+                var key = ticket.eventName+ticket.date.toISOString();
+                //console.log(key);
+                console.log(userDict);
+                ticket.eventProduct = eventDict[key];
                 ticket.seller = userDict[ticket.sellerEmail];
+                console.log(ticket.seller,' got from ', ticket.sellerEmail);
                 delete ticket.eventName;
                 delete ticket.sellerEmail;
             });
         })
-        .then(function(){ return Ticket.createAsync(tickets); })
+        .then(function(){ 
+            //console.log(tickets);
+            return Ticket.createAsync(tickets); 
+        })
         .then(function(created){createdTickets=created; });
 };
 
@@ -221,19 +391,26 @@ var seedTransactions = function() {
 
 
 connectToDb.then(function() {
-    User.findAsync({})
-        .then(function(users) {
-            if (users.length === 0) {
-                return seedUsers();
-            } else {
-                console.log(chalk.magenta('Seems to already have user data, moving on to others.'));
-        }})
+    // commented out the safety check because need to reseed Users
+    // User.findAsync({})
+    //     .then(function(users) {
+    //         if (users.length === 0) {
+    //             return seedUsers();
+    //         } else {
+    //             console.log(chalk.magenta('Seems to already have user data, moving on to others.'));
+    //     }})
+        User.remove({})
+        .then(function(){return Event.remove({}); })
+        .then(function(){return Venue.remove({}); })
+        .then(function(){return Ticket.remove({}); })
+        .then(function(){return Transaction.remove({}); })
+        .then(function(){return seedUsers(); })
         .then(function(venues){return seedVenues(); })
         .then(function(events){return seedEvents(); })
         .then(function(tickets){return seedTickets(); })
         .then(function(transactions){return seedTransactions(); })
         .then(function() {
-            return console.log(chalk.green('Seeding was successful!'));
+            console.log(chalk.green('Seeding was successful!'));
             process.kill(0);
         })
         .catch(function(err) {

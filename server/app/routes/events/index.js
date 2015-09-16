@@ -17,14 +17,14 @@ router.param('id',function(req,res,next,id){
 	);
 });
 
-router.get('/',function(req,res,next){
+router.get('/',function(req,res){
 	EventProduct.find().then(function(e){
 		console.log('here are your events');
 		res.json(e);
 	});
 });
 
-router.get('/:id',function(req,res,next){
+router.get('/:id',function(req,res){
 	res.json(req.e);
 });
 

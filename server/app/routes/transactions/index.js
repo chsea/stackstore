@@ -1,7 +1,5 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
-var User = mongoose.model('User');
-var Ticket = mongoose.model('Ticket');
 var Transaction = mongoose.model('Transaction');
 
 router.param('id', function(req, res, next, id){
