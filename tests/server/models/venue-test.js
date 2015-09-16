@@ -44,7 +44,7 @@ describe('Venue model', function () {
     };
 
     var missingStreetAddress = {
-      name: 'Richard Rodgers Theater',
+      name: 'Richard Rodgers Theatre',
       //streetAddress: 'somewhere in the Theater District',
       city: 'New York',
       state: 'NY',
@@ -60,7 +60,7 @@ describe('Venue model', function () {
     };
 
     var missingState = {
-      name: 'Richard Rodgers Theater',
+      name: 'Richard Rodgers Theatre',
       streetAddress: 'somewhere in the Theater District',
       city: 'New York',
       //state: 'NY',

@@ -19,7 +19,6 @@ router.param('id',function(req,res,next,id){
 
 router.get('/',function(req,res,next){
 	Ticket.find({"eventProduct": req.e._id}).then(function(tickets){
-		console.log('here are the tickets for the event', req.e.name);
 		res.send(tickets);
 	});
 });
