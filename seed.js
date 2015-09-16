@@ -322,7 +322,6 @@ var seedTickets = function() {
             return events.forEach(
                 function(e){
                     var key = e.name+e.date.toISOString();
-                    //console.log(key);
                     eventDict[key]=e._id;
             });
         })
@@ -334,19 +333,14 @@ var seedTickets = function() {
         })
         .then(function(){
             tickets.forEach(function(ticket){
-                //console.log(eventDict);
                 var key = ticket.eventName+ticket.date.toISOString();
-                //console.log(key);
-                console.log(userDict);
                 ticket.eventProduct = eventDict[key];
                 ticket.seller = userDict[ticket.sellerEmail];
-                console.log(ticket.seller,' got from ', ticket.sellerEmail);
                 delete ticket.eventName;
                 delete ticket.sellerEmail;
             });
         })
         .then(function(){ 
-            //console.log(tickets);
             return Ticket.createAsync(tickets); 
         })
         .then(function(created){createdTickets=created; });
