@@ -18,10 +18,14 @@ var schema = new mongoose.Schema({
 		required: true
 	}],
 	date: {
-		type: Date, 
-		default: Date.now, 
+		type: Date,
+		default: Date.now,
 		required: true
 	}
 });
+
+schema.path('tickets').validate(function (tickets) {
+	return tickets && tickets.length > 0;
+}, "You need to specify tickets.");
 
 mongoose.model('Transaction', schema);

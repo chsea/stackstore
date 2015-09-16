@@ -1,7 +1,5 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
-var User = mongoose.model('User');
-var Ticket = mongoose.model('Ticket');
 var Transaction = mongoose.model('Transaction');
 
 router.param('id', function(req, res, next, id){
@@ -14,6 +12,12 @@ router.param('id', function(req, res, next, id){
 router.get('/', function(req, res, next){
 	Transaction.find(req.query).then(function(transactions){
 		res.json(transactions);
+	}).then(next);
+});
+
+router.get('/:id', function(req, res, next){
+	Transaction.findById(req.transaction._id).then(function(transaction){
+		res.json(transaction);
 	}).then(next);
 });
 

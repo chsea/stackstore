@@ -14,6 +14,10 @@ router.get('/', function(req, res, next){
 	}).then(next);
 });
 
+router.get('/:id', function(req, res){
+	res.json(req.user);
+});
+
 router.post('/', function(req, res, next){
 	User.create(req.body).then(function(createdUser){
 		res.send(createdUser);
