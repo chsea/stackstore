@@ -1,1 +1,6 @@
-<p>Ticket for {{tickets[0].eventInfo.name}}</p>
+<div>
+  <h1>Currently Selling:</h1>
+  <div ng-repeat="ticket in tickets">
+    <ticket ticket='ticket'></ticket>
+  </div>
+</div>

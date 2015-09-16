@@ -7,10 +7,14 @@ app.factory('Ticket', function(DS, $state) {
 					localKey: 'eventProduct',
 					localField: 'eventInfo'
 				},
-				users: {
+				users: [{
 					localKey: 'seller',
 					localField: 'sellerInfo'
-				}
+				},
+				{
+					localKey: 'buyer',
+					localField: 'buyerInfo'
+				}]
 			},
 		},
 		methods: {
@@ -21,4 +25,4 @@ app.factory('Ticket', function(DS, $state) {
 			}
 		}
 	});
-}).run(function (User) {});
+}).run(function (Ticket) {});
