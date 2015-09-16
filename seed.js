@@ -52,25 +52,32 @@ var seedVenues = function() {
         streetAddress: '4 Pennsylvania Plaza',
         city: 'New York',
         state: 'NY',
-        zip: 10001
+        zip: 10001, 
+        coordinates: [40.7505045,-73.9934387], 
+        seatingMapUrl: '/images/madisonSqGardenSeatMap.png'
     }, {
         name: 'Richard Rodgers Theatre',
         streetAddress: '226 West 46th Street',
         city: 'New York',
         state: 'NY',
-        zip: 10036
+        zip: 10036, 
+        coordinates: [40.7590431,-73.9866326], 
+        seatingMapUrl: '/images/richardRodgersSeatMap.png'
     }, {
         name: 'Citi Field',
         streetAddress: '123-01 Roosevelt Ave',
         city: 'New York',
         state: 'NY',
-        zip: 11368
+        zip: 11368, 
+        coordinates: [40.7570877,-73.8458213], 
+        seatingMapUrl: '/images/citiFieldSeatMap.png'
     }, {
         name: 'Webster Hall',
         streetAddress: '125 East 11th St.',
         city: 'New York',
         state: 'NY',
-        zip: 10003
+        zip: 10003, 
+        coordinates: [40.731763,-73.9891298]
     }];
 
     return Venue.createAsync(venues);
