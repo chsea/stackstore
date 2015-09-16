@@ -17,6 +17,12 @@ router.get('/', function(req, res, next){
 	}).then(next);
 });
 
+router.get('/:id', function(req, res, next){
+	Transaction.findById(req.transaction._id).then(function(transaction){
+		res.json(transaction);
+	}).then(next);
+});
+
 router.post('/', function(req, res, next){
 	Transaction.create(req.body).then(function(createdTransaction){
 		res.status(201).send(createdTransaction);

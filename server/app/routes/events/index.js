@@ -20,7 +20,7 @@ router.param('id',function(req,res,next,id){
 router.get('/',function(req,res,next){
 	EventProduct.find().then(function(e){
 		console.log('here are your events');
-		res.send(e);
+		res.json(e);
 	});
 });
 
