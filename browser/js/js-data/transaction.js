@@ -25,4 +25,4 @@ app.factory('Transaction', function(DS, $state) {
 			}
 		}
 	});
-}).run(function (Event) {});
+}).run(function (Transaction) {});

@@ -7,10 +7,14 @@ app.factory('Ticket', function(DS, $state) {
 					localKey: 'eventProduct',
 					localField: 'eventInfo'
 				},
-				users: {
+				users: [{
 					localKey: 'seller',
 					localField: 'sellerInfo'
-				}
+				},
+				{
+					localKey: 'buyer',
+					localField: 'buyerInfo'
+				}]
 			},
 		},
 		methods: {
@@ -18,7 +22,11 @@ app.factory('Ticket', function(DS, $state) {
 				$state.go('ticket', {
 					userId: this._id
 				});
+			},
+			expired: function() {
+				return new Date() > new Date(this.eventInfo.date);
 			}
 		}
 	});
-}).run(function (User) {});
+})
+.run(function (Ticket) {});
