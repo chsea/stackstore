@@ -1,0 +1,10 @@
+app.config(function ($stateProvider) {
+    $stateProvider.state('event', {
+        url: '/event/:id',
+        templateUrl: 'js/event/event.html',
+        controller: 'EventCtrl',
+        resolve: {
+        	eventData: function ($stateParams, EventFactory) {return EventFactory.getOne($stateParams.id); }
+        }
+    });
+});

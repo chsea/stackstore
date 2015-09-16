@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var EventProduct = mongoose.model('EventProduct');
 
 router.param('id',function(req,res,next,id){
-	EventProduct.findById(id).then(
+	EventProduct.findById(id).populate('venue').then(
 		function(e){
 			req.e = e;
 			next();
