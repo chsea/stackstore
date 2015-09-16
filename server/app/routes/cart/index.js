@@ -1,5 +1,12 @@
 var router = require('express').Router();
-var Ticket = require('mongoose').model('Ticket');
+var mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
+var Ticket = mongoose.model('Ticket');
+
+function getAll(cart){
+	return Ticket.find({_id: { $in: cart}}).deepPopulate("eventProduct.venue")
+	.populate("seller").populate("buyer").exec();
+}
 
 router.param('id', function(req, res, next, id){
 	Ticket.findById(id).then(function(ticket){
@@ -13,12 +20,13 @@ router.param('id', function(req, res, next, id){
 });
 
 router.use(function(req, res, next){
-	if(!req.session.cart) req.session.cart = [];
+	if(!req.session.cart) req.session.cart = ['55f9a2d0087ebaf72fbdf907',
+		'55f9a2d0087ebaf72fbdf908'];
 	next();
 });
 
 router.get('/', function(req, res, next){
-	Ticket.find({_id: { $in: req.session.cart}}).then(function(cart){
+	getAll(req.session.cart).then(function(cart){
 		res.send(cart);
 	}).then(null, next);
 });
@@ -46,9 +54,7 @@ router.delete('/:id', function(req, res, next){
 		res.status(200).json(req.session.cart);
 	}
 	else{
-		var err = new Error('TicketID not in cart');
-		err.status = 404;
-		next(err);
+		res.status(404).send(res.session.cart);
 	}
 });
 

@@ -1,5 +1,6 @@
 'use strict';
 var mongoose = require('mongoose');
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 var schema = new mongoose.Schema({
     eventProduct: { type: mongoose.Schema.Types.ObjectId, ref: 'EventProduct', required: true},
@@ -25,5 +26,7 @@ schema.statics.inventory = function(eventId) {
 schema.statics.soldTickets = function(eventId) {
   return this.count({eventProduct: eventId, sold: true}).exec();
 };
+
+schema.plugin(deepPopulate);
 
 mongoose.model('Ticket', schema);

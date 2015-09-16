@@ -1,6 +1,6 @@
-app.factory('Cart', function ($http) {
+app.factory('CartFactory', function ($http) {
     return {
-    	get: function(){
+    	getAll: function(){
     		return $http.get('/api/cart')
     		.then(function(cart){
     			return cart.data;

@@ -16,7 +16,7 @@ router.get('/', function(req, res, next){
 
 router.post('/', function(req, res, next){
 	User.create(req.body).then(function(createdUser){
-		res.status(201).send(createdUser);
+		res.send(createdUser);
 	}).then(null, next);
 });
 
