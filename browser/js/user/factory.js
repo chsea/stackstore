@@ -1,13 +1,15 @@
-app.factory('UserFactory', function($http, AuthService) {
-  function getEvents() {
-    return AuthService.getLoggedInUser().then(function(user) {
-      $http.get('/users/' + user._id).then(function(user) {
-        
-      });
-    });
-  }
-
-  return {
-    getEvents: getEvents
-  };
-});
+// app.factory('UserFactory', function($http, AuthService) {
+//   function getSellingTickets() {
+//     return AuthService.getLoggedInUser().then(function(user) {
+//       return $http.get('/users/' + user._id + '/tickets?seller=');
+//     })
+//     .then(function(user) {
+//       return user.
+//       });
+//     });
+//   }
+//
+//   return {
+//     getEvents: getEvents
+//   };
+// });
