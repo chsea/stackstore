@@ -20,7 +20,7 @@ router.get('/:id', function(req, res){
 
 router.post('/', function(req, res, next){
 	User.create(req.body).then(function(createdUser){
-		res.send(createdUser);
+		res.status(201).json(createdUser);
 	}).then(null, next);
 });
 
