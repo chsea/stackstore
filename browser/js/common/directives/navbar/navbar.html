@@ -9,12 +9,13 @@
                 <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
             </li>
         </ul>
+        <button class="btn" ui-sref="cart">Cart</button>
         <button ng-show="!user" ui-sref="login" class="btn login-button">Login</button>
         <button ng-show="!user" ui-sref="signup" class="btn login-button">Signup</button>
         <div ng-show="user" class="welcome">
             <span>Welcome, {{ user.email }}!</span>
-            <a ui-sref="profile">Profile</a>
-            <a ng-click="logout()">Logout</a>
+            <button class='btn' ui-sref="profile">Profile</button>
+            <button class='btn' ng-click="logout()">Logout</button>
         </div>
     </div>
 </nav>

@@ -1,0 +1,12 @@
+<section class='cart'>
+	<h1>Your Cart :^]</h1>
+	<ul>
+		<li ng-repeat="ticket in cart">
+			<p>Event: {{ticket.eventProduct.name}}</p>
+			<p>Date: {{ticket.eventProduct.date}}</p>
+			<p>Venue: {{ticket.eventProduct.venue.name}}</p>
+			<p>Seller: {{ticket.seller.firstName}} {{ticket.seller.lastName}}</p>
+			<button ng-click='removeTicket(ticket._id)'>Remove Ticket</button>
+		</li>
+	</ul>
+</section>
