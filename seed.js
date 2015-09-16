@@ -248,22 +248,22 @@ var seedTickets = function() {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
-        price: '50'
+        price: '40'
     }, {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
-        price: '50'
+        price: '40'
     }, {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
-        price: '50'
+        price: '40'
     },{
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
-        price: '50'
+        price: '40'
     }, {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
@@ -283,22 +283,22 @@ var seedTickets = function() {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
         sellerEmail: 'cristina@fsa.com',
-        price: '50'
+        price: '75'
     }, {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
         sellerEmail: 'chsea@fsa.com',
-        price: '50'
+        price: '75'
     }, {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
         sellerEmail: 'chsea@fsa.com',
-        price: '50'
+        price: '75'
     }, {
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
         sellerEmail: 'chsea@fsa.com',
-        price: '50'
+        price: '75'
     },{
         eventName: 'Washington Nationals at New York Mets',
         date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
@@ -322,7 +322,6 @@ var seedTickets = function() {
             return events.forEach(
                 function(e){
                     var key = e.name+e.date.toISOString();
-                    //console.log(key);
                     eventDict[key]=e._id;
             });
         })
@@ -334,19 +333,14 @@ var seedTickets = function() {
         })
         .then(function(){
             tickets.forEach(function(ticket){
-                //console.log(eventDict);
                 var key = ticket.eventName+ticket.date.toISOString();
-                //console.log(key);
-                console.log(userDict);
                 ticket.eventProduct = eventDict[key];
                 ticket.seller = userDict[ticket.sellerEmail];
-                console.log(ticket.seller,' got from ', ticket.sellerEmail);
                 delete ticket.eventName;
                 delete ticket.sellerEmail;
             });
         })
         .then(function(){ 
-            //console.log(tickets);
             return Ticket.createAsync(tickets); 
         })
         .then(function(created){createdTickets=created; });
@@ -360,7 +354,39 @@ var seedTransactions = function() {
         sellerEmail: 'obama@gmail.com',
         tickets: []
     }, {
+        buyerEmail: 'cristina@fsa.com',
+        sellerEmail: 'chsea@fsa.com',
+        tickets: []
+    }, {
+        buyerEmail: 'chsea@fsa.com',
+        sellerEmail: 'danielm@fsa.com',
+        tickets: []
+    }, {
+        buyerEmail: 'danielm@fsa.com',
+        sellerEmail: 'danielp@fsa.com',
+        tickets: []
+    }, {
+        buyerEmail: 'danielp@fsa.com',
+        sellerEmail: 'cristina@fsa.com',
+        tickets: []
+    }, {
+        buyerEmail: 'cristina@fsa.com',
+        sellerEmail: 'danielm@fsa.com',
+        tickets: []
+    }, {
+        buyerEmail: 'danielm@fsa.com',
+        sellerEmail: 'obama@gmail.com',
+        tickets: []
+    }, {
+        buyerEmail: 'danielp@fsa.com',
+        sellerEmail: 'testing@fsa.com',
+        tickets: []
+    }, {
         buyerEmail: 'obama@gmail.com',
+        sellerEmail: 'chsea@fsa.com',
+        tickets: []
+    }, {
+        buyerEmail: 'chsea@fsa.com',
         sellerEmail: 'testing@fsa.com',
         tickets: []
     }
@@ -385,7 +411,7 @@ var seedTransactions = function() {
                 delete t.buyerEmail;
             });
         })
-        .then(function(){Transaction.createAsync(transactions); });
+        .then(function(){return Transaction.createAsync(transactions); });
 };
 
 

@@ -1,0 +1,16 @@
+<section id="moreDates">
+    <div>
+    	<h3>Alternate dates</h3>
+    </div>
+    <table><tbody>
+    	<th>date</th>
+    	<th>time</th>
+    	<tr ng-repeat="date in dates">
+    		<td>
+                <a ui-sref="event({id: date._id})">
+                    {{ date.date | date:'mediumDate' }} {{ date.date | date:'shortTime' }}
+                </a>
+            </td>
+    	</tr>
+    </tbody></table>
+</section>
