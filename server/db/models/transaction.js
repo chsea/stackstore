@@ -12,14 +12,14 @@ var schema = new mongoose.Schema({
 		ref: 'User',
 		required: true
 	},
-	tickets: [{
+	ticket: [{
 		type: mongoose.Schema.Types.ObjectId,
 		ref: 'Ticket',
 		required: true
 	}],
 	date: {
-		type: Date, 
-		default: Date.now, 
+		type: Date,
+		default: Date.now,
 		required: true
 	}
 });

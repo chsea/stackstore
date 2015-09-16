@@ -204,7 +204,7 @@ var seedTransactions = function() {
     return User.find().select('email _id')
         .then(function(users){
             return users.forEach(function(user){
-                userDict[user.email]=user._id;            
+                userDict[user.email]=user._id;
             });
         })
         .then(function(){
@@ -228,7 +228,7 @@ connectToDb.then(function() {
             } else {
                 console.log(chalk.magenta('Seems to already have user data, moving on to others.'));
         }})
-        .then(function(venues) {return seedVenues(); })
+        .then(function(venues){return seedVenues(); })
         .then(function(events){return seedEvents(); })
         .then(function(tickets){return seedTickets(); })
         .then(function(transactions){return seedTransactions(); })
