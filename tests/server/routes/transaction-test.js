@@ -127,7 +127,7 @@ describe('transactions Route', function () {
 				.send({
 		            buyer: user1._id,
 		            seller: user2._id,
-		            ticket: [ticket1._id, ticket2._id],
+		            tickets: [ticket1._id, ticket2._id],
 		            date: 342384929348
 		        })
 	        	.expect(201)
@@ -139,7 +139,7 @@ describe('transactions Route', function () {
 				.send({
 		            buyer: user1._id,
 		            seller: user2._id,
-		            ticket: [ticket1._id,ticket2._id],
+		            tickets: [ticket1._id,ticket2._id],
 		            date: new Date(2015,9,15,7,0,0)
 		        })
 				.end(function(err, res){
