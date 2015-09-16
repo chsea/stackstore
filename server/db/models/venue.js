@@ -1,7 +1,14 @@
 'use strict';
 var mongoose = require('mongoose');
+var shortid = require('shortid');
 
 var schema = new mongoose.Schema({
+    _id: {
+        type: String,
+        required: true,
+        unique: true,
+        default: shortid.generate
+    },
     name: {
         type: String,
         required: true
@@ -29,7 +36,7 @@ var schema = new mongoose.Schema({
     }, // stadium vs. art gallery etc.
     seatingMapUrl: {
         type: String
-    }, 
+    },
     coordinates: [Number] // latitude and longitude
 });
 
