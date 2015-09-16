@@ -27,7 +27,7 @@ router.use(function(req, res, next){
 
 router.get('/', function(req, res, next){
 	getAll(req.session.cart).then(function(cart){
-		res.send(cart);
+		res.json(cart);
 	}).then(null, next);
 });
 
@@ -40,7 +40,10 @@ router.post('/:id', function(req, res, next){
 				next(err);
 			}else{
 				req.session.cart.push(req.params.id);
-				res.status(201).json(req.session.cart);
+				res.status(201);
+				getAll(req.session.cart).then(function(cart){
+					res.json(cart);
+				});
 			}
 		}).then(null, next);
 	}else{
@@ -51,11 +54,14 @@ router.post('/:id', function(req, res, next){
 router.delete('/:id', function(req, res, next){
 	if(req.session.cart.indexOf(req.params.id) !== -1){
 		req.session.cart.splice(req.session.cart.indexOf(req.params.id), 1);
-		res.status(200).json(req.session.cart);
+		res.status(200);
 	}
 	else{
-		res.status(404).send(res.session.cart);
+		res.status(404);
 	}
+	getAll(req.session.cart).then(function(cart){
+		res.json(cart);
+	}).then(null, next);
 });
 
 module.exports = router;
