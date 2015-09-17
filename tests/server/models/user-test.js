@@ -221,8 +221,6 @@ describe('User model', function () {
                     try {
                         expect(err.errors.hasOwnProperty(test.reqField)).to.equal(true);
                         expect(err.errors[test.reqField].name).to.equal('ValidatorError');
-                        expect(err.errors[test.reqField].properties.path).to.equal(test.reqField);
-                        expect(err.errors[test.reqField].properties.type).to.equal('required');
                         done();
                     } catch (e) {
                         console.error("ERROR:", e);
