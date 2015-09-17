@@ -1,8 +1,8 @@
 app.config(function ($stateProvider) {
-  $stateProvider.state('profile.active', {
-      url: '/active',
-      controller: 'ActiveController',
-      templateUrl: 'js/user/active.html',
+  $stateProvider.state('profile.past', {
+      url: '/past',
+      controller: 'PastController',
+      templateUrl: 'js/user/past.html',
       resolve: {
         events: function(Event) {
           return Event.findAll();
@@ -10,13 +10,23 @@ app.config(function ($stateProvider) {
         users: function(User) {
           return User.findAll();
         },
-        ticketsForSale: function(Ticket, events, users, AuthService){
+        ticketsSold: function(Ticket, events, users, AuthService){
+          return AuthService.getLoggedInUser()
+          .then(function(user){
+            return Ticket.findAll({seller: user._id, sold: true});
+          }).then(function(tickets) {
+            return tickets.filter(function(ticket) {
+              return ticket.expired();
+            });
+          });
+        },
+        ticketsUnSold: function(Ticket, events, users, AuthService){
           return AuthService.getLoggedInUser()
           .then(function(user){
             return Ticket.findAll({seller: user._id, sold: false});
           }).then(function(tickets) {
             return tickets.filter(function(ticket) {
-              return !ticket.expired();
+              return ticket.expired();
             });
           });
         },
@@ -26,20 +36,14 @@ app.config(function ($stateProvider) {
             return Ticket.findAll({buyer: user._id});
           }).then(function(tickets) {
             return tickets.filter(function(ticket) {
-              return !ticket.expired();
+              return ticket.expired();
             });
           });
         }
       }
   });
-}).controller('ActiveController', function($scope, $state, ticketsForSale, ticketsBought, Ticket) {
-  $scope.ticketsForSale = ticketsForSale;
+}).controller('PastController', function($scope, ticketsSold, ticketsBought, ticketsUnSold) {
+  $scope.ticketsSold = ticketsSold;
+    $scope.ticketsUnSold = ticketsUnSold;
   $scope.ticketsBought = ticketsBought;
-  $scope.removeTicket = function(ticket) {
-		Ticket.destroy(ticket._id)
-		.then(function(){
-			alert('Ticket deleted!');
-			$state.go('profile.active', {}, {reload: true});
-		});
-	};
 });
