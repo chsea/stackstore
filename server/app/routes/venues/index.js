@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 var Venue = mongoose.model('Venue');
-var EventProduct = mongoose.model('EventProduct');
+var Event = mongoose.model('Event');
 
 router.param('id',function(req,res,next,id){
 	Venue.findById(id).then(
@@ -28,7 +28,10 @@ router.get('/:id',function(req,res){
 });
 
 router.get('/:id/events',function(req,res){
-	EventProduct.find({"venue": req.venue._id}).then(function(events){res.send(events); });
+	Event.find({"venue": req.venue._id}).populate('EventType').exec()
+	.then(function (events) {
+		res.send(events);
+	});
 });
 
 router.post('/',function(req,res,next){

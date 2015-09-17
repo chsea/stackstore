@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var EventProduct = mongoose.model('EventProduct');
+var EventProduct = mongoose.model('Event');
 
 router.param('id',function(req,res,next,id){
 	EventProduct.findOne({"_id": id}).populate('venue').then(

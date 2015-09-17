@@ -21,7 +21,7 @@ var schema = new mongoose.Schema({
         },
         zip: {
             type: Number,
-            required: true        
+            required: true
         }
     },
     category: {
@@ -30,11 +30,11 @@ var schema = new mongoose.Schema({
         default: 'Other'
     }, // stadium vs. art gallery etc.
     seatingMapUrl: {
-        type: String, 
+        type: String,
         default: '/images/pendingSeatMap.png'
     },
     imageUrl: {
-        type: String, 
+        type: String,
         default: '/images/romanColiseum.jpg'
     },
     coordinates: [Number] // latitude and longitude
