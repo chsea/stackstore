@@ -20,8 +20,7 @@ router.param('id', function(req, res, next, id){
 });
 
 router.use(function(req, res, next){
-	if(!req.session.cart) req.session.cart = ['55f9a2d0087ebaf72fbdf907',
-		'55f9a2d0087ebaf72fbdf908'];
+	if(!req.session.cart) req.session.cart = [];
 	next();
 });
 
