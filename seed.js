@@ -184,7 +184,15 @@ var seedVenues = function() {
 var createdEvents;
 var seedEvents = function() {
     var venueDict={};
-    var events = [{
+    var events = [
+      {
+          name: 'BSB',
+          imgUrl: '/images/stromae.jpeg',
+          date: new Date(2014, 10, 1, 20, 0, 0),
+          venueName: 'Madison Square Garden',
+          category: 'Concert'
+      },
+      {
         name: 'Stromae and Janelle Monae',
         imgUrl: '/images/stromae.jpeg',
         date: new Date(2015, 10, 1, 20, 0, 0),
@@ -279,127 +287,103 @@ var seedTickets = function() {
     var userDict={};
 
     var tickets = [{
+        eventName: 'BSB',
+        sellerEmail: 'chsea@fsa.com',
+        buyerEmail: 'obama@gmail.com',
+        price: '1000'
+    },{
         eventName: 'Hamilton',
         sellerEmail: 'obama@gmail.com',
-        date: new Date(2015,9,26,14,0,0), // sat 9/26 @ 2pm
         price: '1000'
     }, {
         eventName: 'Hamilton',
         sellerEmail: 'obama@gmail.com',
-        date: new Date(2015,9,26,14,0,0), // sat 9/26 @ 2pm
         price: '1000'
     }, {
         eventName: 'Hamilton',
         sellerEmail: 'chsea@fsa.com',
-        date: new Date(2015,9,27,15,0,0), // sun 9/27 @ 3pm
+        buyerEmail: 'obama@gmail.com',
         price: '700'
     }, {
         eventName: 'Hamilton',
         sellerEmail: 'chsea@fsa.com',
-        date: new Date(2015,9,27,15,0,0), // sun 9/27 @ 3pm
         price: '500'
     }, {
         eventName: 'Hamilton',
-        date: new Date(2015,9,29,19,0,0), // tues 9/29 @ 7pm
         sellerEmail: 'danielp@fsa.com',
         price: '500'
     }, {
         eventName: 'Hamilton',
-        date: new Date(2015,9,29,19,0,0), // tues 9/29 @ 7pm
         sellerEmail: 'danielp@fsa.com',
         price: '1000'
     }, {
         eventName: 'Stromae and Janelle Monae',
-        date: new Date(2015, 10, 1, 20, 0, 0),
         sellerEmail: 'danielm@fsa.com',
         price: '75'
     }, {
         eventName: 'Stromae and Janelle Monae',
-        date: new Date(2015, 10, 1, 20, 0, 0),
         sellerEmail: 'danielm@fsa.com',
         price: '75'
     }, {
         eventName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
         price: '40'
     }, {
         eventName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
         price: '40'
     }, {
         eventName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
         price: '40'
     },{
         eventName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
         price: '40'
     }, {
         eventName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
         sellerEmail: 'cristina@fsa.com',
         price: '50'
     }, {
         eventName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
         sellerEmail: 'obama@gmail.com',
         price: '50'
     }, {
         eventName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
         sellerEmail: 'cristina@fsa.com',
         price: '50'
     },{
         eventName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
         sellerEmail: 'cristina@fsa.com',
         price: '75'
     }, {
         eventName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
         sellerEmail: 'chsea@fsa.com',
         price: '75'
     }, {
         eventName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
         sellerEmail: 'chsea@fsa.com',
         price: '75'
     }, {
         eventName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
         sellerEmail: 'chsea@fsa.com',
         price: '75'
     },{
         eventName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
         sellerEmail: 'chsea@fsa.com',
         price: '50'
     }, {
         eventName: 'Rudimental',
-        date: new Date(2015,9,29,19,0,0),
         sellerEmail: 'testing@fsa.com',
         price: '25'
     }, {
         eventName: 'Rudimental',
-        date: new Date(2015,9,29,19,0,0),
         sellerEmail: 'testing@fsa.com',
         price: '25'
     }
     ];
 
-    return Event.find({}).select('name date _id')
-        .then(function(events){
-            return events.forEach(
-                function(e){
-                    var key = e.name+e.date.toISOString();
-                    eventDict[key]=e._id;
-            });
-        })
-        .then(function(){return User.find();})
+    return User.find()
         .then(function(users){
             return users.forEach(
                     function(user){userDict[user.email]=user._id;
@@ -410,82 +394,16 @@ var seedTickets = function() {
                 var key = ticket.eventName+ticket.date.toISOString();
                 ticket.eventProduct = eventDict[key];
                 ticket.seller = userDict[ticket.sellerEmail];
+                ticket.buyer = userDict[ticket.buyerEmail];
                 delete ticket.eventName;
                 delete ticket.sellerEmail;
+                delete ticket.berEmail;
             });
         })
         .then(function(){
             return Ticket.createAsync(tickets);
         })
         .then(function(created){createdTickets=created; });
-};
-
-var seedTransactions = function() {
-    var userDict={};
-
-    var transactions = [{
-        buyerEmail: 'testing@fsa.com',
-        sellerEmail: 'obama@gmail.com',
-        tickets: []
-    }, {
-        buyerEmail: 'cristina@fsa.com',
-        sellerEmail: 'chsea@fsa.com',
-        tickets: []
-    }, {
-        buyerEmail: 'chsea@fsa.com',
-        sellerEmail: 'danielm@fsa.com',
-        tickets: []
-    }, {
-        buyerEmail: 'danielm@fsa.com',
-        sellerEmail: 'danielp@fsa.com',
-        tickets: []
-    }, {
-        buyerEmail: 'danielp@fsa.com',
-        sellerEmail: 'cristina@fsa.com',
-        tickets: []
-    }, {
-        buyerEmail: 'cristina@fsa.com',
-        sellerEmail: 'danielm@fsa.com',
-        tickets: []
-    }, {
-        buyerEmail: 'danielm@fsa.com',
-        sellerEmail: 'obama@gmail.com',
-        tickets: []
-    }, {
-        buyerEmail: 'danielp@fsa.com',
-        sellerEmail: 'testing@fsa.com',
-        tickets: []
-    }, {
-        buyerEmail: 'obama@gmail.com',
-        sellerEmail: 'chsea@fsa.com',
-        tickets: []
-    }, {
-        buyerEmail: 'chsea@fsa.com',
-        sellerEmail: 'testing@fsa.com',
-        tickets: []
-    }
-    ];
-
-    for (var i=0; i<createdTickets.length;i++) {
-        var nextTicket = createdTickets.shift();
-        transactions[i%transactions.length].tickets.push(nextTicket);
-    }
-
-    return User.find().select('email _id')
-        .then(function(users){
-            return users.forEach(function(user){
-                userDict[user.email]=user._id;
-            });
-        })
-        .then(function(){
-            return transactions.forEach(function(t){
-                t.seller = userDict[t.sellerEmail];
-                t.buyer = userDict[t.buyerEmail];
-                delete t.sellerEmail;
-                delete t.buyerEmail;
-            });
-        })
-        .then(function(){return Transaction.createAsync(transactions); });
 };
 
 
@@ -503,13 +421,11 @@ connectToDb.then(function() {
         .then(function(){return Event.remove({}); })
         .then(function(){return Venue.remove({}); })
         .then(function(){return Ticket.remove({}); })
-        .then(function(){return Transaction.remove({}); })
         .then(function(){return seedUsers(); })
         .then(function(){return seedAuthUsers(); })
         .then(function(venues){return seedVenues(); })
         .then(function(events){return seedEvents(); })
         .then(function(tickets){return seedTickets(); })
-        .then(function(transactions){return seedTransactions(); })
         .then(function() {
             console.log(chalk.green('Seeding was successful!'));
             process.kill(0);
