@@ -1,0 +1,18 @@
+<form name="editSettings" ng-submit="editSettings.$valid && submitForm()">
+  <md-input-container>
+    <label>First Name:</label>
+    <input type="text" ng-model="user.firstName">
+  </md-input-container>
+  <md-input-container>
+    <label>Last Name:</label>
+    <input type="text" ng-model="user.lastName">
+  </md-input-container>
+  <md-input-container>
+    <label>Email:</label>
+    <input type="text" ng-model="user.email">
+  </md-input-container>
+  <md-input-container>
+    <input type="password" ng-model="newPassword" placeholder="Password">
+  </md-input-container>
+  <button type="submit">Submit changes!</button>
+</form>

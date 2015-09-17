@@ -16,7 +16,8 @@ var schema = new mongoose.Schema({
         unique: true
     },
     password: {
-        type: String
+        type: String,
+        required: true
     },
     salt: {
         type: String
@@ -74,18 +75,6 @@ schema.pre('save', function(next) {
 schema.path("email").validate(function(email) {
     return (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).test(email);
 }, "Invalid Email Address");
-
-schema.pre('save', function (next) {
-    if (this.password === undefined &&
-        !this.google.id && !this.facebook.id && !this.twitter.id) {
-        var valError = new mongoose.Error.ValidationError(this);
-        valError.errors.password = {
-            name: 'ValidatorError'
-        };
-        next(valError);
-    }
-    next();
-});
 
 
 schema.statics.generateSalt = generateSalt;
