@@ -22,46 +22,109 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
+var AuthUser = Promise.promisifyAll(mongoose.model('AuthUser'));
 var Venue = Promise.promisifyAll(mongoose.model('Venue'));
 var Event = Promise.promisifyAll(mongoose.model('EventProduct'));
 var Ticket = Promise.promisifyAll(mongoose.model('Ticket'));
 var Transaction = Promise.promisifyAll(mongoose.model('Transaction'));
 
 var seedUsers = function() {
+  var users = [{
+    firstName: 'Sam',
+    lastName: 'Hartman',
+    email: 'kobe@riot.com',
+    address: {
+      street: '123 League Drive',
+      city: 'Santa Monica',
+      state: 'CA',
+      zip: '90012'
+    }
+  }, {
+    firstName: 'Josh',
+    lastName: 'Leesman',
+    email: 'jatt@riot.com',
+    address: {
+      street: '123 League Drive',
+      city: 'Santa Monica',
+      state: 'CA',
+      zip: '90012'
+    }
+  }];
+
+  return User.createAsync(users);
+};
+
+var seedAuthUsers = function() {
 
     var users = [{
         email: 'testing@fsa.com',
         password: 'password',
         firstName: 'Tim',
-        lastName: 'Othy'
+        lastName: 'Othy',
+        address: {
+          street: '123 League Drive',
+          city: 'Santa Monica',
+          state: 'CA',
+          zip: '90012'
+        }
     }, {
         email: 'obama@gmail.com',
         password: 'potus',
         firstName: 'John',
-        lastName: 'Smith'
+        lastName: 'Smith',
+        address: {
+          street: '123 League Drive',
+          city: 'Santa Monica',
+          state: 'CA',
+          zip: '90012'
+        }
     }, {
         email: 'cristina@fsa.com',
         password: 'millenium',
         firstName: 'Cristina',
-        lastName: 'Colón'
+        lastName: 'Colón',
+        address: {
+          street: '123 League Drive',
+          city: 'Santa Monica',
+          state: 'CA',
+          zip: '90012'
+        }
     }, {
         email: 'chsea@fsa.com',
         password: 'bsbforlife',
         firstName: 'Chel',
-        lastName: 'Du'
+        lastName: 'Du',
+        address: {
+          street: '123 League Drive',
+          city: 'Santa Monica',
+          state: 'CA',
+          zip: '90012'
+        }
     }, {
         email: 'danielp@fsa.com',
         password: 'millenium',
         firstName: 'Daniel',
-        lastName: 'Perelly'
+        lastName: 'Perelly',
+        address: {
+          street: '123 League Drive',
+          city: 'Santa Monica',
+          state: 'CA',
+          zip: '90012'
+        }
     }, {
         email: 'danielm@fsa.com',
         password: 'millenium',
         firstName: 'Daniel',
-        lastName: 'Moenich'
+        lastName: 'Moenich',
+        address: {
+          street: '123 League Drive',
+          city: 'Santa Monica',
+          state: 'CA',
+          zip: '90012'
+        }
     }];
 
-    return User.createAsync(users);
+    return AuthUser.createAsync(users);
 
 };
 
@@ -442,6 +505,7 @@ connectToDb.then(function() {
         .then(function(){return Ticket.remove({}); })
         .then(function(){return Transaction.remove({}); })
         .then(function(){return seedUsers(); })
+        .then(function(){return seedAuthUsers(); })
         .then(function(venues){return seedVenues(); })
         .then(function(events){return seedEvents(); })
         .then(function(tickets){return seedTickets(); })
