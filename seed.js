@@ -163,16 +163,19 @@ var seedEvents = function() {
         category: 'Theater'
     }, {
         name: 'Washington Nationals at New York Mets',
+        imgUrl: '/images/natsVsMets.jpg', 
         date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
         venueName: 'Citi Field',
         category: 'Sports'
     }, {
         name: 'Washington Nationals at New York Mets',
+        imgUrl: '/images/natsVsMets.jpg', 
         date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
         venueName: 'Citi Field',
         category: 'Sports'
     }, {
         name: 'Washington Nationals at New York Mets',
+        imgUrl: '/images/natsVsMets.jpg', 
         date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
         venueName: 'Citi Field',
         category: 'Sports'
