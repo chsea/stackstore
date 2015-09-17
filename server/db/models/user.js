@@ -1,50 +1,28 @@
 'use strict';
 var crypto = require('crypto');
-var mongoose = require('mongoose');
-var shortid = require('shortid');
+var mongoose = require('mongoose'),
+    extend = require('mongoose-schema-extend');
+var Schema = mongoose.Schema;
 
-var schema = new mongoose.Schema({
-    _id: {
-        type: String,
-        required: true,
-        unique: true,
-        default: shortid.generate
-    },
-    email: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String
-    },
-    salt: {
-        type: String
-    },
-    firstName: {
-        type: String,
-        required: true
-    },
-    lastName: {
-        type: String,
-        required: true
-    },
-    admin: {
-        type: Boolean,
-        default: false
-    },
-    twitter: {
-        id: String,
-        username: String,
-        token: String,
-        tokenSecret: String
-    },
-    facebook: {
-        id: String
-    },
-    google: {
-        id: String
-    }
+var User = new Schema({
+  firstName: {type: String, required: true},
+  lastName: {type: String, required: true},
+  email: {type: String, required: true, unique: true},
+  address: {
+    street: {type: String, required: true},
+    city: {type: String, required: true},
+    state: {type: String, required: true},
+    zip: {type: Number, required: true}
+  }
+}, {collection: 'users', discriminatorKey: 'type'});
+
+var authUser = User.extend({
+  password: {type: String, required: true},
+  salt: String,
+  roles: [{type: String, required: true, default: 'buyer'}],
+  twitter: {id: String, username: String, token: String, tokenSecret: String},
+  facebook: {id: String},
+  google: {id: String}
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations
@@ -60,7 +38,7 @@ var encryptPassword = function(plainText, salt) {
     return hash.digest('hex');
 };
 
-schema.pre('save', function(next) {
+authUser.pre('save', function(next) {
 
     if (this.isModified('password')) {
         this.salt = this.constructor.generateSalt();
@@ -71,11 +49,11 @@ schema.pre('save', function(next) {
 
 });
 
-schema.path("email").validate(function(email) {
+authUser.path("email").validate(function(email) {
     return (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).test(email);
 }, "Invalid Email Address");
 
-schema.pre('save', function (next) {
+authUser.pre('save', function (next) {
     if (this.password === undefined &&
         !this.google.id && !this.facebook.id && !this.twitter.id) {
         var valError = new mongoose.Error.ValidationError(this);
@@ -87,12 +65,12 @@ schema.pre('save', function (next) {
     next();
 });
 
+authUser.statics.generateSalt = generateSalt;
+authUser.statics.encryptPassword = encryptPassword;
 
-schema.statics.generateSalt = generateSalt;
-schema.statics.encryptPassword = encryptPassword;
-
-schema.method('correctPassword', function(candidatePassword) {
+authUser.method('correctPassword', function(candidatePassword) {
     return encryptPassword(candidatePassword, this.salt) === this.password;
 });
 
-mongoose.model('User', schema);
+mongoose.model('User', User);
+mongoose.model('AuthUser', authUser);
