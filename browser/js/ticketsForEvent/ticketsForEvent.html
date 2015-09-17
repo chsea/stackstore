@@ -1,15 +1,18 @@
-<section id="ticketsForEvent">
-    <div>
-    	<h3>Tickets for sale</h3>
-    </div>
-    <table><tbody>
-    	<th>seat</th>
-    	<th>price</th>
-    	<th>add to cart</th>
-    	<tr ng-repeat="ticket in tickets">
-    		<td>{{ ticket.seat }}</td>
-    		<td>{{ ticket.price }}</td>
-    		<td><button>add to cart</button></td>
-    	</tr>
-    </tbody></table>
-</section>
+<div flex id="ticketsForEvent" ng-show="tickets.length">
+    <md-content class="md-padding">
+        <md-card>
+            <md-card-content>
+                <div>
+                	<h3>Tickets for sale</h3>
+                </div>
+                <table><tbody>
+                	<tr ng-repeat="ticket in tickets">
+                		<td>{{ ticket.seat }}</td>
+                		<td>{{ ticket.price | currency }}</td>
+                		<td><md-button class="md-raised">add to cart</md-button></td>
+                	</tr>
+                </tbody></table>
+            </md-card-content>
+        </md-card>
+    </md-content>
+</div>
