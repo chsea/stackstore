@@ -3,9 +3,9 @@ var mongoose = require('mongoose');
 var shortid = require('shortid');
 
 var schema = new mongoose.Schema({
-    _id: {type: String, required: true, unique: true, default: shortid.generate}, 
-    EventType: { type: mongoose.Schema.Types.ObjectId, ref: 'EventType', required: true},
-    date: {type: Date, required: true},
+    _id: {type: mongoose.Schema.Types.ObjectId}, 
+    name: {type: String, required: true},
+    imgUrl: {type: String, default: '/images/defaultEvent.jpg'}, 
     category: {type: String, required: true, default: 'Other'},
     venue: { type: String, ref: 'Venue'},
 });
@@ -19,8 +19,4 @@ schema.statics.findAndUpdate = function (id, changes) {
   });
 };
 
-schema.virtual('expired').get(function () {
-  return new Date() > this.date;
-});
-
-mongoose.model('EventProduct', schema);
+mongoose.model('EventType', schema);

@@ -13,21 +13,23 @@ var schema = new mongoose.Schema({
         type: String,
         required: true
     },
-    streetAddress: {
-        type: String,
-        required: true
-    },
-    city: {
-        type: String,
-        required: true
-    },
-    state: {
-        type: String,
-        required: true
-    },
-    zip: {
-        type: Number,
-        required: true
+    address: {
+        streetAddress: {
+            type: String,
+            required: true
+        },
+        city: {
+            type: String,
+            required: true
+        },
+        state: {
+            type: String,
+            required: true
+        },
+        zip: {
+            type: Number,
+            required: true        
+        }
     },
     category: {
         type: String,
@@ -35,7 +37,12 @@ var schema = new mongoose.Schema({
         default: 'Other'
     }, // stadium vs. art gallery etc.
     seatingMapUrl: {
-        type: String
+        type: String, 
+        default: '/images/pendingSeatMap.png'
+    },
+    imageUrl: {
+        type: String, 
+        default: '/images/romanColiseum.jpg'
     },
     coordinates: [Number] // latitude and longitude
 });

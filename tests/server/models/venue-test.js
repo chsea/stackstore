@@ -27,60 +27,83 @@ describe('Venue model', function () {
 
   var validVenue = {
       name: 'Madison Square Garden',
-      streetAddress: 'somewhere along 7th Ave and 32nd St.',
-      city: 'New York',
-      state: 'NY',
-      zip: 10001
+      address: {
+        streetAddress: 'somewhere along 7th Ave and 32nd St.',
+        city: 'New York',
+        state: 'NY',
+        zip: 10001        
+      }
     };
 
   describe("creation", function () {
 
     var missingName = {
-      //name: 'Madison Square Garden',
-      streetAddress: 'somewhere along 7th Ave and 32nd St.',
-      city: 'New York',
-      state: 'NY',
-      zip: 10001
-    };
+        //name: 'Madison Square Garden',
+        address: {
+          streetAddress: 'somewhere along 7th Ave and 32nd St.',
+          city: 'New York',
+          state: 'NY',
+          zip: 10001        
+        }
+      };
 
     var missingStreetAddress = {
       name: 'Richard Rodgers Theatre',
-      //streetAddress: 'somewhere in the Theater District',
-      city: 'New York',
-      state: 'NY',
-      zip: 10036
+      address: {
+        //streetAddress: 'somewhere in the Theater District',
+        city: 'New York',
+        state: 'NY',
+        zip: 10036
+      }
     };
 
     var missingCity = {
-      name: 'Madison Square Garden',
-      streetAddress: 'somewhere along 7th Ave and 32nd St.',
-      //city: 'New York',
-      state: 'NY',
-      zip: 10001
-    };
+        name: 'Madison Square Garden',
+        address: {
+          streetAddress: 'somewhere along 7th Ave and 32nd St.',
+          //city: 'New York',
+          state: 'NY',
+          zip: 10001        
+        }
+      };
 
     var missingState = {
       name: 'Richard Rodgers Theatre',
-      streetAddress: 'somewhere in the Theater District',
-      city: 'New York',
-      //state: 'NY',
-      zip: 10036
+      address: {
+        streetAddress: 'somewhere in the Theater District',
+        city: 'New York',
+        //state: 'NY',
+        zip: 10036
+      }
     };
 
     var missingZip = {
       name: 'Webster Hall',
-      streetAddress: 'somewhere in the East Village',
-      city: 'New York',
-      state: 'NY',
-      //zip: 10036
+      address: {
+        streetAddress: 'somewhere in the East Village',
+        city: 'New York',
+        state: 'NY',
+        //zip: 10036
+      }
+    };
+
+    var missingWholeAddress = {
+      name: 'Webster Hall',
+      // address: {
+      //   streetAddress: 'somewhere in the East Village',
+      //   city: 'New York',
+      //   state: 'NY',
+      //   zip: 10036
+      // }
     };
 
     var venueRequiredFieldsTests = [
       {venue: missingName, reqField: 'name'},
-      {venue: missingStreetAddress, reqField: 'streetAddress'},
-      {venue: missingCity, reqField: 'city'},
-      {venue: missingState, reqField: 'state'},
-      {venue: missingZip, reqField: 'zip'}
+      {venue: missingWholeAddress, reqField: 'address'},
+      {venue: missingStreetAddress, reqField: 'address.streetAddress'},
+      {venue: missingCity, reqField: 'address.city'},
+      {venue: missingState, reqField: 'address.state'},
+      {venue: missingZip, reqField: 'address.zip'}
     ];
 
     venueRequiredFieldsTests.forEach(function (test) {

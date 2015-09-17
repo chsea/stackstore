@@ -55,7 +55,7 @@ router.put('/:id',function(req,res,next){
 });
 
 router.delete('/:id',function(req,res,next){
-	Venue.remove(req.venue).then(
+	req.venue.remove().then(
 		function(){res.status(204).send(); },
 		function(err){
 			err.status = 500;

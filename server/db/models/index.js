@@ -3,6 +3,7 @@
 // anywhere the User model needs to be used.
 require('./user');
 require('./venue');
+require('./eventtype');
 require('./product');
 require('./ticket');
 require('./transaction');
