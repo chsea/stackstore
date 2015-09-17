@@ -1,13 +1,51 @@
 var mongoose = require('mongoose');
 var models = require('./server/db/');
+var User = mongoose.model('User');
+var AuthUser = mongoose.model('AuthUser');
 var EventProduct = mongoose.model('EventProduct');
 var Ticket = mongoose.model('Ticket');
 var _ = require('lodash');
 
-var hi = {hi: 2};
-var bye = {hi: 3};
-_.merge(hi, bye);
-console.log('hi ', hi, ' bye ', bye);
+var users = [{
+  firstName: 'Sam',
+  lastName: 'Hartman',
+  email: 'kobe@riot.com',
+  address: {
+    street: '123 League Drive',
+    city: 'Santa Monica',
+    State: 'CA',
+    zip: '90012'
+  }
+}, {
+  firstName: 'Josh',
+  lastName: 'Leesman',
+  email: 'jatt@riot.com',
+  address: {
+    street: '123 League Drive',
+    city: 'Santa Monica',
+    State: 'CA',
+    zip: '90012'
+  }
+}];
+
+var aUser = {
+  firstName: 'Sea',
+  lastName: 'Song',
+  email: 'yay@riot.com',
+  address: {
+    street: '123 League Drive',
+    city: 'Santa Monica',
+    State: 'CA',
+    zip: '90012'
+  }
+};
+
+User.create(users).then(function(users) {
+  console.log(users.length, ' created!');
+});
+AuthUser.create(aUser).then(function(user){
+  console.log(user.firstName, ' created');
+});
 
 // EventProduct
 // .create({name: 'BSB2 at MSG', date: new Date(2019, 11, 19)})
