@@ -45,7 +45,7 @@ router.post('/',function(req,res,next){
 
 router.put('/:id',function(req,res,next){
 	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
-	Venue.findAndUpdate(req.venue,req.body).then(
+	Venue.findByIdAndUpdate(req.venue._id,req.body, {new: true}).then(
 		function (saved) {res.json(saved); },
 		function (err) {
 			err.status = 500;

@@ -87,19 +87,8 @@ describe('Venue model', function () {
       }
     };
 
-    var missingWholeAddress = {
-      name: 'Webster Hall',
-      // address: {
-      //   streetAddress: 'somewhere in the East Village',
-      //   city: 'New York',
-      //   state: 'NY',
-      //   zip: 10036
-      // }
-    };
-
     var venueRequiredFieldsTests = [
       {venue: missingName, reqField: 'name'},
-      {venue: missingWholeAddress, reqField: 'address'},
       {venue: missingStreetAddress, reqField: 'address.streetAddress'},
       {venue: missingCity, reqField: 'address.city'},
       {venue: missingState, reqField: 'address.state'},
@@ -136,20 +125,7 @@ describe('Venue model', function () {
   });
 
   describe("statics", function() {
-    it('should have a function that finds and updates a document', function(done) {
-      Venue
-        .create(validVenue)
-        .then(function(created) {
-          return Venue.findAndUpdate(created._id, {name: 'THE GARDEN'});
-        })
-        .then(function(updated) {
-          expect(updated.name).to.equal('THE GARDEN');
-          done();
-        }).then(null, function(err) {
-          console.log('Errored with', err);
-          done(err);
-        });
-    });
+    // none yet
   });
 
   describe("methods", function(done) {

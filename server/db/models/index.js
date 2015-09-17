@@ -4,6 +4,6 @@
 require('./user');
 require('./venue');
 require('./eventtype');
-require('./product');
+require('./event');
 require('./ticket');
 require('./transaction');

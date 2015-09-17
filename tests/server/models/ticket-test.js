@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 // Require in all models.
 require('../../../server/db/models');
 
-var EventProduct = mongoose.model('EventProduct');
+var EventProduct = mongoose.model('Event');
 var Ticket = mongoose.model('Ticket');
 var User = mongoose.model('User');
 

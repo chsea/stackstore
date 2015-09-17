@@ -10,7 +10,7 @@ require('../../../server/db/models');
 var User = mongoose.model('User'),
     Transaction = mongoose.model('Transaction'),
     Ticket = mongoose.model('Ticket'),
-    Product = mongoose.model('EventProduct');
+    Product = mongoose.model('Event');
 
 
 describe('Transaction model', function () {
