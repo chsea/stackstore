@@ -7,15 +7,15 @@ app.factory('CartFactory', function ($http) {
     		});
     	},
 
-    	add: function(eventId){
-    		return $http.post('/api/cart/' + eventId)
+    	add: function(ticketId){
+    		return $http.post('/api/cart/' + ticketId)
 			.then(function(cart){
 				return cart.data;
 			});
     	},
 
-    	delete: function(eventId){
-    		return $http.delete('/api/cart/' + eventId)
+    	delete: function(ticketId){
+    		return $http.delete('/api/cart/' + ticketId)
 			.then(function(cart){
 				return cart.data;
 			});

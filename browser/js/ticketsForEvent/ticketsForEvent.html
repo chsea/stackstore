@@ -9,7 +9,7 @@
                 	<tr ng-repeat="ticket in tickets">
                 		<td>{{ ticket.seat }}</td>
                 		<td>{{ ticket.price | currency }}</td>
-                		<td><md-button class="md-raised">add to cart</md-button></td>
+                		<td><md-button class="md-raised" ng-click="addToCart(ticket._id)">add to cart</md-button></td>
                 	</tr>
                 </tbody></table>
             </md-card-content>

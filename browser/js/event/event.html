@@ -12,12 +12,14 @@
 			</md-card>
 		</md-content>
 	</div>
-    
+
 	<tickets-for-event></tickets-for-event>
 	<more-dates></more-dates>
 
 </div>
 
+<div ng-show="loggedIn"><a ui-sref="event.create">Create a ticket!</a></div>
+<ui-view></ui-view>
 
 <md-button ng-click="openBottomSheet()">
 Open a Bottom Sheet!
