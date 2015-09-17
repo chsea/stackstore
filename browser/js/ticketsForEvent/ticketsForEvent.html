@@ -8,7 +8,7 @@
     	<th>add to cart</th>
     	<tr ng-repeat="ticket in tickets">
     		<td>{{ ticket.seat }}</td>
-    		<td>{{ ticket.price }}</td>
+    		<td>{{ ticket.price | currency }}</td>
     		<td><button>add to cart</button></td>
     	</tr>
     </tbody></table>

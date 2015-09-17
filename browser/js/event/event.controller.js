@@ -3,6 +3,7 @@
 // });
 
 // JS Data version
-app.controller('EventCtrl', function($scope, eventData) {
+app.controller('EventCtrl', function($scope, eventData, user) {
+	$scope.loggedIn = Boolean(user);
 	$scope.eventData = eventData;
 });
