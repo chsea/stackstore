@@ -1,10 +1,25 @@
-<section id="event">
-    <table><tbody>
+<div id="events">
+	<md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
+        md-row-height-gt-md="1:1" md-row-height="2:2"
+        md-gutter="12px" md-gutter-gt-sm="8px" >
+		<md-grid-tile md-rowspan="1" md-colspan="6">
+		<div flex><img ng-src="{{ eventData[0].imgUrl }}" height="30px"/></div>
+		<div flex><h3>{{ eventData[0].name }}</h3></div>
+		<div flex>
+			<h3>{{ eventData[0].date | date:'mediumDate' }} {{ eventData[0].date | date:'shortTime' }}</h3>
+		</div>
+		<div flex><h3><a ui-sref="venue({id: e.venue._id})">{{ eventData[0].venue.name }}</a></h3></div>
+		</md-grid-tile>
+	</md-grid-list>
+</div>
+
+<div>
+	<table><tbody>
     	<th>What</th><th>When</th><th>Where</th>
     	<tr ng-repeat="e in eventData | orderBy:'date' ">
-    		<td><a ui-sref="event({id: e._id})">{{ e.name }}</a></td>
-    		<td>{{ e.date | date:'mediumDate' }} {{ e.date | date:'shortTime' }}</td>
-    		<td><a ui-sref="venue({id: e.venue._id})">{{ e.venue.name }}</a></td>
+    		<td><a ui-sref="event({id: e._id})">{{ eventData[0].name }}</a></td>
+    		<td>{{ eventData[0].date | date:'mediumDate' }} {{ eventData[0].date | date:'shortTime' }}</td>
+    		<td><a ui-sref="venue({id: e.venue._id})">{{ eventData[0].venue.name }}</a></td>
     	</tr>
     </tbody></table>
-</section>
+</div>
