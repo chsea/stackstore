@@ -29,7 +29,6 @@ router.get('/:id',function(req,res){
 
 router.post('/',function(req,res, next){
 	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
-	req.body.eventProduct = req.e._id;
 	Ticket.create(req.body).then(function (ticket) {
 		res.status(201).json(ticket);
 	}, function (err) {
