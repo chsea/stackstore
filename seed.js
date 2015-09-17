@@ -122,42 +122,50 @@ var createdEvents;
 var seedEvents = function() {
     var venueDict={};
     var events = [{
-        name: 'Stromae and Janelle Monae',
+        name: 'Stromae and Janelle Monae', 
+        imgUrl: '/images/stromae.jpeg', 
         date: new Date(2015, 10, 1, 20, 0, 0),
         venueName: 'Madison Square Garden',
         category: 'Concert'
     }, {
         name: 'Hamilton',
+        imgUrl: '/images/hamilton.jpg', 
         date: new Date(2015,9,24,19,0,0), // thurs 9/24 @ 7pm
         venueName: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
         name: 'Hamilton',
+        imgUrl: '/images/hamilton.jpg', 
         date: new Date(2015,9,25,20,0,0), // fri 9/25 @ 8pm
         venueName: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
         name: 'Hamilton',
+        imgUrl: '/images/hamilton.jpg', 
         date: new Date(2015,9,26,14,0,0), // sat 9/26 @ 2pm
         venueName: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
         name: 'Hamilton',
+        imgUrl: '/images/hamilton.jpg', 
         date: new Date(2015,9,26,20,0,0), // sat 9/26 @ 8pm
         venueName: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
         name: 'Hamilton',
+        imgUrl: '/images/hamilton.jpg', 
         date: new Date(2015,9,27,15,0,0), // sun 9/27 @ 3pm
         venueName: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
         name: 'Hamilton',
+        imgUrl: '/images/hamilton.jpg', 
         date: new Date(2015,9,29,19,0,0), // tues 9/29 @ 7pm
         venueName: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
-        name: 'Hamilton',
+        name: 'Hamilton', 
+        imgUrl: '/images/hamilton.jpg', 
         date: new Date(2015,9,30,14,0,0), // wed 9/30 @ 2pm
         venueName: 'Richard Rodgers Theatre',
         category: 'Theater'
