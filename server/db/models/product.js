@@ -1,11 +1,14 @@
 'use strict';
 var mongoose = require('mongoose');
+var shortid = require('shortid');
 
 var schema = new mongoose.Schema({
+    _id: {type: String, required: true, unique: true, default: shortid.generate}, 
     name: {type: String, required: true},
+    imgUrl: {type: String}, 
     date: {type: Date, required: true},
     category: {type: String, required: true, default: 'Other'},
-    venue: { type: mongoose.Schema.Types.ObjectId, ref: 'Venue'},
+    venue: { type: String, ref: 'Venue'},
 });
 
 schema.statics.findAndUpdate = function (id, changes) {
