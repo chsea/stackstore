@@ -22,7 +22,6 @@ var Promise = require('bluebird');
 var chalk = require('chalk');
 var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
-var AuthUser = Promise.promisifyAll(mongoose.model('AuthUser'));
 var Venue = Promise.promisifyAll(mongoose.model('Venue'));
 var Event = Promise.promisifyAll(mongoose.model('EventProduct'));
 var Ticket = Promise.promisifyAll(mongoose.model('Ticket'));
@@ -30,79 +29,40 @@ var Transaction = Promise.promisifyAll(mongoose.model('Transaction'));
 
 var seedUsers = function() {
 
-  var users = [{
-    firstName: 'Sam',
-    lastName: 'Hartman',
-    email: 'kobe@riot.com',
-    address: {
-      street: '123 League Drive',
-      city: 'Santa Monica',
-      state: 'CA',
-      zip: '90012'
-    }
-  }, {
-    firstName: 'Josh',
-    lastName: 'Leesman',
-    email: 'jatt@riot.com',
-    address: {
-      street: '123 League Drive',
-      city: 'Santa Monica',
-      state: 'CA',
-      zip: '90012'
-    }
-  }];
-
-    // var users = [{
-    //     email: 'testing@fsa.com',
-    //     password: 'password',
-    //     firstName: 'Tim',
-    //     lastName: 'Othy'
-    // }, {
-    //     email: 'obama@gmail.com',
-    //     password: 'potus',
-    //     firstName: 'John',
-    //     lastName: 'Smith'
-    // }, {
-    //     email: 'cristina@fsa.com',
-    //     password: 'millenium',
-    //     firstName: 'Cristina',
-    //     lastName: 'Colón'
-    // }, {
-    //     email: 'chsea@fsa.com',
-    //     password: 'bsbforlife',
-    //     firstName: 'Chel',
-    //     lastName: 'Du'
-    // }, {
-    //     email: 'danielp@fsa.com',
-    //     password: 'millenium',
-    //     firstName: 'Daniel',
-    //     lastName: 'Perelly'
-    // }, {
-    //     email: 'danielm@fsa.com',
-    //     password: 'millenium',
-    //     firstName: 'Daniel',
-    //     lastName: 'Moenich'
-    // }];
+    var users = [{
+        email: 'testing@fsa.com',
+        password: 'password',
+        firstName: 'Tim',
+        lastName: 'Othy'
+    }, {
+        email: 'obama@gmail.com',
+        password: 'potus',
+        firstName: 'John',
+        lastName: 'Smith'
+    }, {
+        email: 'cristina@fsa.com',
+        password: 'millenium',
+        firstName: 'Cristina',
+        lastName: 'Colón'
+    }, {
+        email: 'chsea@fsa.com',
+        password: 'bsbforlife',
+        firstName: 'Chel',
+        lastName: 'Du'
+    }, {
+        email: 'danielp@fsa.com',
+        password: 'millenium',
+        firstName: 'Daniel',
+        lastName: 'Perelly'
+    }, {
+        email: 'danielm@fsa.com',
+        password: 'millenium',
+        firstName: 'Daniel',
+        lastName: 'Moenich'
+    }];
 
     return User.createAsync(users);
 
-};
-
-var seedAuthUsers = function() {
-  var aUser = {
-    firstName: 'Sea',
-    lastName: 'Song',
-    password: 'awesome',
-    email: 'yay@riot.com',
-    address: {
-      street: '123 League Drive',
-      city: 'Santa Monica',
-      state: 'CA',
-      zip: '90012'
-    }
-  };
-
-  return AuthUser.createAsync(aUser);
 };
 
 var seedVenues = function() {
@@ -477,8 +437,15 @@ connectToDb.then(function() {
     //             console.log(chalk.magenta('Seems to already have user data, moving on to others.'));
     //     }})
         User.remove({})
+        .then(function(){return Event.remove({}); })
+        .then(function(){return Venue.remove({}); })
+        .then(function(){return Ticket.remove({}); })
+        .then(function(){return Transaction.remove({}); })
         .then(function(){return seedUsers(); })
-        .then(function(){return seedAuthUsers(); })
+        .then(function(venues){return seedVenues(); })
+        .then(function(events){return seedEvents(); })
+        .then(function(tickets){return seedTickets(); })
+        .then(function(transactions){return seedTransactions(); })
         .then(function() {
             console.log(chalk.green('Seeding was successful!'));
             process.kill(0);
