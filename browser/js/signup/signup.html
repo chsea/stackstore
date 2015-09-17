@@ -1,26 +1,27 @@
-<h2>Sign up!</h2>
-<div><a href="/auth/google">or log in with Google?</a></div>
+<div class="authform">
+<div><span class="md-title">Sign up</span> <a href="/auth/google">or log in with Google</a></div>
 <form id="signup-form" name="signupForm" ng-submit="signupForm.$valid && sendSignup()">
 
     <alert type="danger" ng-show="error">
         {{ error }}
     </alert>
 
-    <div class="form-group">
+    <md-input-container>
         <label for="email">Email address</label>
-        <input type="text" ng-model="signup.email" class="form-control" id="email" placeholder="Enter email" required>
-    </div>
-    <div class="form-group">
+        <input type="text" ng-model="signup.email" class="form-control" id="email" placeholder="enter email" required>
+    </md-input-container>
+    <md-input-container>
         <label for="login-password">Password</label>
-        <input type="password" ng-model="signup.password" class="form-control" id="login-password" placeholder="Password" required>
-    </div>
-    <div class="form-group">
+        <input type="password" ng-model="signup.password" class="form-control" id="login-password" placeholder="enter password" required>
+    </md-input-container>
+    <md-input-container>
         <label for="first-name">First name</label>
-        <input type="text" ng-model="signup.firstName" class="form-control" id="first-name" placeholder="First name" required>
-    </div>
-    <div class="form-group">
+        <input type="text" ng-model="signup.firstName" class="form-control" id="first-name" placeholder="enter first name" required>
+    </md-input-container>
+    <md-input-container>
         <label for="last-name">Last name</label>
-        <input type="text" ng-model="signup.lastName" class="form-control" id="last-name" placeholder="Last name" required>
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+        <input type="text" ng-model="signup.lastName" class="form-control" id="last-name" placeholder="enter last name" required>
+    </md-input-container>
+    <md-button type="submit">Submit</md-button>
 </form>
+</div>
