@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 var deepPopulate = require('mongoose-deep-populate')(mongoose);
 var Promise = require('bluebird');
 var Ticket = mongoose.model('Ticket');
-// var AuthUser = mongoose.model('AuthUser');
+var AuthUser = mongoose.model('AuthUser');
 var User = mongoose.model('User');
 
 function getAll(cart){
