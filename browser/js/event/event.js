@@ -1,13 +1,9 @@
-// JSData version
 app.config(function($stateProvider) {
 	$stateProvider.state('event', {
 		url: '/event/:id',
 		templateUrl: 'js/event/event.html',
 		controller: 'EventCtrl',
 		resolve: {
-			user: function(AuthService) {
-				return AuthService.getLoggedInUser();
-			},
 			eventData: function($stateParams, Event){
 				// GET --> /api/events
 				return Event.find($stateParams.id);
