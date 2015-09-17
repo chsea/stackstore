@@ -5,12 +5,12 @@ var Promise = require('bluebird');
 
 var schema = new mongoose.Schema({
 	buyer: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: String,
 		ref: 'User',
 		required: true
 	},
 	seller: {
-		type: mongoose.Schema.Types.ObjectId,
+		type: String,
 		ref: 'User',
 		required: true
 	},
