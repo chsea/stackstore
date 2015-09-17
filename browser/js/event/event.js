@@ -5,9 +5,6 @@ app.config(function($stateProvider) {
 		templateUrl: 'js/event/event.html',
 		controller: 'EventCtrl',
 		resolve: {
-			user: function(AuthService) {
-				return AuthService.getLoggedInUser();
-			},
 			eventData: function($stateParams, Event){
 				// GET --> /api/events
 				return Event.find($stateParams.id);
