@@ -18,7 +18,10 @@ app.config(function($stateProvider) {
 			eventData: function(Event){
 				// GET --> /api/events
 				return Event.findAll();
-			}
+			},
+			user: function(User, AuthService){
+        return AuthService.getLoggedInUser();
+      }
 		}
 	});
 });
