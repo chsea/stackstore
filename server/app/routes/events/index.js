@@ -58,7 +58,6 @@ router.delete('/:id',function(req,res,next){
 });
 
 router.get('/:id/dates',function(req,res){
-	console.log(req.e);
 	EventProduct.find({"name": req.e.name}).select("_id date")
 		.then(function(eventList){res.send(eventList); });
 });
