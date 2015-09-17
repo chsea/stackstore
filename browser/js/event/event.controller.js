@@ -3,8 +3,7 @@
 // });
 
 // JS Data version
-app.controller('EventCtrl', function($scope, $mdBottomSheet, eventData, user) {
-	$scope.loggedIn = Boolean(user);
+app.controller('EventCtrl', function($scope, $mdBottomSheet, eventData) {
     $scope.eventData = eventData;
     $scope.openBottomSheet = function() {
         $mdBottomSheet.show({

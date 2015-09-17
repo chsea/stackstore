@@ -32,14 +32,7 @@ app.config(function ($stateProvider) {
         }
       }
   });
-}).controller('ActiveController', function($scope, $state, ticketsForSale, ticketsBought, Ticket) {
+}).controller('ActiveController', function($scope, ticketsForSale, ticketsBought) {
   $scope.ticketsForSale = ticketsForSale;
   $scope.ticketsBought = ticketsBought;
-  $scope.removeTicket = function(ticket) {
-		Ticket.destroy(ticket._id)
-		.then(function(){
-			alert('Ticket deleted!');
-			$state.go('profile.active', {}, {reload: true});
-		});
-	};
 });

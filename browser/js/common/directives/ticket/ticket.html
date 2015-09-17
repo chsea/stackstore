@@ -1,6 +1,4 @@
 <div>Event: {{ticket.eventInfo.name}}</div>
 <div>Seller Name: {{ticket.sellerInfo.firstName}} {{ticket.sellerInfo.lastName}}</div>
 <div>Buyer Name: {{ticket.buyerInfo.firstName}} {{ticket.buyerInfo.lastName}}</div>
-<div>Date: {{ ticket.eventInfo.date | date:'mediumDate' }}</div>
-<div>Time: {{ ticket.eventInfo.date | date:'shortTime' }}</div>
-<div>Price: {{ ticket.price | currency }}</div>
+<div>Date: {{ticket.eventInfo.date}}</div>
