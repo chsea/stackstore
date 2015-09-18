@@ -1,4 +1,4 @@
-app.controller('checkoutCtrl',function($scope, $state, CartFactory, cart){
+app.controller('checkoutCtrl',function($scope, $state, $q, CartFactory, cart, Transaction){
 	$scope.cart = cart;
 
 	$scope.removeTicket = function(ticketId){
@@ -7,19 +7,19 @@ app.controller('checkoutCtrl',function($scope, $state, CartFactory, cart){
 		});
 	};
 
-	$scope.checkout = {};
+	$scope.checkout = {
+		address: {}
+	};
     $scope.error = null;
 
     $scope.submitCheckout = function (checkoutInfo) {
-
         $scope.error = null;
 
-        AuthService.login(loginInfo).then(function () {
-            $state.go('home');
-        }).catch(function () {
-            $scope.error = 'Invalid login credentials.';
+        CartFactory.checkout(checkoutInfo)
+        .then(function(data){
+        	//do something better than go to cart
+        	$state.go('cart');
         });
-
     };
 
 });
