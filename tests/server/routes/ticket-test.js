@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 require('../../../server/db/models');
-var EventProduct = mongoose.model('EventProduct');
+var EventProduct = mongoose.model('Event');
 var User = mongoose.model('User');
 var Ticket = mongoose.model('Ticket');
 

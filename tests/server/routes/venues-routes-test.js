@@ -18,13 +18,23 @@ var RRT;
 
 var WH = {
   name: 'Webster Hall',
-  streetAddress: 'somewhere in the East Village',
-  city: 'New York',
-  state: 'NY',
-  zip: 10003
+  address: {
+	streetAddress: 'somewhere in the East Village',
+	city: 'New York',
+	state: 'NY',
+	zip: 10003
+  }
 };
 
 describe('Venues Route', function () {
+
+	before(function () {
+		process.env.TEST = true;
+	});
+
+	after(function () {
+		process.env.TEST = false;
+	});
 
 	beforeEach('Establish DB connection', function (done) {
 		if (mongoose.connection.db) return done();
@@ -34,17 +44,21 @@ describe('Venues Route', function () {
 	beforeEach('Seed test database',function (done){
 		MSG = {
 			name: 'Madison Square Garden',
-			streetAddress: 'somewhere along 7th Ave and 32nd St.',
-			city: 'New York',
-			state: 'NY',
-			zip: 10001
+			address: {
+				streetAddress: 'somewhere along 7th Ave and 32nd St.',
+				city: 'New York',
+				state: 'NY',
+				zip: 10001
+			}
 		};
 		RRT = {
 			name: 'Richard Rodgers Theatre',
-			streetAddress: 'somewhere in the Theater District',
-			city: 'New York',
-			state: 'NY',
-			zip: 10036
+			address: {
+				streetAddress: 'somewhere in the Theater District',
+				city: 'New York',
+				state: 'NY',
+				zip: 10036
+			}
 		};
 		Venue.create([MSG, RRT])
 			.then(function(created){
@@ -73,7 +87,7 @@ describe('Venues Route', function () {
 				.expect(201)
 				.expect(function(res) {
 					expect( res.body.name ).to.equal( WH.name );
-		        })
+				})
 				.end(done);
 		});
 
@@ -119,11 +133,13 @@ describe('Venues Route', function () {
 				.end(done);
 		});
 
-		xit('should get a 404 response with the requested venue', function (done) {
+		it('should get a 404 response with the requested venue', function (done) {
 			guestAgent
 				.get('/api/venues/nonexistentvenueID')
-				.expect(404)
-				.end(done);
+				.end(function (response, error) {
+					expect(error.status).to.equal(404);
+					done();
+				});
 		});
 
 	});
@@ -155,12 +171,14 @@ describe('Venues Route', function () {
 				.end(done);
 		});
 
-		xit('should error if you attempt to modify a nonexistent venue', function (done) {
+		it('should error if you attempt to modify a nonexistent venue', function (done) {
 			guestAgent
 				.put('/api/venues/nonexistentvenueID')
 				.send({name: 'THE GARDEN'})
-				.expect(404)
-				.end(done);
+				.end(function (response, error) {
+					expect(error.status).to.equal(404);
+					done();
+				});
 		});
 
 	});

@@ -24,7 +24,8 @@ var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 var AuthUser = Promise.promisifyAll(mongoose.model('AuthUser'));
 var Venue = Promise.promisifyAll(mongoose.model('Venue'));
-var EventProduct = Promise.promisifyAll(mongoose.model('EventProduct'));
+var Event = Promise.promisifyAll(mongoose.model('Event'));
+var EventType = Promise.promisifyAll(mongoose.model('EventType'));
 var Ticket = Promise.promisifyAll(mongoose.model('Ticket'));
 var Transaction = Promise.promisifyAll(mongoose.model('Transaction'));
 
@@ -132,48 +133,60 @@ var seedVenues = function() {
 
     var venues = [{
         name: 'Madison Square Garden',
-        streetAddress: '4 Pennsylvania Plaza',
-        city: 'New York',
-        state: 'NY',
-        zip: 10001,
+        address: {
+            streetAddress: '4 Pennsylvania Plaza',
+            city: 'New York',
+            state: 'NY',
+            zip: 10001
+        },
         coordinates: [40.7505045,-73.9934387],
         seatingMapUrl: '/images/madisonSqGardenSeatMap.png'
     }, {
         name: 'Richard Rodgers Theatre',
-        streetAddress: '226 West 46th Street',
-        city: 'New York',
-        state: 'NY',
-        zip: 10036,
+        address: {
+            streetAddress: '226 West 46th Street',
+            city: 'New York',
+            state: 'NY',
+            zip: 10036
+        },
         coordinates: [40.7590431,-73.9866326],
         seatingMapUrl: '/images/richardRodgersSeatMap.png'
     }, {
         name: 'Citi Field',
-        streetAddress: '123-01 Roosevelt Ave',
-        city: 'New York',
-        state: 'NY',
-        zip: 11368,
+        address: {
+            streetAddress: '123-01 Roosevelt Ave',
+            city: 'New York',
+            state: 'NY',
+            zip: 11368
+        },
         coordinates: [40.7570877,-73.8458213],
         seatingMapUrl: '/images/citiFieldSeatMap.png'
     }, {
         name: 'Webster Hall',
-        streetAddress: '125 East 11th St.',
-        city: 'New York',
-        state: 'NY',
-        zip: 10003,
+        address: {
+            streetAddress: '125 East 11th St.',
+            city: 'New York',
+            state: 'NY',
+            zip: 10003
+        },
         coordinates: [40.731763,-73.9891298]
     }, {
         name: 'Barclays Center',
-        streetAddress: '620 Atlantic Ave',
-        city: 'Brooklyn',
-        state: 'NY',
-        zip: 11217,
+        address: {
+            streetAddress: '620 Atlantic Ave',
+            city: 'Brooklyn',
+            state: 'NY',
+            zip: 11217
+        },
         coordinates: [40.6825236,-73.9750134]
     }, {
         name: 'Yankee Stadium',
-        streetAddress: '620 Atlantic Ave',
-        city: 'Bronx',
-        state: 'NY',
-        zip: 11217,
+        address: {
+            streetAddress: '620 Atlantic Ave',
+            city: 'Bronx',
+            state: 'NY',
+            zip: 11217
+        },
         coordinates: [40.6825236,-73.9750134]
     }];
 
@@ -181,101 +194,108 @@ var seedVenues = function() {
 
 };
 
-var seedEvents = function() {
-    var venueDict={};
-    var events = [
-      {
-          name: 'BSB',
-          imgUrl: '/images/stromae.jpeg',
-          date: new Date(2014, 10, 1, 20, 0, 0),
-          venue: 'Madison Square Garden',
-          category: 'Concert'
-      },
-      {
+
+var seedEventTypes = function () {
+
+    var eventTypes = [{
         name: 'Stromae and Janelle Monae',
         imgUrl: '/images/stromae.jpeg',
-        date: new Date(2015, 10, 1, 20, 0, 0),
-        venue: 'Madison Square Garden',
         category: 'Concert'
     }, {
         name: 'Hamilton',
         imgUrl: '/images/hamilton.jpg',
-        date: new Date(2015,9,24,19,0,0), // thurs 9/24 @ 7pm
-        venue: 'Richard Rodgers Theatre',
-        category: 'Theater'
-    }, {
-        name: 'Hamilton',
-        imgUrl: '/images/hamilton.jpg',
-        date: new Date(2015,9,25,20,0,0), // fri 9/25 @ 8pm
-        venue: 'Richard Rodgers Theatre',
-        category: 'Theater'
-    }, {
-        name: 'Hamilton',
-        imgUrl: '/images/hamilton.jpg',
-        date: new Date(2015,9,26,14,0,0), // sat 9/26 @ 2pm
-        venue: 'Richard Rodgers Theatre',
-        category: 'Theater'
-    }, {
-        name: 'Hamilton',
-        imgUrl: '/images/hamilton.jpg',
-        date: new Date(2015,9,26,20,0,0), // sat 9/26 @ 8pm
-        venue: 'Richard Rodgers Theatre',
-        category: 'Theater'
-    }, {
-        name: 'Hamilton',
-        imgUrl: '/images/hamilton.jpg',
-        date: new Date(2015,9,27,15,0,0), // sun 9/27 @ 3pm
-        venue: 'Richard Rodgers Theatre',
-        category: 'Theater'
-    }, {
-        name: 'Hamilton',
-        imgUrl: '/images/hamilton.jpg',
-        date: new Date(2015,9,29,19,0,0), // tues 9/29 @ 7pm
-        venue: 'Richard Rodgers Theatre',
-        category: 'Theater'
-    }, {
-        name: 'Hamilton',
-        imgUrl: '/images/hamilton.jpg',
-        date: new Date(2015,9,30,14,0,0), // wed 9/30 @ 2pm
-        venue: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
         name: 'Washington Nationals at New York Mets',
         imgUrl: '/images/natsVsMets.jpg',
-        date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
-        venue: 'Citi Field',
-        category: 'Sports'
-    }, {
-        name: 'Washington Nationals at New York Mets',
-        imgUrl: '/images/natsVsMets.jpg',
-        date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
-        venue: 'Citi Field',
-        category: 'Sports'
-    }, {
-        name: 'Washington Nationals at New York Mets',
-        imgUrl: '/images/natsVsMets.jpg',
-        date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
-        venue: 'Citi Field',
         category: 'Sports'
     }, {
         name: 'Rudimental',
-        date: new Date(2015,9,29,19,0,0),
-        venue: 'Webster Hall',
         category: 'Concert'
     }];
 
-    return Venue.find().select('name _id')
+    return EventType.createAsync(eventTypes);
+
+};
+
+
+
+var createdEvents;
+var seedEvents = function() {
+    var venueDict={};
+    var eventTypeDict = {};
+    var events = [{
+        eventTypeName: 'Stromae and Janelle Monae',
+        date: new Date(2015, 10, 1, 20, 0, 0),
+        venueName: 'Madison Square Garden'
+    }, {
+        eventTypeName: 'Hamilton',
+        date: new Date(2015,9,24,19,0,0), // thurs 9/24 @ 7pm
+        venueName: 'Richard Rodgers Theatre'
+    }, {
+        eventTypeName: 'Hamilton',
+        date: new Date(2015,9,25,20,0,0), // fri 9/25 @ 8pm
+        venueName: 'Richard Rodgers Theatre'
+    }, {
+        eventTypeName: 'Hamilton',
+        date: new Date(2015,9,26,14,0,0), // sat 9/26 @ 2pm
+        venueName: 'Richard Rodgers Theatre'
+    }, {
+        eventTypeName: 'Hamilton',
+        date: new Date(2015,9,26,20,0,0), // sat 9/26 @ 8pm
+        venueName: 'Richard Rodgers Theatre'
+    }, {
+        eventTypeName: 'Hamilton',
+        date: new Date(2015,9,27,15,0,0), // sun 9/27 @ 3pm
+        venueName: 'Richard Rodgers Theatre'
+    }, {
+        eventTypeName: 'Hamilton',
+        date: new Date(2015,9,29,19,0,0), // tues 9/29 @ 7pm
+        venueName: 'Richard Rodgers Theatre'
+    }, {
+        eventTypeName: 'Hamilton',
+        date: new Date(2015,9,30,14,0,0), // wed 9/30 @ 2pm
+        venueName: 'Richard Rodgers Theatre'
+    }, {
+        eventTypeName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
+        venueName: 'Citi Field'
+    }, {
+        eventTypeName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
+        venueName: 'Citi Field'
+    }, {
+        eventTypeName: 'Washington Nationals at New York Mets',
+        date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
+        venueName: 'Citi Field'
+    }, {
+        eventTypeName: 'Rudimental',
+        date: new Date(2015,9,29,19,0,0),
+        venueName: 'Webster Hall'
+    }];
+
+    return Venue.find({}).select('name _id')
         .then(function(venues){
-          venues.forEach(function(venue) {
-            venueDict[venue.name] = venue._id;
-          });
-          events.forEach(function(e) {
-            e.venue = venueDict[e.venue];
-          });
+            venues.forEach(
+                function(venue){venueDict[venue.name]=venue._id;
+            });
+            return EventType.find({}).select('name _id').exec();
+        })
+        .then(function (eventTypes) {
+            eventTypes.forEach(function (eventType) {
+                eventTypeDict[eventType.name] = eventType._id;
+            });
         })
         .then(function(){
-          return EventProduct.createAsync(events);
-        });
+            events.forEach(function(e){
+                e.Venue = venueDict[e.venueName];
+                e.EventType = eventTypeDict[e.eventTypeName];
+                delete e.venueName;
+                delete e.eventTypeName;
+            });
+        })
+        .then(function(){return Event.createAsync(events); })
+        .then(function(created){createdEvents=created; });
 };
 
 var seedTickets = function() {
@@ -283,24 +303,6 @@ var seedTickets = function() {
     var userDict={};
 
     var tickets = [{
-        eventProduct: 'BSB',
-        seller: 'chsea@fsa.com',
-        buyer: 'obama@gmail.com',
-        price: '1000',
-        dateSold: new Date(2012,9,26,20,0,0)
-    },
-    {
-        eventProduct: 'BSB',
-        seller: 'obama@gmail.com',
-        buyer: 'kobe@riot.com',
-        price: '1000',
-        sold: new Date(2009,9,26,20,0,0)
-    },
-    {
-        eventProduct: 'BSB',
-        seller: 'obama@gmail.com',
-        price: '1000'
-    },{
         eventProduct: 'Hamilton',
         seller: 'obama@gmail.com',
         price: '1000'
@@ -394,9 +396,9 @@ var seedTickets = function() {
     ];
 
     var eventIds = {};
-    return EventProduct.find().then(function(events) {
+    return Event.find().populate('EventType').then(function(events) {
       events.forEach(function(event){
-        eventIds[event.name] = event._id;
+        eventIds[event.EventType.name] = event._id;
       });
       return User.find().exec();
     }).then(function(users) {
@@ -429,20 +431,28 @@ connectToDb.then(function() {
     //             console.log(chalk.magenta('Seems to already have user data, moving on to others.'));
     //     }})
         User.remove({})
-        .then(function(){return EventProduct.remove({}); })
+        .then(function(){return Event.remove({}); })
+        .then(function(){return EventType.remove({}); })
         .then(function(){return Venue.remove({}); })
         .then(function(){return Ticket.remove({}); })
         .then(function(){
           return seedUsers();
-        }).then(function(users){
+        })
+        .then(function(){
           return seedAuthUsers();
-        }).then(function(authUsers){
+        })
+        .then(function(){
           return seedVenues(); })
-        .then(function(venues){
+        .then(function () {
+            return seedEventTypes();
+        })
+        .then(function(){
           return seedEvents();
-        }).then(function(events){
+        })
+        .then(function(events){
           return seedTickets();
-        }).then(function(tickets) {
+        })
+        .then(function(tickets) {
           console.log(chalk.green('Seeding was successful!'));
           process.kill(0);
         })

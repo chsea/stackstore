@@ -2,7 +2,7 @@
     <div>
     	<h3>{{ venue.name }}</h3>
     	<h3>{{ venue.seatMapUrl }}</h3>
-    	<p>Address: {{ venue.streetAddress }}, {{ venue.city }}, {{ venue.state }} {{ venue.zip }}</p>
+    	<p>Address: {{ venue.address.streetAddress }}, {{ venue.address.city }}, {{ venue.address.state }} {{ venue.address.zip }}</p>
     	<img src="{{ venue.seatingMapUrl }}"/>
     	<upcoming-events></upcoming-events>
     </div>

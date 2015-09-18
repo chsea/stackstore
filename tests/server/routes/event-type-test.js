@@ -5,7 +5,7 @@ var Event = mongoose.model('Event');
 var EventType = mongoose.model('EventType');
 var Venue = mongoose.model('Venue');
 var Promise = require("bluebird");
-var eventCreator = require('../../helper/eventCreator');
+
 var expect = require('chai').expect;
 
 var dbURI = 'mongodb://localhost:27017/testingDB';
@@ -14,7 +14,7 @@ var clearDB = require('mocha-mongoose')(dbURI);
 var supertest = require('supertest');
 var app = require('../../../server/app');
 
-describe('Events Route', function () {
+describe('Event Types Routes', function () {
 
   before(function () {
     process.env.TEST = true;
@@ -39,11 +39,28 @@ describe('Events Route', function () {
 		guestAgent = supertest.agent(app);
 	});
 
+
+  var createEventTypes = function (count) {
+    var promises = [];
+    while (count > 0) {
+      promises.push(createEventType());
+      count -= 1;
+    }
+    return Promise.all(promises);
+  };
+
+
+  var createEventType = function () {
+    return EventType.create({
+            name: 'Backstreet Boys'
+    });
+  };
+
 	describe('Get request', function () {
-		it('should get all events', function (done) {
-      eventCreator.createEvents(2)
-      .then(function (events) {
-        guestAgent.get('/api/events')
+		it('should get all event types', function (done) {
+      createEventTypes(2)
+      .then(function () {
+        guestAgent.get('/api/eventtypes')
         .expect(200)
         .end(function(err, res){
           if(err) done(err);
@@ -53,13 +70,14 @@ describe('Events Route', function () {
       });
 		});
 
-		it('should get an event by id', function (done) {
-      eventCreator.createEvent()
-      .then(function (createdEvent) {
-        guestAgent.get('/api/events/' + createdEvent._id)
+		it('should get an event type by id', function (done) {
+      createEventType()
+      .then(function (createdEventType) {
+        var request = '/api/eventtypes/' + createdEventType._id;
+        guestAgent.get(request)
         .end(function(err, res){
             if(err) done(err);
-            expect(res.body._id).to.equal(createdEvent._id.toString());
+            expect(res.body._id).to.equal(createdEventType._id.toString());
             done();
         });
       });
@@ -67,14 +85,14 @@ describe('Events Route', function () {
 
 	});
 
-	it('should create a new event', function (done) {
-    eventCreator.createEvent()
-    .then(function (createdEvent) {
-      guestAgent.post('/api/events')
-      .send({Venue: createdEvent.Venue._id, EventType: createdEvent.EventType._id, date: new Date()})
+	it('should create a new event type', function (done) {
+    createEventType()
+    .then(function (createdEventType) {
+      guestAgent.post('/api/eventtypes')
+      .send({name: 'Concert'})
       .expect(201)
       .end(function(err, res) {
-        guestAgent.get('/api/events')
+        guestAgent.get('/api/eventtypes')
         .expect(200)
         .end(function(err, res){
           if(err) done(err);
@@ -87,18 +105,18 @@ describe('Events Route', function () {
 	});
 
   it('should update an event', function (done) {
-    eventCreator.createEvent()
-    .then(function (createdEvent) {
-      var date = new Date(1984, 5, 19);
-      guestAgent.put('/api/events/' + createdEvent._id)
-      .send({date: date})
+    createEventType()
+    .then(function (createdEventType) {
+      var name = "Updated concert name";
+      guestAgent.put('/api/eventtypes/' + createdEventType._id)
+      .send({name: name})
       .expect(200)
       .end(function(err, res) {
-        guestAgent.get('/api/events/' + createdEvent._id)
+        guestAgent.get('/api/eventtypes/' + createdEventType._id)
         .expect(200)
         .end(function(err, res){
           if(err) done(err);
-          expect(res.body.date).to.equal(date.toISOString());
+          expect(res.body.name).to.equal(name);
           done();
         });
       });
@@ -106,14 +124,14 @@ describe('Events Route', function () {
 
   });
 
-  it('should delete an event', function (done) {
+  it('should delete an event type', function (done) {
 
-    eventCreator.createEvent().
-    then(function (createdEvent) {
-      guestAgent.delete('/api/events/' + createdEvent._id)
+    createEventType().
+    then(function (createdEventType) {
+      guestAgent.delete('/api/eventtypes/' + createdEventType._id)
       .expect(204)
       .end(function(err, res) {
-        guestAgent.get('/api/events')
+        guestAgent.get('/api/eventtypes')
         .expect(200)
         .end(function(err, res){
           if(err) done(err);
