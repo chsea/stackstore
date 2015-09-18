@@ -26,15 +26,15 @@ var schema = new mongoose.Schema({
 	}
 });
 
-schema.post('save', function(doc) {
-	var tickets = [];
-	doc.tickets.forEach(function(ticket) {
-		tickets.push(Ticket.findAndUpdate(ticket, {sold: true, buyer: doc.buyer}));
-	});
-	Promise.all(tickets).then(function(tickets) {
-		console.log(tickets.length + ' saved');
-	});
-});
+// schema.post('save', function(doc) {
+// 	var tickets = [];
+// 	doc.tickets.forEach(function(ticket) {
+// 		tickets.push(Ticket.findAndUpdate(ticket, {sold: true, buyer: doc.buyer}));
+// 	});
+// 	Promise.all(tickets).then(function(tickets) {
+// 		console.log(tickets.length + ' saved');
+// 	});
+// });
 
 schema.path('tickets').validate(function (tickets) {
 	return tickets && tickets.length > 0;

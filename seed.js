@@ -24,7 +24,7 @@ var connectToDb = require('./server/db');
 var User = Promise.promisifyAll(mongoose.model('User'));
 var AuthUser = Promise.promisifyAll(mongoose.model('AuthUser'));
 var Venue = Promise.promisifyAll(mongoose.model('Venue'));
-var Event = Promise.promisifyAll(mongoose.model('EventProduct'));
+var EventProduct = Promise.promisifyAll(mongoose.model('EventProduct'));
 var Ticket = Promise.promisifyAll(mongoose.model('Ticket'));
 var Transaction = Promise.promisifyAll(mongoose.model('Transaction'));
 
@@ -181,7 +181,6 @@ var seedVenues = function() {
 
 };
 
-var createdEvents;
 var seedEvents = function() {
     var venueDict={};
     var events = [
@@ -189,221 +188,233 @@ var seedEvents = function() {
           name: 'BSB',
           imgUrl: '/images/stromae.jpeg',
           date: new Date(2014, 10, 1, 20, 0, 0),
-          venueName: 'Madison Square Garden',
+          venue: 'Madison Square Garden',
           category: 'Concert'
       },
       {
         name: 'Stromae and Janelle Monae',
         imgUrl: '/images/stromae.jpeg',
         date: new Date(2015, 10, 1, 20, 0, 0),
-        venueName: 'Madison Square Garden',
+        venue: 'Madison Square Garden',
         category: 'Concert'
     }, {
         name: 'Hamilton',
         imgUrl: '/images/hamilton.jpg',
         date: new Date(2015,9,24,19,0,0), // thurs 9/24 @ 7pm
-        venueName: 'Richard Rodgers Theatre',
+        venue: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
         name: 'Hamilton',
         imgUrl: '/images/hamilton.jpg',
         date: new Date(2015,9,25,20,0,0), // fri 9/25 @ 8pm
-        venueName: 'Richard Rodgers Theatre',
+        venue: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
         name: 'Hamilton',
         imgUrl: '/images/hamilton.jpg',
         date: new Date(2015,9,26,14,0,0), // sat 9/26 @ 2pm
-        venueName: 'Richard Rodgers Theatre',
+        venue: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
         name: 'Hamilton',
         imgUrl: '/images/hamilton.jpg',
         date: new Date(2015,9,26,20,0,0), // sat 9/26 @ 8pm
-        venueName: 'Richard Rodgers Theatre',
+        venue: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
         name: 'Hamilton',
         imgUrl: '/images/hamilton.jpg',
         date: new Date(2015,9,27,15,0,0), // sun 9/27 @ 3pm
-        venueName: 'Richard Rodgers Theatre',
+        venue: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
         name: 'Hamilton',
         imgUrl: '/images/hamilton.jpg',
         date: new Date(2015,9,29,19,0,0), // tues 9/29 @ 7pm
-        venueName: 'Richard Rodgers Theatre',
+        venue: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
         name: 'Hamilton',
         imgUrl: '/images/hamilton.jpg',
         date: new Date(2015,9,30,14,0,0), // wed 9/30 @ 2pm
-        venueName: 'Richard Rodgers Theatre',
+        venue: 'Richard Rodgers Theatre',
         category: 'Theater'
     }, {
         name: 'Washington Nationals at New York Mets',
         imgUrl: '/images/natsVsMets.jpg',
         date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
-        venueName: 'Citi Field',
+        venue: 'Citi Field',
         category: 'Sports'
     }, {
         name: 'Washington Nationals at New York Mets',
         imgUrl: '/images/natsVsMets.jpg',
         date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
-        venueName: 'Citi Field',
+        venue: 'Citi Field',
         category: 'Sports'
     }, {
         name: 'Washington Nationals at New York Mets',
         imgUrl: '/images/natsVsMets.jpg',
         date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
-        venueName: 'Citi Field',
+        venue: 'Citi Field',
         category: 'Sports'
     }, {
         name: 'Rudimental',
         date: new Date(2015,9,29,19,0,0),
-        venueName: 'Webster Hall',
+        venue: 'Webster Hall',
         category: 'Concert'
     }];
 
-    return Venue.find({}).select('name _id')
+    return Venue.find().select('name _id')
         .then(function(venues){
-            venues.forEach(
-                function(venue){venueDict[venue.name]=venue._id;
-            });
+          venues.forEach(function(venue) {
+            venueDict[venue.name] = venue._id;
+          });
+          events.forEach(function(e) {
+            e.venue = venueDict[e.venue];
+          });
         })
         .then(function(){
-            events.forEach(function(e){
-                e.venue = venueDict[e.venueName];
-                delete e.venueName;
-            });
-        })
-        .then(function(){return Event.createAsync(events); })
-        .then(function(created){createdEvents=created; });
+          return EventProduct.createAsync(events);
+        });
 };
 
-var createdTickets;
 var seedTickets = function() {
     var eventDict={};
     var userDict={};
 
     var tickets = [{
-        eventName: 'BSB',
-        sellerEmail: 'chsea@fsa.com',
-        buyerEmail: 'obama@gmail.com',
+        eventProduct: 'BSB',
+        seller: 'chsea@fsa.com',
+        buyer: 'obama@gmail.com',
+        price: '1000',
+        sold: true
+    },
+    {
+        eventProduct: 'BSB',
+        seller: 'obama@gmail.com',
+        buyer: 'kobe@riot.com',
+        price: '1000',
+        sold: true
+    },
+    {
+        eventProduct: 'BSB',
+        seller: 'obama@gmail.com',
         price: '1000'
     },{
-        eventName: 'Hamilton',
-        sellerEmail: 'obama@gmail.com',
+        eventProduct: 'Hamilton',
+        seller: 'obama@gmail.com',
         price: '1000'
     }, {
-        eventName: 'Hamilton',
-        sellerEmail: 'obama@gmail.com',
+        eventProduct: 'Hamilton',
+        seller: 'obama@gmail.com',
         price: '1000'
     }, {
-        eventName: 'Hamilton',
-        sellerEmail: 'chsea@fsa.com',
-        buyerEmail: 'obama@gmail.com',
-        price: '700'
+        eventProduct: 'Hamilton',
+        seller: 'chsea@fsa.com',
+        buyer: 'obama@gmail.com',
+        price: '700',
+        sold: true
     }, {
-        eventName: 'Hamilton',
-        sellerEmail: 'chsea@fsa.com',
+        eventProduct: 'Hamilton',
+        seller: 'chsea@fsa.com',
         price: '500'
     }, {
-        eventName: 'Hamilton',
-        sellerEmail: 'danielp@fsa.com',
+        eventProduct: 'Hamilton',
+        seller: 'danielp@fsa.com',
         price: '500'
     }, {
-        eventName: 'Hamilton',
-        sellerEmail: 'danielp@fsa.com',
+        eventProduct: 'Hamilton',
+        seller: 'danielp@fsa.com',
         price: '1000'
     }, {
-        eventName: 'Stromae and Janelle Monae',
-        sellerEmail: 'danielm@fsa.com',
+        eventProduct: 'Stromae and Janelle Monae',
+        seller: 'danielm@fsa.com',
         price: '75'
     }, {
-        eventName: 'Stromae and Janelle Monae',
-        sellerEmail: 'danielm@fsa.com',
+        eventProduct: 'Stromae and Janelle Monae',
+        seller: 'danielm@fsa.com',
         price: '75'
     }, {
-        eventName: 'Washington Nationals at New York Mets',
-        sellerEmail: 'obama@gmail.com',
+        eventProduct: 'Washington Nationals at New York Mets',
+        seller: 'obama@gmail.com',
         price: '40'
     }, {
-        eventName: 'Washington Nationals at New York Mets',
-        sellerEmail: 'obama@gmail.com',
+        eventProduct: 'Washington Nationals at New York Mets',
+        seller: 'obama@gmail.com',
         price: '40'
     }, {
-        eventName: 'Washington Nationals at New York Mets',
-        sellerEmail: 'obama@gmail.com',
+        eventProduct: 'Washington Nationals at New York Mets',
+        seller: 'obama@gmail.com',
         price: '40'
     },{
-        eventName: 'Washington Nationals at New York Mets',
-        sellerEmail: 'obama@gmail.com',
+        eventProduct: 'Washington Nationals at New York Mets',
+        seller: 'obama@gmail.com',
         price: '40'
     }, {
-        eventName: 'Washington Nationals at New York Mets',
-        sellerEmail: 'cristina@fsa.com',
+        eventProduct: 'Washington Nationals at New York Mets',
+        seller: 'cristina@fsa.com',
         price: '50'
     }, {
-        eventName: 'Washington Nationals at New York Mets',
-        sellerEmail: 'obama@gmail.com',
+        eventProduct: 'Washington Nationals at New York Mets',
+        seller: 'obama@gmail.com',
         price: '50'
     }, {
-        eventName: 'Washington Nationals at New York Mets',
-        sellerEmail: 'cristina@fsa.com',
+        eventProduct: 'Washington Nationals at New York Mets',
+        seller: 'cristina@fsa.com',
         price: '50'
     },{
-        eventName: 'Washington Nationals at New York Mets',
-        sellerEmail: 'cristina@fsa.com',
+        eventProduct: 'Washington Nationals at New York Mets',
+        seller: 'cristina@fsa.com',
         price: '75'
     }, {
-        eventName: 'Washington Nationals at New York Mets',
-        sellerEmail: 'chsea@fsa.com',
+        eventProduct: 'Washington Nationals at New York Mets',
+        seller: 'chsea@fsa.com',
         price: '75'
     }, {
-        eventName: 'Washington Nationals at New York Mets',
-        sellerEmail: 'chsea@fsa.com',
+        eventProduct: 'Washington Nationals at New York Mets',
+        seller: 'chsea@fsa.com',
         price: '75'
     }, {
-        eventName: 'Washington Nationals at New York Mets',
-        sellerEmail: 'chsea@fsa.com',
+        eventProduct: 'Washington Nationals at New York Mets',
+        seller: 'chsea@fsa.com',
         price: '75'
     },{
-        eventName: 'Washington Nationals at New York Mets',
-        sellerEmail: 'chsea@fsa.com',
+        eventProduct: 'Washington Nationals at New York Mets',
+        seller: 'chsea@fsa.com',
         price: '50'
     }, {
-        eventName: 'Rudimental',
-        sellerEmail: 'testing@fsa.com',
+        eventProduct: 'Rudimental',
+        seller: 'testing@fsa.com',
         price: '25'
     }, {
-        eventName: 'Rudimental',
-        sellerEmail: 'testing@fsa.com',
+        eventProduct: 'Rudimental',
+        seller: 'testing@fsa.com',
         price: '25'
     }
     ];
 
-    return User.find()
-        .then(function(users){
-            return users.forEach(
-                    function(user){userDict[user.email]=user._id;
-                });
-        })
-        .then(function(){
-            tickets.forEach(function(ticket){
-                var key = ticket.eventName+ticket.date.toISOString();
-                ticket.eventProduct = eventDict[key];
-                ticket.seller = userDict[ticket.sellerEmail];
-                ticket.buyer = userDict[ticket.buyerEmail];
-                delete ticket.eventName;
-                delete ticket.sellerEmail;
-                delete ticket.berEmail;
-            });
-        })
-        .then(function(){
-            return Ticket.createAsync(tickets);
-        })
-        .then(function(created){createdTickets=created; });
+    var eventIds = {};
+    return EventProduct.find().then(function(events) {
+      events.forEach(function(event){
+        eventIds[event.name] = event._id;
+      });
+      return User.find().exec();
+    }).then(function(users) {
+      var userIds = {};
+      users.forEach(function(user) {
+        userIds[user.email] = user._id;
+      });
+
+      return userIds;
+    }).then(function(userIds) {
+      tickets.forEach(function(ticket) {
+        ticket.eventProduct = eventIds[ticket.eventProduct];
+        ticket.seller = userIds[ticket.seller];
+        ticket.buyer = userIds[ticket.buyer];
+      });
+    }).then(function() {
+      return Ticket.createAsync(tickets);
+    });
 };
 
 
@@ -418,17 +429,22 @@ connectToDb.then(function() {
     //             console.log(chalk.magenta('Seems to already have user data, moving on to others.'));
     //     }})
         User.remove({})
-        .then(function(){return Event.remove({}); })
+        .then(function(){return EventProduct.remove({}); })
         .then(function(){return Venue.remove({}); })
         .then(function(){return Ticket.remove({}); })
-        .then(function(){return seedUsers(); })
-        .then(function(){return seedAuthUsers(); })
-        .then(function(venues){return seedVenues(); })
-        .then(function(events){return seedEvents(); })
-        .then(function(tickets){return seedTickets(); })
-        .then(function() {
-            console.log(chalk.green('Seeding was successful!'));
-            process.kill(0);
+        .then(function(){
+          return seedUsers();
+        }).then(function(users){
+          return seedAuthUsers();
+        }).then(function(authUsers){
+          return seedVenues(); })
+        .then(function(venues){
+          return seedEvents();
+        }).then(function(events){
+          return seedTickets();
+        }).then(function(tickets) {
+          console.log(chalk.green('Seeding was successful!'));
+          process.kill(0);
         })
         .catch(function(err) {
             console.error(err);
