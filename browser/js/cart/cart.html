@@ -7,8 +7,11 @@
 			<p>Date: {{ticket.eventProduct.date}}</p>
 			<p>Venue: {{ticket.eventProduct.venue.name}}</p>
 			<p>Seller: {{ticket.seller.firstName}} {{ticket.seller.lastName}}</p>
+			<p>Price: {{ticket.price}}</p>
 			<button class='btn' ng-click='removeTicket(ticket._id)'>Remove from cart</button>
 	    </md-card-content>
 	</md-card>
-	<md-button id='checkout-btn' class='btn' ui-sref='checkout'>Checkout</button>
+	<p>Total: {{total}}</p>
+	<md-button id='empty-btn' class='btn md-raised' ng-click='empty()'>Empty Cart</md-button>
+	<md-button id='checkout-btn' class='btn md-raised' ui-sref='checkout'>Checkout</md-button>
 </section>
