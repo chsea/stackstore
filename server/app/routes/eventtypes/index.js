@@ -1,12 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var EventType = mongoose.model('EventType');
 var Event = mongoose.model('Event');
 
 router.param('id',function(req,res,next,id){
-	Event.findOne({"_id": id}).populate('venue').then(
+	EventType.findOne({"_id": id}).then(
 		function(e){
-			req.e = e;
+			req.eventType = e;
 			next();
 		},
 		function (err) {
@@ -17,18 +18,18 @@ router.param('id',function(req,res,next,id){
 });
 
 router.get('/',function(req,res){
-	Event.find().populate('venue').then(function(e){
+	EventType.find().then(function(e){
 		res.json(e);
 	});
 });
 
 router.get('/:id',function(req,res){
-	res.json(req.e);
+	res.json(req.eventType);
 });
 
 router.post('/',function(req,res,next){
 	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
-	Event.create(req.body).then(function (e) {
+	EventType.create(req.body).then(function (e) {
 		res.status(201).json(e);
 	}, function (err) {
 			err.status = 500;
@@ -38,7 +39,7 @@ router.post('/',function(req,res,next){
 
 router.put('/:id',function(req,res,next){
 	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
-	Event.findByIdAndUpdate(req.e._id,req.body).then(
+	EventType.findByIdAndUpdate(req.eventType._id,req.body,{new:true}).then(
 		function (saved) {res.json(saved); },
 		function (err) {
 			err.status = 500;
@@ -48,7 +49,7 @@ router.put('/:id',function(req,res,next){
 });
 
 router.delete('/:id',function(req,res,next){
-	Event.remove(req.e).then(
+	req.eventType.remove().then(
 		function(){res.status(204).send(); },
 		function(err){
 			err.status = 500;
@@ -56,13 +57,9 @@ router.delete('/:id',function(req,res,next){
 		});
 });
 
-// now using EventType to get the available dates
-// router.get('/:id/dates',function(req,res){
-// 	console.log(req.e);
-// 	Event.find({"name": req.e.name}).select("_id date")
-// 		.then(function(eventList){res.send(eventList); });
-// });
-
-router.use('/:id/tickets', require('./tickets.router.js'));
+router.get('/:id/dates',function(req,res){
+	Event.find({"EventType": req.eventType._id}).populate('EventType')
+		.then(function(list){res.send(list); });
+});
 
 module.exports = router;
