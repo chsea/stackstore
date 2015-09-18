@@ -5,9 +5,9 @@ var EventType = mongoose.model('EventType');
 var Event = mongoose.model('Event');
 
 router.param('id',function(req,res,next,id){
-	EventType.findOne({"_id": id}).then(
-		function(e){
-			req.eventType = e;
+	EventType.findById(id).then(
+		function(type){
+			req.eType = type;
 			next();
 		},
 		function (err) {
@@ -24,7 +24,7 @@ router.get('/',function(req,res){
 });
 
 router.get('/:id',function(req,res){
-	res.json(req.eventType);
+	res.json(req.eType);
 });
 
 router.post('/',function(req,res,next){
@@ -39,7 +39,7 @@ router.post('/',function(req,res,next){
 
 router.put('/:id',function(req,res,next){
 	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
-	EventType.findByIdAndUpdate(req.eventType._id,req.body,{new:true}).then(
+	EventType.findByIdAndUpdate(req.eType._id,req.body,{new:true}).then(
 		function (saved) {res.json(saved); },
 		function (err) {
 			err.status = 500;
@@ -49,7 +49,7 @@ router.put('/:id',function(req,res,next){
 });
 
 router.delete('/:id',function(req,res,next){
-	req.eventType.remove().then(
+	req.eType.remove().then(
 		function(){res.status(204).send(); },
 		function(err){
 			err.status = 500;
@@ -58,7 +58,7 @@ router.delete('/:id',function(req,res,next){
 });
 
 router.get('/:id/dates',function(req,res){
-	Event.find({"EventType": req.eventType._id}).populate('EventType')
+	Event.find({"EventType": req.eType._id}).populate('EventType')
 		.then(function(list){res.send(list); });
 });
 
