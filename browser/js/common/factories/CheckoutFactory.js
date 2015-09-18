@@ -1,4 +1,4 @@
-app.factory('CartFactory', function ($http) {
+app.factory('CheckoutFactory', function ($http) {
     return {
     	getAll: function(){
     		return $http.get('/api/cart')
@@ -19,14 +19,6 @@ app.factory('CartFactory', function ($http) {
 			.then(function(cart){
 				return cart.data;
 			});
-    	},
-
-        checkout: function(formData){
-            return $http.post('/api/cart/checkout', formData).then(function(res){
-                return res.data;
-            });
-        }
-
+    	}
     };
-
 });

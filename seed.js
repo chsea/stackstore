@@ -307,14 +307,14 @@ var seedTickets = function() {
         seller: 'chsea@fsa.com',
         buyer: 'obama@gmail.com',
         price: '1000',
-        sold: true
+        dateSold: new Date(2012,9,26,20,0,0)
     },
     {
         eventProduct: 'BSB',
         seller: 'obama@gmail.com',
         buyer: 'kobe@riot.com',
         price: '1000',
-        sold: true
+        sold: new Date(2009,9,26,20,0,0)
     },
     {
         eventProduct: 'BSB',
@@ -333,7 +333,7 @@ var seedTickets = function() {
         seller: 'chsea@fsa.com',
         buyer: 'obama@gmail.com',
         price: '700',
-        sold: true
+        sold: new Date(1962,9,26,20,0,0)
     }, {
         eventProduct: 'Hamilton',
         seller: 'chsea@fsa.com',

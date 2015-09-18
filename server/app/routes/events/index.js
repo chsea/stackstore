@@ -56,12 +56,6 @@ router.delete('/:id',function(req,res,next){
 		});
 });
 
-// now using EventType to get the available dates
-// router.get('/:id/dates',function(req,res){
-// 	console.log(req.e);
-// 	Event.find({"name": req.e.name}).select("_id date")
-// 		.then(function(eventList){res.send(eventList); });
-// });
 
 router.use('/:id/tickets', require('./tickets.router.js'));
 

@@ -1,29 +1,53 @@
-<section class='tinyCart'>
+<section class='cart'>
 	<h1>Your Cart :^]</h1>
-	<ul>
-		<li ng-repeat="ticket in cart">
-			<p>Event: {{ticket.eventProduct.name}}</p>
+	<md-card ng-repeat="ticket in cart">
+	    <md-card-content>
+	    	<p><a class="md-title" ui-sref="event({id: ticket.eventProduct._id})">{{ ticket.eventProduct.name }}</a></p>
 			<p>Seat: {{ticket.seat}}</p>
 			<p>Date: {{ticket.eventProduct.date}}</p>
 			<p>Venue: {{ticket.eventProduct.venue.name}}</p>
 			<p>Seller: {{ticket.seller.firstName}} {{ticket.seller.lastName}}</p>
 			<button class='btn' ng-click='removeTicket(ticket._id)'>Remove from cart</button>
-		</li>
-	</ul>
+	    </md-card-content>
+	</md-card>
 </section>
-<form id="checkout-form" name="checkoutForm" ng-submit="loginForm.$valid && submitCheckout(checkout)">
+<form id="checkout" name="checkoutForm" ng-submit="checkoutForm.$valid && submitCheckout(checkout)">
 
     <alert type="danger" ng-show="error">
         {{ error }}
     </alert>
 
-    <div class="form-group">
-        <label for="email">Email address</label>
-        <input type="text" ng-model="login.email" class="form-control" id="email" placeholder="Enter email">
-    </div>
-    <div class="form-group">
-        <label for="login-password">Password</label>
-        <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
-    </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <md-input-container class="form-group">
+        <label for="email">Email</label>
+        <input type="text" ng-model="checkout.email" class="form-control" id="email" placeholder="Enter email">
+    </md-input-container>
+    <md-input-container class="form-group">
+        <label for="Street">Street</label>
+        <input type="text" ng-model="checkout.address.street" class="form-control" id="street" placeholder="Street">
+    </md-input-container>
+    <md-input-container class="form-group">
+        <label for="City">City</label>
+        <input type="text" ng-model="checkout.address.city" class="form-control" id="city" placeholder="City">
+    </md-input-container>
+    <md-input-container class="form-group">
+        <label for="State">State</label>
+        <input type="text" ng-model="checkout.address.state" class="form-control" id="state" placeholder="State">
+    </md-input-container>
+    <md-input-container class="form-group">
+        <label for="Zip">Zip</label>
+        <input type="text" ng-model="checkout.address.zip" class="form-control" id="zip" placeholder="Zip">
+    </md-input-container>
+    <md-input-container class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" ng-model="checkout.firstName" class="form-control" id="firstName" placeholder="First Name">
+    </md-input-container>
+    <md-input-container class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" ng-model="checkout.lastName" class="form-control" id="lastName" placeholder="Last Name">
+    </md-input-container>
+    <md-input-container class="form-group">
+        <label for="creditCard">Moneys</label>
+        <input type="text" ng-model="moneys" class="form-control" id="moneys" placeholder="Moneys">
+    </md-input-container>
+    <button type="submit" class="btn btn-default">Purchase</button>
 </form>
