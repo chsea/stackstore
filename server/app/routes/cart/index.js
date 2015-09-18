@@ -11,17 +11,6 @@ function getAll(cart){
 	.populate("seller").populate("buyer").exec();
 }
 
-// router.param('id', function(req, res, next, id){
-// 	Ticket.findById(id).then(function(ticket){
-// 		if(!ticket) {
-// 			var err = new Error('TicketID not in database');
-// 			err.status = 404;
-// 			next(err);
-// 		}
-// 		next();
-// 	}).then(null, next);
-// });
-
 router.use(function(req, res, next){
 	if(!req.session.cart) req.session.cart = [];
 	next();
@@ -97,6 +86,11 @@ router.post('/:id', function(req, res, next){
 	}else{
 		res.status(409).send(req.session.cart);
 	}
+});
+
+router.delete('/', function(req, res, next){
+	req.session.cart = [];
+	res.status(204).json(req.session.cart);
 });
 
 router.delete('/:id', function(req, res, next){
