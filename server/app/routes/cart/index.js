@@ -47,7 +47,6 @@ router.post('/checkout', function(req, res, next){
 		User.findOne({email: req.body.email}).then(function(user){
 			//update anonymous user's billing address if found
 			if(user){
-				console.log('user updated!');
 				user.address = req.body.address;
 				user.firstName = req.body.firstName;
 				user.lastName = req.body.lastName;
@@ -55,7 +54,6 @@ router.post('/checkout', function(req, res, next){
 			}
 			//if the email is not in the database, create an anonymous user
 			else{
-				console.log('user created');
 				return User.create({
 					address: req.body.address,
 					firstName: req.body.firstName,
@@ -68,7 +66,8 @@ router.post('/checkout', function(req, res, next){
 	userPromise.then(function(user){
 		Promise.map(req.session.cart, function(ticketId){
 			return Ticket.findById(ticketId).then(function(ticket){
-				console.log('ticket: ',ticket);
+				//make sure ticket isn't sold
+				if(!ticket.dateSold && !ticket.buyer);
 				ticket.dateSold = new Date();
 				ticket.buyer = user._id;
 				return ticket.save();

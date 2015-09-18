@@ -17,7 +17,8 @@ app.controller('checkoutCtrl',function($scope, $state, $q, CartFactory, cart, Tr
 
         CartFactory.checkout(checkoutInfo)
         .then(function(data){
-        	console.log(data);
+        	//do something better than go to cart
+        	$state.go('cart');
         });
     };
 
