@@ -15,7 +15,8 @@ app.controller('SignupCtrl', function ($scope, $state, User, AuthService) {
 		if ($scope.isSeller) $scope.signup.roles = ['seller', 'buyer'];
 		User.create($scope.signup)
 		.then(function (createdUser) {
-			return AuthService.login($scope.signup);
+			var loginInfo = {email: $scope.signup.email, password: $scope.signup.password};
+			return AuthService.login(loginInfo);
 		})
 		.then(function () {
 			$state.go('home');
@@ -24,6 +25,4 @@ app.controller('SignupCtrl', function ($scope, $state, User, AuthService) {
 			$scope.error = error.data;
 		});
 	};
-
-
 });

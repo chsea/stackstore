@@ -10,6 +10,9 @@ app.config(function ($stateProvider) {
         users: function(User) {
           return User.findAll();
         },
+        user: function(AuthService) {
+          return AuthService.isAdmin();
+        },
         ticketsForSale: function(Ticket, events, users, AuthService){
           return AuthService.getLoggedInUser()
           .then(function(user){
@@ -32,7 +35,8 @@ app.config(function ($stateProvider) {
         }
       }
   });
-}).controller('ActiveController', function($scope, $state, ticketsForSale, ticketsBought, Ticket) {
+}).controller('ActiveController', function($scope, $state, ticketsForSale, ticketsBought, Ticket, user) {
+  console.log(user);
   $scope.ticketsForSale = ticketsForSale;
   $scope.ticketsBought = ticketsBought;
   $scope.removeTicket = function(ticket) {

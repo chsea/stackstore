@@ -10,12 +10,12 @@
             </li>
         </ul>
         <md-button class="btn" ui-sref="cart"><i class="zmdi zmdi-shopping-cart zmdi-hc-2x"></i></md-button>
-        
+
         <md-button ng-show="!user" ui-sref="login" class="btn login-button">Login</md-button>
         <md-button ng-show="!user" ui-sref="signup" class="btn login-button">Signup</md-button>
         <div ng-show="user" class="welcome">
             <span>Welcome, {{ user.email }}!</span>
-            <button class='btn' ui-sref="profile">Profile</button>
+            <button class='btn' ui-sref="profile.active">Profile</button>
             <button class='btn' ng-click="logout()">Logout</button>
         </div>
     </div>

@@ -19,7 +19,7 @@ var User = new Schema({
 var authUser = User.extend({
   password: {type: String, required: true},
   salt: String,
-  roles: [{type: String, required: true, default: 'buyer'}],
+  roles: [String],
   twitter: {id: String, username: String, token: String, tokenSecret: String},
   facebook: {id: String},
   google: {id: String}
@@ -44,6 +44,8 @@ authUser.pre('save', function(next) {
         this.salt = this.constructor.generateSalt();
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
+
+    if(!this.roles.length) this.roles = ['buyer'];
 
     next();
 
