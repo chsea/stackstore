@@ -3,11 +3,11 @@ app.factory('TicketsForEventFactory', function ($http){
 		return $http.get('/api/events/'+id+'/tickets')
 			.then(function(resp){return resp.data; });
 	}
-	function getAlternateDates(id) {
-		return $http.get('/api/events/'+id+'/dates').then(function(resp){return resp.data; });
+	function getAlternateDates(eventTypeId) {
+		return $http.get('/api/eventtypes/'+eventTypeId+'/dates').then(function(resp){return resp.data; });
 	}
 	return {
-		getAll: getAll, 
+		getAll: getAll,
 		getAlternateDates: getAlternateDates
 	};
 });

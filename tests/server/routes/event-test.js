@@ -5,7 +5,7 @@ var Event = mongoose.model('Event');
 var EventType = mongoose.model('EventType');
 var Venue = mongoose.model('Venue');
 var Promise = require("bluebird");
-
+var eventCreator = require('../../helper/eventCreator');
 var expect = require('chai').expect;
 
 var dbURI = 'mongodb://localhost:27017/testingDB';
@@ -39,48 +39,9 @@ describe('Events Route', function () {
 		guestAgent = supertest.agent(app);
 	});
 
-
-  var createEvents = function (count) {
-    var promises = [];
-    while (count > 0) {
-      promises.push(createEvent());
-      count -= 1;
-    }
-    return Promise.all(promises);
-  };
-
-
-  var createEvent = function () {
-    var eventType;
-    return EventType.create({
-            name: 'Backstreet Boys'
-        })
-        .then(function(newEventType) {
-            eventType = newEventType;
-            return Venue.create({
-                name: 'Madison Square Garden',
-                address: {
-                  streetAddress: '4 Pennsylvania Plaza',
-                  city: 'New York',
-                  state: 'NY',
-                  zip: 10001
-                },
-                coordinates: [40.7505045, -73.9934387],
-                seatingMapUrl: '/images/madisonSqGardenSeatMap.png'
-            });
-        })
-        .then(function (newVenue) {
-          return Event.create({
-            EventType: eventType,
-            Venue: newVenue,
-            date: new Date()
-          });
-        });
-  };
-
 	describe('Get request', function () {
 		it('should get all events', function (done) {
-      createEvents(2)
+      eventCreator.createEvents(2)
       .then(function (events) {
         guestAgent.get('/api/events')
         .expect(200)
@@ -93,7 +54,7 @@ describe('Events Route', function () {
 		});
 
 		it('should get an event by id', function (done) {
-      createEvent()
+      eventCreator.createEvent()
       .then(function (createdEvent) {
         guestAgent.get('/api/events/' + createdEvent._id)
         .end(function(err, res){
@@ -107,7 +68,7 @@ describe('Events Route', function () {
 	});
 
 	it('should create a new event', function (done) {
-    createEvent()
+    eventCreator.createEvent()
     .then(function (createdEvent) {
       guestAgent.post('/api/events')
       .send({Venue: createdEvent.Venue._id, EventType: createdEvent.EventType._id, date: new Date()})
@@ -126,7 +87,7 @@ describe('Events Route', function () {
 	});
 
   it('should update an event', function (done) {
-    createEvent()
+    eventCreator.createEvent()
     .then(function (createdEvent) {
       var date = new Date(1984, 5, 19);
       guestAgent.put('/api/events/' + createdEvent._id)
@@ -147,9 +108,9 @@ describe('Events Route', function () {
 
   it('should delete an event', function (done) {
 
-    createEvent().
+    eventCreator.createEvent().
     then(function (createdEvent) {
-  		guestAgent.delete('/api/events/' + createdEvent._id)
+      guestAgent.delete('/api/events/' + createdEvent._id)
       .expect(204)
       .end(function(err, res) {
         guestAgent.get('/api/events')

@@ -28,7 +28,7 @@ router.get('/:id',function(req,res){
 });
 
 router.get('/:id/events',function(req,res){
-	Event.find({"venue": req.venue._id}).populate('EventType').exec()
+	Event.find({"Venue": req.venue._id}).populate('EventType').exec()
 	.then(function (events) {
 		res.send(events);
 	});

@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Event = mongoose.model('Event');
 
 router.param('id',function(req,res,next,id){
-	Event.findOne({"_id": id}).populate('venue').then(
+	Event.findOne({"_id": id}).populate('Venue EventType').then(
 		function(e){
 			req.e = e;
 			next();
@@ -17,7 +17,7 @@ router.param('id',function(req,res,next,id){
 });
 
 router.get('/',function(req,res){
-	Event.find().populate('venue').then(function(e){
+	Event.find().populate('Venue EventType').then(function(e){
 		res.json(e);
 	});
 });

@@ -303,24 +303,6 @@ var seedTickets = function() {
     var userDict={};
 
     var tickets = [{
-        eventProduct: 'BSB',
-        seller: 'chsea@fsa.com',
-        buyer: 'obama@gmail.com',
-        price: '1000',
-        dateSold: new Date(2012,9,26,20,0,0)
-    },
-    {
-        eventProduct: 'BSB',
-        seller: 'obama@gmail.com',
-        buyer: 'kobe@riot.com',
-        price: '1000',
-        sold: new Date(2009,9,26,20,0,0)
-    },
-    {
-        eventProduct: 'BSB',
-        seller: 'obama@gmail.com',
-        price: '1000'
-    },{
         eventProduct: 'Hamilton',
         seller: 'obama@gmail.com',
         price: '1000'
@@ -414,9 +396,9 @@ var seedTickets = function() {
     ];
 
     var eventIds = {};
-    return Event.find().then(function(events) {
+    return Event.find().populate('EventType').then(function(events) {
       events.forEach(function(event){
-        eventIds[event.name] = event._id;
+        eventIds[event.EventType.name] = event._id;
       });
       return User.find().exec();
     }).then(function(users) {
@@ -467,9 +449,9 @@ connectToDb.then(function() {
         .then(function(){
           return seedEvents();
         })
-        // .then(function(events){
-        //   return seedTickets();
-        // })
+        .then(function(events){
+          return seedTickets();
+        })
         .then(function(tickets) {
           console.log(chalk.green('Seeding was successful!'));
           process.kill(0);

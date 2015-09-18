@@ -58,7 +58,7 @@ router.delete('/:id',function(req,res,next){
 });
 
 router.get('/:id/dates',function(req,res){
-	Event.find({"EventType": req.eType._id}).populate('EventType')
+	Event.find({"EventType": req.eType._id})
 		.then(function(list){res.send(list); });
 });
 
