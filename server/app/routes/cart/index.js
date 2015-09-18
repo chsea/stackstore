@@ -34,8 +34,8 @@ router.get('/', function(req, res, next){
 });
 
 router.post('/checkout', function(req, res, next){
-	console.log(req.body);
 	//check if logged in
+	console.log('cart: ', req.session.cart);
 	var userPromise = req.session.passport.user ? 
 	//if logged in, update user
 		AuthUser.findById(req.session.passport.user).then(function(user){
@@ -47,21 +47,28 @@ router.post('/checkout', function(req, res, next){
 		User.findOne({email: req.body.email}).then(function(user){
 			//update anonymous user's billing address if found
 			if(user){
+				console.log('user updated!');
 				user.address = req.body.address;
+				user.firstName = req.body.firstName;
+				user.lastName = req.body.lastName;
 				return user.save();
 			}
 			//if the email is not in the database, create an anonymous user
 			else{
+				console.log('user created');
 				return User.create({
 					address: req.body.address,
+					firstName: req.body.firstName,
+					lastName: req.body.lastName,
 					email: req.body.email
 				});
 			}
 		});
 
 	userPromise.then(function(user){
-		functionPromise.map(req.session.cart, function(ticketId){
+		Promise.map(req.session.cart, function(ticketId){
 			return Ticket.findById(ticketId).then(function(ticket){
+				console.log('ticket: ',ticket);
 				ticket.dateSold = new Date();
 				ticket.buyer = user._id;
 				return ticket.save();

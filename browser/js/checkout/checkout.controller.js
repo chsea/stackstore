@@ -14,9 +14,11 @@ app.controller('checkoutCtrl',function($scope, $state, $q, CartFactory, cart, Tr
 
     $scope.submitCheckout = function (checkoutInfo) {
         $scope.error = null;
-        console.log('hi');
 
-        CartFactory.checkout(checkoutInfo).then(console.log);
+        CartFactory.checkout(checkoutInfo)
+        .then(function(data){
+        	console.log(data);
+        });
     };
 
 });
