@@ -51,7 +51,7 @@ authUser.pre('save', function(next) {
 
 });
 
-authUser.path("email").validate(function(email) {
+User.path("email").validate(function(email) {
     return (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).test(email);
 }, "Invalid Email Address");
 

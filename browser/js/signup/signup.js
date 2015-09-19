@@ -8,12 +8,12 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('SignupCtrl', function ($scope, $state, User, AuthService) {
+app.controller('SignupCtrl', function ($scope, $state, AuthUser, AuthService) {
 	$scope.signup = {};
 
 	$scope.sendSignup = function () {
 		if ($scope.isSeller) $scope.signup.roles = ['seller', 'buyer'];
-		User.create($scope.signup)
+		AuthUser.create($scope.signup)
 		.then(function (createdUser) {
 			var loginInfo = {email: $scope.signup.email, password: $scope.signup.password};
 			return AuthService.login(loginInfo);

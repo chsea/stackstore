@@ -4,9 +4,9 @@ app.config(function ($stateProvider) {
     templateUrl: 'js/user/settings.html',
     controller: 'SettingsController',
     resolve: {
-      user: function(User, AuthService){
+      user: function(AuthUser, AuthService){
         return AuthService.getLoggedInUser().then(function(user){
-          return User.find(user._id);
+          return AuthUser.find(user._id);
         });
       }
     }
@@ -17,10 +17,13 @@ app.controller('SettingsController', function($scope, user, User) {
 	$scope.user = {
     firstName: user.firstName,
     lastName: user.lastName,
-    email: user.email
+    email: user.email,
+    address: user.address
   };
 
   $scope.newPassword = '';
+
+  $scope.isSeller = user.isSeller;
 
   $scope.submitForm = function() {
     if ($scope.newPassword) $scope.user.password = newPassword;

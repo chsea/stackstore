@@ -77,7 +77,11 @@ var seedAuthUsers = function() {
           city: 'Santa Monica',
           state: 'CA',
           zip: '90012'
-        }
+        },
+        roles: [
+          'buyer',
+          'seller'
+        ]
     }, {
         email: 'cristina@fsa.com',
         password: 'millenium',
@@ -88,7 +92,11 @@ var seedAuthUsers = function() {
           city: 'Santa Monica',
           state: 'CA',
           zip: '90012'
-        }
+        },
+        roles: [
+          'buyer',
+          'seller'
+        ]
     }, {
         email: 'chsea@fsa.com',
         password: 'bsbforlife',
@@ -99,7 +107,11 @@ var seedAuthUsers = function() {
           city: 'Santa Monica',
           state: 'CA',
           zip: '90012'
-        }
+        },
+        roles: [
+          'buyer',
+          'seller'
+        ]
     }, {
         email: 'danielp@fsa.com',
         password: 'millenium',
@@ -110,7 +122,11 @@ var seedAuthUsers = function() {
           city: 'Santa Monica',
           state: 'CA',
           zip: '90012'
-        }
+        },
+        roles: [
+          'buyer',
+          'seller'
+        ]
     }, {
         email: 'danielm@fsa.com',
         password: 'millenium',
@@ -328,11 +344,11 @@ var seedTickets = function() {
         price: '1000'
     }, {
         eventProduct: 'Stromae and Janelle Monae',
-        seller: 'danielm@fsa.com',
+        seller: 'danielp@fsa.com',
         price: '75'
     }, {
         eventProduct: 'Stromae and Janelle Monae',
-        seller: 'danielm@fsa.com',
+        seller: 'danielp@fsa.com',
         price: '75'
     }, {
         eventProduct: 'Washington Nationals at New York Mets',
@@ -382,14 +398,6 @@ var seedTickets = function() {
         eventProduct: 'Washington Nationals at New York Mets',
         seller: 'chsea@fsa.com',
         price: '50'
-    }, {
-        eventProduct: 'Rudimental',
-        seller: 'testing@fsa.com',
-        price: '25'
-    }, {
-        eventProduct: 'Rudimental',
-        seller: 'testing@fsa.com',
-        price: '25'
     }
     ];
 

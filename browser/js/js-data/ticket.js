@@ -17,6 +17,11 @@ app.factory('Ticket', function(DS, $state) {
 				}]
 			},
 		},
+		computed: {
+			sold: ['buyer', function(buyer) {
+				return Boolean(buyer);
+			}]
+		},
 		methods: {
 			go: function() {
 				$state.go('ticket', {

@@ -10,16 +10,13 @@ app.config(function ($stateProvider) {
         users: function(User) {
           return User.findAll();
         },
-        user: function(AuthService) {
-          return AuthService.isAdmin();
-        },
         ticketsForSale: function(Ticket, events, users, AuthService){
           return AuthService.getLoggedInUser()
           .then(function(user){
-            return Ticket.findAll({seller: user._id, sold: false});
+            return Ticket.findAll({seller: user._id});
           }).then(function(tickets) {
             return tickets.filter(function(ticket) {
-              return !ticket.expired();
+              return !ticket.expired() && !ticket.sold;
             });
           });
         },
@@ -35,8 +32,7 @@ app.config(function ($stateProvider) {
         }
       }
   });
-}).controller('ActiveController', function($scope, $state, ticketsForSale, ticketsBought, Ticket, user) {
-  console.log(user);
+}).controller('ActiveController', function($scope, $state, ticketsForSale, ticketsBought, Ticket) {
   $scope.ticketsForSale = ticketsForSale;
   $scope.ticketsBought = ticketsBought;
   $scope.removeTicket = function(ticket) {
