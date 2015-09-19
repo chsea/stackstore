@@ -204,6 +204,51 @@ var seedVenues = function() {
             zip: 11217
         },
         coordinates: [40.6825236,-73.9750134]
+    }, {
+        name: "MetLife Stadium", 
+        address: {
+            streetAddress: "1 MetLife Stadium Dr",
+            city: "East Rutherford",
+            state: "NJ", 
+            zip: 07073,
+        }, 
+        coordinates: [40.8128397,-74.0742091]
+    }, {
+        name: "Hammerstein Ballroom", 
+        address: {
+            streetAddress: "311 W 34th St",
+            city: "New York",
+            state: "NY", 
+            zip: 10001,
+        }, 
+        coordinates: [40.7529135,-73.9941388]
+    }, {
+        name: "Carnegie Hall", 
+        address: {
+            streetAddress: "881 7th Ave",
+            city: "New York",
+            state: "NY", 
+            zip: 10019,
+        }, 
+        coordinates: [40.7651258,-73.9799236]
+    }, {
+        name: "The Javits Center", 
+        address: {
+            streetAddress: "655 W 34th St",
+            city: "New York",
+            state: "NY", 
+            zip: 10001,
+        }, 
+        coordinates: [40.7579367,-74.0024897]
+    }, {
+        name: "Music Hall of Williamsburg", 
+        address: {
+            streetAddress: "66 N 6th St",
+            city: "Brooklyn",
+            state: "NY", 
+            zip: 11211,
+        }, 
+        coordinates: [40.7191396,-73.9617418]
     }];
 
     return Venue.createAsync(venues);
@@ -228,6 +273,32 @@ var seedEventTypes = function () {
     }, {
         name: 'Rudimental',
         category: 'Concert'
+    }, {
+        name: "R. Kelly", 
+        category:"Concert"
+    }, {
+        name: "Ariana Grande with Prince Royce", 
+        category: "Concert"
+    }, {
+        name: "Ariana Grande", 
+        category: "Concert"
+    }, {
+        name: "Marc Anthony and Carlos Vives", 
+        category: "Concert"
+    }, {
+        name: "New York Comic Con", 
+        category: "Conference"
+    }, {
+        name: "Gwen Stefani", category: "Concert"
+    }, {
+        name: "Daddy Yankee", 
+        category: "Concert"
+    }, {
+        name: "Billy Joel", 
+        category:"Concert"
+    }, {
+        name: "The Weeknd", 
+        category:"Concert"
     }];
 
     return EventType.createAsync(eventTypes);
@@ -242,52 +313,112 @@ var seedEvents = function() {
     var eventTypeDict = {};
     var events = [{
         eventTypeName: 'Stromae and Janelle Monae',
-        date: new Date(2015, 10, 1, 20, 0, 0),
+        date: new Date(2015, 9, 1, 20, 0, 0),
         venueName: 'Madison Square Garden'
     }, {
         eventTypeName: 'Hamilton',
-        date: new Date(2015,9,24,19,0,0), // thurs 9/24 @ 7pm
+        date: new Date(2015,8,24,19,0,0), // thurs 9/24 @ 7pm
         venueName: 'Richard Rodgers Theatre'
     }, {
         eventTypeName: 'Hamilton',
-        date: new Date(2015,9,25,20,0,0), // fri 9/25 @ 8pm
+        date: new Date(2015,8,25,20,0,0), // fri 9/25 @ 8pm
         venueName: 'Richard Rodgers Theatre'
     }, {
         eventTypeName: 'Hamilton',
-        date: new Date(2015,9,26,14,0,0), // sat 9/26 @ 2pm
+        date: new Date(2015,8,26,14,0,0), // sat 9/26 @ 2pm
         venueName: 'Richard Rodgers Theatre'
     }, {
         eventTypeName: 'Hamilton',
-        date: new Date(2015,9,26,20,0,0), // sat 9/26 @ 8pm
+        date: new Date(2015,8,26,20,0,0), // sat 9/26 @ 8pm
         venueName: 'Richard Rodgers Theatre'
     }, {
         eventTypeName: 'Hamilton',
-        date: new Date(2015,9,27,15,0,0), // sun 9/27 @ 3pm
+        date: new Date(2015,8,27,15,0,0), // sun 9/27 @ 3pm
         venueName: 'Richard Rodgers Theatre'
     }, {
         eventTypeName: 'Hamilton',
-        date: new Date(2015,9,29,19,0,0), // tues 9/29 @ 7pm
+        date: new Date(2015,8,29,19,0,0), // tues 9/29 @ 7pm
         venueName: 'Richard Rodgers Theatre'
     }, {
         eventTypeName: 'Hamilton',
-        date: new Date(2015,9,30,14,0,0), // wed 9/30 @ 2pm
+        date: new Date(2015,8,30,14,0,0), // wed 9/30 @ 2pm
         venueName: 'Richard Rodgers Theatre'
     }, {
         eventTypeName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,2,19,10,0), // fri oct 2 @ 7:10pm
+        date: new Date(2015,9,2,19,10,0), // fri oct 2 @ 7:10pm
         venueName: 'Citi Field'
     }, {
         eventTypeName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,3,19,10,0), // sat oct 3 @ 7:10pm
+        date: new Date(2015,9,3,19,10,0), // sat oct 3 @ 7:10pm
         venueName: 'Citi Field'
     }, {
         eventTypeName: 'Washington Nationals at New York Mets',
-        date: new Date(2015,10,4,15,10,0), // sun oct 4 @ 3:10pm
+        date: new Date(2015,9,4,15,10,0), // sun oct 4 @ 3:10pm
         venueName: 'Citi Field'
     }, {
         eventTypeName: 'Rudimental',
-        date: new Date(2015,9,29,19,0,0),
+        date: new Date(2015,8,29,19,0,0),
         venueName: 'Webster Hall'
+    }, {
+        eventTypeName: "R. Kelly",
+        venueName: "Barclays Center",
+        date: new Date(2015,8,25,20,0,0) // Fri Sep 25 at 8pm
+    }, {
+        eventTypeName: "Ariana Grande with Prince Royce",
+        venueName: "Barclays Center",
+        date: new Date(2015,8,26,19,30,0) // Sat Sep 26 at 7:30pm
+    }, {
+        eventTypeName: "Ariana Grande",
+        venueName: "Barclays Center",
+        date: new Date(2015,8,27,19,30,0) // Sun Sep 27 at 7:30pm 
+    }, {
+        eventTypeName: "Marc Anthony and Carlos Vives",
+        venueName: "Barclays Center",
+        date: new Date(2015,9,8,20,0,0) // Thurs Oct 8 at 8pm
+    }, {
+        eventTypeName: "New York Comic Con",
+        venueName: "The Javits Center",
+        date: new Date(2015,9,8,10,0,0) // Thurs Oct 8 at 10am (all day) 
+    }, {
+        eventTypeName: "New York Comic Con",
+        venueName: "The Javits Center",
+        date: new Date(2015,9,9,10,0,0) // Fri Oct 9 at 10am (all day)
+    }, {
+        eventTypeName: "New York Comic Con",
+        venueName: "The Javits Center",
+        date: new Date(2015,9,10,10,0,0) // Sat Oct 10 at 10am (all day)
+    }, {
+        eventTypeName: "New York Comic Con",
+        venueName: "The Javits Center",
+        date: new Date(2015,9,11,10,0,0) // Sun Oct 11 at 10am (all day)
+    }, {
+        eventTypeName: "Gwen Stefani",
+        venueName: "Hammerstein Ballroom",
+        date: new Date(2015,9,17,20,0,0) // Sat Oct 17 at 8pm 
+    }, {
+        eventTypeName: "Daddy Yankee",
+        venueName: "Madison Square Garden",
+        date: new Date(2015,8,19,20,0,0) // Sat Sep 19 at 8pm
+    }, {
+        eventTypeName: "Billy Joel",
+        venueName: "Madison Square Garden",
+        date: new Date(2015,8,26,20,0,0) // Sat Sep 26 at 8pm
+    }, {
+        eventTypeName: "Billy Joel",
+        venueName: "Madison Square Garden",
+        date: new Date(2015,9,21,8,0,0) // Sat Oct 21 at 8pm
+    }, {
+        eventTypeName: "The Weeknd",
+        venueName: "Barclays Center",
+        date: new Date(2015,10,16,19,30,0) // Mon Nov 16 at 7:30pm
+    }, {
+        eventTypeName: "The Weeknd",
+        venueName: "Barclays Center",
+        date: new Date(2015,10,18,19,30,0) // Wed Nov 18 at 7:30pm 
+    }, {
+        eventTypeName: "The Weeknd",
+        venueName: "Barclays Center",
+        date: new Date(2015,10,19,19,30,0) // Thurs Nov 19 at 7:30pm 
     }];
 
     return Venue.find({}).select('name _id')
@@ -466,6 +597,6 @@ connectToDb.then(function() {
         })
         .catch(function(err) {
             console.error(err);
-            process.kill(1);
+            process.kill(0);
         });
 });
