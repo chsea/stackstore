@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 // Require in all models.
 require('../../../server/db/models');
 
-var EventProduct = mongoose.model('EventProduct');
+var EventProduct = mongoose.model('Event');
 var Ticket = mongoose.model('Ticket');
 var User = mongoose.model('User');
 
@@ -22,7 +22,12 @@ describe('Ticket model', function () {
   beforeEach('create user/event/tickets', function(done) {
     var userId;
     User
-    .create({firstName: 'Omri', lastName: 'Bernstein', email: 'zeke@zeke.zeke', password: 'groovy'})
+    .create({firstName: 'Omri', lastName: 'Bernstein', email: 'zeke@zeke.zeke', password: 'groovy', address: {
+      street: '123 League Drive',
+      city: 'Santa Monica',
+      state: 'CA',
+      zip: '90012'
+    }})
     .then(function(user) {
       userId = user._id;
       return EventProduct.create({name: 'BSB at MSG', date: new Date()});

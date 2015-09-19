@@ -1,0 +1,37 @@
+<form name="editSettings" ng-submit="editSettings.$valid && submitForm()">
+  <md-input-container>
+    <label>First Name:</label>
+    <input type="text" ng-model="user.firstName">
+  </md-input-container>
+  <md-input-container>
+    <label>Last Name:</label>
+    <input type="text" ng-model="user.lastName">
+  </md-input-container>
+  <md-input-container>
+    <label>Email:</label>
+    <input type="text" ng-model="user.email">
+  </md-input-container>
+  <md-input-container>
+    <label>Password:</label>
+    <input type="password" ng-model="newPassword">
+  </md-input-container>
+  <div>Billing Address</div>
+  <md-input-container>
+    <label>Street</label>
+    <input name="street" ng-model="user.address.street" required>
+  </md-input-container>
+  <md-input-container>
+    <label>City</label>
+    <input name="city" ng-model="user.address.city" required>
+  </md-input-container>
+  <md-input-container>
+    <label>State</label>
+    <input name="state" ng-model="user.address.state" required>
+  </md-input-container>
+  <md-input-container>
+    <label>Zip Code</label>
+    <input name="zip" ng-model="user.address.zip" ng-pattern="/\d{5}/" required>
+  </md-input-container>
+  <md-checkbox ng-model="becomeSeller" ng-show="!isSeller">Do you want to become a seller?</md-checkbox>
+  <md-button type="submit">Submit changes!</md-button>
+</form>

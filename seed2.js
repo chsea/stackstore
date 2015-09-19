@@ -1,12 +1,14 @@
 var mongoose = require('mongoose');
-var models = require('./server/db/')
+var models = require('./server/db/');
+var User = mongoose.model('User');
+var AuthUser = mongoose.model('AuthUser');
 var EventProduct = mongoose.model('EventProduct');
 var Ticket = mongoose.model('Ticket');
+var _ = require('lodash');
 
-EventProduct
-.create({name: 'BSB2 at MSG', date: new Date(2019, 11, 19)})
-.then(function(event) {
-  return Ticket.create({buyer: '55f9bfd58027a45b111b1a82', seller: '55f9bfd58027a45b111b1a82', eventProduct: event._id});
-}).then(function(ticket) {
-  console.log('ticket', ticket);
+User.findById("55fc5a8318baff612b828c38").then(function(user) {
+  user.roles.push('admin');
+  user.save().then(function(user) {
+    console.log('saved');
+  });
 });

@@ -7,7 +7,7 @@
     	<th>date</th>
     	<th>time</th>
     	<tr ng-repeat="e in events">
-    		<td><a ui-sref="event({id:e._id})">{{ e.name }}</a></td>
+    		<td><a ui-sref="event({id:e._id})">{{ e.EventType.name }}</a></td>
     		<td>{{ e.date | date:'mediumDate' }}</td>
     		<td>{{ e.date | date:'shortTime' }}</td>
     	</tr>

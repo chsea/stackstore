@@ -19,7 +19,19 @@ app.factory('CartFactory', function ($http) {
 			.then(function(cart){
 				return cart.data;
 			});
-    	}
+    	},
+
+        checkout: function(formData){
+            return $http.post('/api/cart/checkout', formData).then(function(res){
+                return res.data;
+            });
+        },
+
+        empty: function(){
+            return $http.delete('/api/cart').then(function(res){
+                return res.data;
+            });
+        }
 
     };
 

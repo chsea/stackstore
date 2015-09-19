@@ -2,22 +2,24 @@
 	<div flex>
 		<md-content class="md-padding">
 			<md-card>
-			    <img ng-src="{{ eventData.imgUrl }}" class="md-card-image" alt="{{ eventData.name }}"/>
+			    <img ng-src="{{ eventData.EventType.imgUrl }}" class="md-card-image" alt="{{ eventData.EventType.name }}"/>
 			    <md-card-content>
-			    	<h2 class="md-title">{{ eventData.name }}</h2>
-			    	<p><a ui-sref="venue({id:eventData.venue._id})">{{ eventData.venue.name }}</a></p>
+			    	<h2 class="md-title">{{ eventData.EventType.name }}</h2>
+			    	<p><a ui-sref="venue({id:eventData.Venue._id})">{{ eventData.Venue.name }}</a></p>
 			    	<p>{{ eventData.date | date:'mediumDate' }}</p>
 			    	<p>{{ eventData.date | date:'shortTime' }}</p>
 			    </md-card-content>
 			</md-card>
 		</md-content>
 	</div>
-    
+
 	<tickets-for-event></tickets-for-event>
 	<more-dates></more-dates>
 
 </div>
 
+<div ng-show="loggedIn"><a ui-sref="event.create">Create a ticket!</a></div>
+<ui-view></ui-view>
 
 <md-button ng-click="openBottomSheet()">
 Open a Bottom Sheet!

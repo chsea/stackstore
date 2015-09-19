@@ -1,4 +1,3 @@
-// JSData version
 app.config(function($stateProvider) {
 	$stateProvider.state('event', {
 		url: '/event/:id',
@@ -8,7 +7,10 @@ app.config(function($stateProvider) {
 			eventData: function($stateParams, Event){
 				// GET --> /api/events
 				return Event.find($stateParams.id);
-			}
+			},
+			user: function(User, AuthService){
+        return AuthService.getLoggedInUser();
+      }
 		}
 	});
 	$stateProvider.state('events', {
@@ -19,7 +21,10 @@ app.config(function($stateProvider) {
 			eventData: function(Event){
 				// GET --> /api/events
 				return Event.findAll();
-			}
+			},
+			user: function(User, AuthService){
+        return AuthService.getLoggedInUser();
+      }
 		}
 	});
 });

@@ -8,86 +8,119 @@ var mongoose = require('mongoose');
 // Require in all models.
 require('../../../server/db/models');
 
-var EventProduct = mongoose.model('EventProduct');
+var EventType = mongoose.model('EventType');
+var Event = mongoose.model('Event');
+var Venue = mongoose.model('Venue');
 var Ticket = mongoose.model('Ticket');
 var User = mongoose.model('User');
 
-describe('Event model', function () {
+var testEvent;
+var testVenue;
+describe('Event model', function() {
 
-  beforeEach('Establish DB connection', function (done) {
-      if (mongoose.connection.db) return done();
-      mongoose.connect(dbURI, done);
-  });
+    beforeEach('Establish DB connection', function(done) {
+        if (mongoose.connection.db) return done();
+        mongoose.connect(dbURI, done);
+    });
 
-  afterEach('Clear test database', function (done) {
-      clearDB(done);
-  });
+    afterEach('Clear test database', function(done) {
+        clearDB(done);
+    });
 
-  it('should exist', function () {
-      expect(EventProduct).to.be.a('function');
-  });
+    it('should exist', function() {
+        expect(Event).to.be.a('function');
+    });
 
-  describe("creation", function () {
+    describe("creation", function() {
 
-    var eventRequiredFieldsTests = [
-      {eventObj: {date: new Date(), category: 'Concert'}, reqField: 'name'},
-      {eventObj: {name: "BSB at MSG", category: 'Concert'}, reqField: "date"}
-    ];
+      beforeEach('Establish test EventType and Venue', function(done){
+        EventType.create({
+                name: 'Backstreet Boys'
+            })
+            .then(function(created) {
+                testEvent = created;
+                return Venue.create({
+                    name: 'Madison Square Garden',
+                    address: {
+                      streetAddress: '4 Pennsylvania Plaza',
+                      city: 'New York',
+                      state: 'NY',
+                      zip: 10001
+                    },
+                    coordinates: [40.7505045, -73.9934387],
+                    seatingMapUrl: '/images/madisonSqGardenSeatMap.png'
+                });
+            })
+            .then(function(created){testVenue=created; done(); })
+            .then(null, done);
+      });
 
-    eventRequiredFieldsTests.forEach(function (test) {
-      it("should require " + test.reqField, function (done) {
-        EventProduct.create(test.eventObj)
-        .then(function(){
-          done(new Error("Event should require a " + test.reqField + "."));
-        })
-        .then(null, function(err){
-          try {
-              expect(err.errors.hasOwnProperty(test.reqField)).to.equal(true);
-              expect(err.errors[test.reqField].name).to.equal('ValidatorError');
-              expect(err.errors[test.reqField].properties.path).to.equal(test.reqField);
-              expect(err.errors[test.reqField].properties.type).to.equal('required');
-              done();
-          } catch (e) {
-              console.error("ERROR:", e);
-              done(e);
-          }
+        var getReqFieldTests = function (reqField) {
+          var testObjs = {
+            "EventType": {date: new Date(), Venue: testVenue._id},
+            "date": {EventType: testEvent._id, Venue: testVenue._id},
+            "Venue": {EventType: testEvent._id, date: new Date()}
+          };
+          return testObjs[reqField];
+        };
+
+        var eventRequiredFieldsTests = ['EventType', 'date', 'Venue'];
+
+        eventRequiredFieldsTests.forEach(function(reqField) {
+            it("should require " + reqField, function(done) {
+                Event.create( getReqFieldTests(reqField) )
+                    .then(function() {
+                        done(new Error("Event should require a " + reqField + "."));
+                    })
+                    .then(null, function(err) {
+                        try {
+                            expect(err.errors.hasOwnProperty(reqField)).to.equal(true);
+                            expect(err.errors[reqField].name).to.equal('ValidatorError');
+                            expect(err.errors[reqField].properties.path).to.equal(reqField);
+                            expect(err.errors[reqField].properties.type).to.equal('required');
+                            done();
+                        } catch (e) {
+                            console.error("ERROR:", e);
+                            done(e);
+                        }
+                    });
+            });
         });
-      });
     });
 
-    it('should save category with the correct default value', function(done) {
-      EventProduct.create({name: 'BSB at MSG', date: new Date()}).then(function(e) {
-        expect(e.category).to.equal('Other');
-        done();
-      });
+    describe("statics", function() {
+      // none yet
     });
-  });
 
-  describe("statics", function() {
-    it('should have a function that finds and updates a document', function(done) {
-      EventProduct
-      .create({name: 'BSB at MSG', date: new Date()})
-      .then(function(e) {
-        return EventProduct.findAndUpdate(e._id, {name: 'KaChing Gallery Opening'});
-      })
-      .then(function(e) {
-        return EventProduct.findById(e._id).exec();
-      }).then(function(e) {
-        expect(e.name).to.equal('KaChing Gallery Opening');
-        done();
-      }).then(null, done);
+    describe("virtuals", function(done) {
+        it('should have a property that denotes if the event has expired', function(done) {
+            var newDate = new Date(1990, 9, 17);
+            EventType.create({
+                  name: 'Backstreet Boys'
+              })
+              .then(function(created) {
+                  testEvent = created;
+                  return Venue.create({
+                      name: 'Madison Square Garden',
+                      address: {
+                        streetAddress: '4 Pennsylvania Plaza',
+                        city: 'New York',
+                        state: 'NY',
+                        zip: 10001
+                      },
+                      coordinates: [40.7505045, -73.9934387],
+                      seatingMapUrl: '/images/madisonSqGardenSeatMap.png'
+                  });
+              })
+              .then(function(created){
+                testVenue=created; 
+                return Event.create({EventType: testEvent._id, Venue: testVenue._id, date: new Date(1995, 11, 19)});
+              })
+              .then(function(e) {
+                  expect(e.expired).to.equal(true);
+                  done();
+              })
+              .then(null, done);
+        });
     });
-  });
-
-  describe("virtuals", function(done) {
-    it('should have a property that denotes if the event has expired', function(done) {
-      EventProduct
-      .create({name: 'BSB at MSG', date: new Date(1995, 11, 19)})
-      .then(function(e) {
-        expect(e.expired).to.equal(true);
-        done();
-      })
-      .then(null, done);
-    });
-  });
 });
