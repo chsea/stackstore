@@ -11,6 +11,8 @@ router.use('/members', require('./members'));
 
 router.use('/events', require('./events'));
 
+router.use('/eventtypes', require('./eventtypes'));
+
 router.use('/venues',require('./venues'));
 
 router.use('/tickets',require('./tickets'));

@@ -7,9 +7,11 @@
 			<p>Date: {{ticket.eventProduct.date}}</p>
 			<p>Venue: {{ticket.eventProduct.venue.name}}</p>
 			<p>Seller: {{ticket.seller.firstName}} {{ticket.seller.lastName}}</p>
+			<p>Price: {{ticket.price}}</p>
 			<button class='btn' ng-click='removeTicket(ticket._id)'>Remove from cart</button>
 	    </md-card-content>
 	</md-card>
+	<p>Total: {{total}}</p>
 </section>
 <form id="checkout" name="checkoutForm" ng-submit="checkoutForm.$valid && submitCheckout(checkout)">
 
@@ -19,35 +21,35 @@
 
     <md-input-container class="form-group">
         <label for="email">Email</label>
-        <input type="text" ng-model="checkout.email" class="form-control" id="email" placeholder="Enter email">
+        <input type="text" ng-model="checkout.email" class="form-control" id="email">
     </md-input-container>
     <md-input-container class="form-group">
         <label for="Street">Street</label>
-        <input type="text" ng-model="checkout.address.street" class="form-control" id="street" placeholder="Street">
+        <input type="text" ng-model="checkout.address.street" class="form-control" id="street">
     </md-input-container>
     <md-input-container class="form-group">
         <label for="City">City</label>
-        <input type="text" ng-model="checkout.address.city" class="form-control" id="city" placeholder="City">
+        <input type="text" ng-model="checkout.address.city" class="form-control" id="city">
     </md-input-container>
     <md-input-container class="form-group">
         <label for="State">State</label>
-        <input type="text" ng-model="checkout.address.state" class="form-control" id="state" placeholder="State">
+        <input type="text" ng-model="checkout.address.state" class="form-control" id="state">
     </md-input-container>
     <md-input-container class="form-group">
         <label for="Zip">Zip</label>
-        <input type="text" ng-model="checkout.address.zip" class="form-control" id="zip" placeholder="Zip">
+        <input type="text" ng-model="checkout.address.zip" class="form-control" id="zip">
     </md-input-container>
     <md-input-container class="form-group">
         <label for="firstName">First Name</label>
-        <input type="text" ng-model="checkout.firstName" class="form-control" id="firstName" placeholder="First Name">
+        <input type="text" ng-model="checkout.firstName" class="form-control" id="firstName">
     </md-input-container>
     <md-input-container class="form-group">
         <label for="lastName">Last Name</label>
-        <input type="text" ng-model="checkout.lastName" class="form-control" id="lastName" placeholder="Last Name">
+        <input type="text" ng-model="checkout.lastName" class="form-control" id="lastName">
     </md-input-container>
     <md-input-container class="form-group">
         <label for="creditCard">Moneys</label>
-        <input type="text" ng-model="moneys" class="form-control" id="moneys" placeholder="Moneys">
+        <input type="text" ng-model="moneys" class="form-control" id="moneys">
     </md-input-container>
     <md-button type="submit" class="btn btn-default" id='purchase-btn'>Purchase</md-button>
 </form>
