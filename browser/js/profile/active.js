@@ -2,7 +2,7 @@ app.config(function ($stateProvider) {
   $stateProvider.state('profile.active', {
       url: '/active',
       controller: 'ActiveController',
-      templateUrl: 'js/user/active.html',
+      templateUrl: 'js/profile/active.html',
       resolve: {
         events: function(Event) {
           return Event.findAll();

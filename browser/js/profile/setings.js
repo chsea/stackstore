@@ -1,7 +1,7 @@
 app.config(function ($stateProvider) {
   $stateProvider.state('profile.settings', {
     url: '/settings',
-    templateUrl: 'js/user/settings.html',
+    templateUrl: 'js/profile/settings.html',
     controller: 'SettingsController',
     resolve: {
       user: function(AuthUser, AuthService){

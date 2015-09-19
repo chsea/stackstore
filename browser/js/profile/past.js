@@ -2,7 +2,7 @@ app.config(function ($stateProvider) {
   $stateProvider.state('profile.past', {
       url: '/past',
       controller: 'PastController',
-      templateUrl: 'js/user/past.html',
+      templateUrl: 'js/profile/past.html',
       resolve: {
         events: function(Event) {
           return Event.findAll();

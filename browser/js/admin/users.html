@@ -1,0 +1,5 @@
+<div ng-repeat="user in users">
+  <user user='user'></user>
+  <div ><md-button ng-click='resetPw(user)'>Reset Password</md-button></div>
+  <div ng-show="!user.isAdmin"><md-button ng-click='promote(user)'>Promote to Admin</md-button></div>
+</div>
