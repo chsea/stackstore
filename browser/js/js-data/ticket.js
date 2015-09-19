@@ -5,16 +5,8 @@ app.factory('Ticket', function(DS, $state) {
 			belongsTo: {
 				events: {
 					localKey: 'eventProduct',
-					localField: 'eventInfo'
-				},
-				users: [{
-					localKey: 'seller',
-					localField: 'sellerInfo'
-				},
-				{
-					localKey: 'buyer',
-					localField: 'buyerInfo'
-				}]
+					localField: 'event'
+				}
 			},
 		},
 		computed: {
@@ -29,7 +21,7 @@ app.factory('Ticket', function(DS, $state) {
 				});
 			},
 			expired: function() {
-				return new Date() > new Date(this.eventInfo.date);
+				return new Date() > new Date(this.event.date);
 			}
 		}
 	});

@@ -25,19 +25,19 @@
     <div>Billing Address</div>
     <md-input-container>
       <label>Street</label>
-      <input name="street" ng-model="signup.address.street" required>
+      <input name="street" ng-model="signup.address.street">
     </md-input-container>
     <md-input-container>
       <label>City</label>
-      <input name="city" ng-model="signup.address.city" required>
+      <input name="city" ng-model="signup.address.city">
     </md-input-container>
     <md-input-container>
       <label>State</label>
-      <input name="state" ng-model="signup.address.state" required>
+      <input name="state" ng-model="signup.address.state" >
     </md-input-container>
     <md-input-container>
       <label>Zip Code</label>
-      <input name="zip" ng-model="signup.address.zip" ng-pattern="/\d{5}/" required>
+      <input name="zip" ng-model="signup.address.zip" ng-pattern="/\d{5}/">
     </md-input-container>
     <md-checkbox ng-model="isSeller">Are you a seller?</md-checkbox>
     <md-button type="submit">Submit</md-button>

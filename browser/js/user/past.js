@@ -7,10 +7,7 @@ app.config(function ($stateProvider) {
         events: function(Event) {
           return Event.findAll();
         },
-        users: function(User) {
-          return User.findAll();
-        },
-        ticketsSold: function(Ticket, events, users, AuthService){
+        ticketsSold: function(Ticket, events, AuthService){
           return AuthService.getLoggedInUser()
           .then(function(user){
             return Ticket.findAll({seller: user._id});
@@ -20,7 +17,7 @@ app.config(function ($stateProvider) {
             });
           });
         },
-        ticketsUnSold: function(Ticket, events, users, AuthService){
+        ticketsUnSold: function(Ticket, events, AuthService){
           return AuthService.getLoggedInUser()
           .then(function(user){
             return Ticket.findAll({seller: user._id});
