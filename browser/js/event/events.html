@@ -1,9 +1,6 @@
 <div id="events">
-	<md-grid-list md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
-        md-row-height-gt-md="1:1" md-row-height="2:2"
-        md-gutter="12px" md-gutter-gt-sm="8px" >
-		<md-grid-tile md-rowspan="1" md-colspan="6" ng-repeat="e in eventData | orderBy:'date' ">
-			<div flex><img ng-src="{{ e.EventType.imgUrl }}" height="90px"/></div>
+	<div layout="row" layout-margin layout-padding ng-repeat="e in eventData | orderBy:'date' ">
+			<div flex><img ng-src="{{ e.EventType.imgUrl }}" height="30px"/></div>
 			<div flex>
 				<h3>
 					<a ui-sref="event({id: e._id})">
@@ -15,6 +12,5 @@
 				<h3>{{ e.date | date:'mediumDate' }} {{ e.date | date:'shortTime' }}</h3>
 			</div>
 			<div flex><h3><a ui-sref="venue({id: e.Venue._id})">{{ e.Venue.name }}</a></h3></div>
-		</md-grid-tile>
-	</md-grid-list>
+	</div><!--layout row-->
 </div>
