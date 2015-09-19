@@ -9,15 +9,15 @@ var User = new Schema({
   lastName: {type: String, required: true},
   email: {type: String, required: true, unique: true},
   address: {
-    street: {type: String, required: true},
-    city: {type: String, required: true},
-    state: {type: String, required: true},
-    zip: {type: Number, required: true}
+    street: {type: String},
+    city: {type: String},
+    state: {type: String},
+    zip: {type: Number}
   }
 }, {collection: 'users', discriminatorKey: 'type'});
 
 var authUser = User.extend({
-  password: {type: String, required: true},
+  password: String,
   salt: String,
   roles: [String],
   twitter: {id: String, username: String, token: String, tokenSecret: String},
