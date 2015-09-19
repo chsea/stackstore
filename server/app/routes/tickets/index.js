@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var Ticket = mongoose.model('Ticket');
 
 router.param('id',function(req,res,next,id){
-	Ticket.findById(id).then(
+	Ticket.findById(id).populate('EventProduct User').then(
 		function(result){
 			req.ticket = result;
 			next();
@@ -18,7 +18,7 @@ router.param('id',function(req,res,next,id){
 });
 
 router.get('/',function(req,res){
-  Ticket.find(req.query).then(function(tickets){
+  Ticket.find(req.query).populate('seller buyer').then(function(tickets){
 		res.send(tickets);
 	});
 });
