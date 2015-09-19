@@ -14,11 +14,6 @@
 	<p>Total: {{total}}</p>
 </section>
 <form id="checkout" name="checkoutForm" ng-submit="checkoutForm.$valid && submitCheckout(checkout)">
-
-    <alert type="danger" ng-show="error">
-        {{ error }}
-    </alert>
-
     <md-input-container class="form-group">
         <label for="firstName">First Name</label>
         <input type="text" ng-model="checkout.firstName" class="form-control" id="firstName" required>
@@ -27,9 +22,9 @@
         <label for="lastName">Last Name</label>
         <input type="text" ng-model="checkout.lastName" class="form-control" id="lastName" required>
     </md-input-container>
-    <md-input-container class="form-group">
+    <md-input-container class="form-group" ng-show='!user'>
         <label for="email">Email</label>
-        <input type="text" ng-model="checkout.email" class="form-control" id="email" required>
+        <input type="text" ng-model="checkout.email" class="form-control" id="email" required ng-pattern='/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i'>
     </md-input-container>
     <md-input-container class="form-group">
         <label for="Street">Street</label>
@@ -45,7 +40,7 @@
     </md-input-container>
     <md-input-container class="form-group">
         <label for="Zip">Zip</label>
-        <input type="text" ng-model="checkout.address.zip" class="form-control" id="zip" required>
+        <input type="text" ng-model="checkout.address.zip" class="form-control" id="zip" required ng-pattern='/^\d{5}$/'>
     </md-input-container>
     <md-input-container class="form-group">
         <label for="creditCard">Credit Card</label>

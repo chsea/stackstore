@@ -31,7 +31,7 @@ app.controller('checkoutCtrl',function($scope, $state, $q, CartFactory, cart, Au
 		AuthService.getLoggedInUser().then(function(user){
 			$scope.checkout.firstName = user.firstName;
 			$scope.checkout.lastName = user.lastName;
-			$scope.checkout.email = user.email;
+			$scope.user = user;
 			if(user.address){
 				$scope.checkout.address.street = user.address.street;
 				$scope.checkout.address.city = user.address.city;
@@ -41,10 +41,7 @@ app.controller('checkoutCtrl',function($scope, $state, $q, CartFactory, cart, Au
 		});
 	}
 
-    $scope.error = null;
-
     $scope.submitCheckout = function (checkoutInfo) {
-        $scope.error = null;
 
         CartFactory.checkout(checkoutInfo)
         .then(function(data){
