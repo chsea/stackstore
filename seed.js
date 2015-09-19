@@ -81,7 +81,8 @@ var seedAuthUsers = function() {
         },
         roles: [
           'buyer',
-          'seller'
+          'seller',
+          'admin'
         ]
     }, {
         email: 'cristina@fsa.com',
@@ -299,6 +300,9 @@ var seedEventTypes = function () {
     }, {
         name: "The Weeknd", 
         category:"Concert"
+    }, {
+        name: 'BSB',
+        category: 'Concert'
     }];
 
     return EventType.createAsync(eventTypes);
@@ -314,6 +318,10 @@ var seedEvents = function() {
     var events = [{
         eventTypeName: 'Stromae and Janelle Monae',
         date: new Date(2015, 9, 1, 20, 0, 0),
+        venueName: 'Madison Square Garden'
+    },{
+        eventTypeName: 'BSB',
+        date: new Date(2014, 10, 1, 20, 0, 0),
         venueName: 'Madison Square Garden'
     }, {
         eventTypeName: 'Hamilton',
@@ -450,6 +458,22 @@ var seedTickets = function() {
     var userDict={};
 
     var tickets = [{
+        eventProduct: 'BSB',
+        seller: 'obama@gmail.com',
+        buyer: 'chsea@fsa.com',
+        sold: new Date(2014,5,26,20,0,0),
+        price: '1000'
+    },{
+        eventProduct: 'BSB',
+        buyer: 'obama@gmail.com',
+        seller: 'chsea@fsa.com',
+        sold: new Date(2014,5,26,20,0,0),
+        price: '1000'
+    },{
+        eventProduct: 'BSB',
+        seller: 'obama@gmail.com',
+        price: '1000'
+    },{
         eventProduct: 'Hamilton',
         seller: 'obama@gmail.com',
         price: '1000'
@@ -462,7 +486,7 @@ var seedTickets = function() {
         seller: 'chsea@fsa.com',
         buyer: 'obama@gmail.com',
         price: '700',
-        sold: new Date(1962,9,26,20,0,0)
+        sold: new Date(2014,9,26,20,0,0)
     }, {
         eventProduct: 'Hamilton',
         seller: 'chsea@fsa.com',

@@ -2,7 +2,14 @@
   <h1>Currently Selling:</h1>
   <div ng-repeat="ticket in ticketsForSale">
     <ticket ticket='ticket'></ticket>
-    <div><button ng-click="removeTicket(ticket)">Stop selling this ticket</button></div>
+    <form name="editForm" ng-show='ticket.edit' ng-submit="editForm.$valid && updatePrice(ticket)">
+      <md-input-container>
+          <label for="price">Price:</label>
+          <input type="number" step="0.01" ng-model="ticket.price">
+      </md-input-container>
+      <md-button type="submit" ng-show='ticket.edit'>Update Price</md-button>
+    </form>
+    <div><md-button ng-click='ticket.edit = true' ng-show='!ticket.edit'>Edit Price</md-button><md-button ng-click="removeTicket(ticket)">Stop selling this ticket</md-button></div>
   </div>
 
   <h1>Your Upcoming Tickets:</h1>
