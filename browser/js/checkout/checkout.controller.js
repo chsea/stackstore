@@ -1,4 +1,4 @@
-app.controller('checkoutCtrl',function($scope, $state, $q, CartFactory, cart){
+app.controller('checkoutCtrl',function($scope, $state, $q, CartFactory, cart, AuthService){
 	$scope.cart = cart;
 
 	$scope.total = cart.reduce(function(a, b){
@@ -26,6 +26,21 @@ app.controller('checkoutCtrl',function($scope, $state, $q, CartFactory, cart){
 	$scope.checkout = {
 		address: {}
 	};
+
+	if(AuthService.isAuthenticated()) {
+		AuthService.getLoggedInUser().then(function(user){
+			$scope.checkout.firstName = user.firstName;
+			$scope.checkout.lastName = user.lastName;
+			$scope.checkout.email = user.email;
+			if(user.address){
+				$scope.checkout.address.street = user.address.street;
+				$scope.checkout.address.city = user.address.city;
+				$scope.checkout.address.state = user.address.state;
+				$scope.checkout.address.zip = user.address.zip;
+			}
+		});
+	}
+
     $scope.error = null;
 
     $scope.submitCheckout = function (checkoutInfo) {
