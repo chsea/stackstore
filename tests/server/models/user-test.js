@@ -8,9 +8,9 @@ var mongoose = require('mongoose');
 // Require in all models.
 require('../../../server/db/models');
 
-var User = mongoose.model('User');
+var AuthUser = mongoose.model('AuthUser');
 
-describe('User model', function () {
+describe('Authenticated User model', function () {
 
     beforeEach('Establish DB connection', function (done) {
         if (mongoose.connection.db) return done();
@@ -22,7 +22,7 @@ describe('User model', function () {
     });
 
     it('should exist', function () {
-        expect(User).to.be.a('function');
+        expect(AuthUser).to.be.a('function');
     });
 
     describe('password encryption', function () {
@@ -30,11 +30,11 @@ describe('User model', function () {
         describe('generateSalt method', function () {
 
             it('should exist', function () {
-                expect(User.generateSalt).to.be.a('function');
+                expect(AuthUser.generateSalt).to.be.a('function');
             });
 
             it('should return a random string basically', function () {
-                expect(User.generateSalt()).to.be.a('string');
+                expect(AuthUser.generateSalt()).to.be.a('string');
             });
 
         });
@@ -63,11 +63,11 @@ describe('User model', function () {
             });
 
             it('should exist', function () {
-                expect(User.encryptPassword).to.be.a('function');
+                expect(AuthUser.encryptPassword).to.be.a('function');
             });
 
             it('should call crypto.createHash with "sha1"', function () {
-                User.encryptPassword('asldkjf', 'asd08uf2j');
+                AuthUser.encryptPassword('asldkjf', 'asd08uf2j');
                 expect(cryptoStub.calledWith('sha1')).to.be.ok;
             });
 
@@ -88,7 +88,7 @@ describe('User model', function () {
                 var x = {};
                 hashDigestStub.returns(x);
 
-                var e = User.encryptPassword('sdlkfj', 'asldkjflksf');
+                var e = AuthUser.encryptPassword('sdlkfj', 'asldkjflksf');
 
                 expect(hashDigestStub.calledWith('hex')).to.be.ok;
                 expect(e).to.be.equal(x);
@@ -103,7 +103,12 @@ describe('User model', function () {
             var saltSpy;
 
             var createUser = function () {
-                return User.create({ email: 'obama@gmail.com', password: 'potus', firstName: 'John', lastName: 'Smith' });
+                return AuthUser.create({ email: 'obama@gmail.com', password: 'potus', firstName: 'John', lastName: 'Smith', address: {
+                  street: '123 League Drive',
+                  city: 'Santa Monica',
+                  state: 'CA',
+                  zip: '90012'
+                } });
             };
 
             beforeEach(function () {
@@ -119,7 +124,7 @@ describe('User model', function () {
 
 
 
-            it('should call User.encryptPassword with the given password and generated salt', function (done) {
+            it('should call AuthUser.encryptPassword with the given password and generated salt', function (done) {
                 createUser().then(function () {
                     var generatedSalt = saltSpy.getCall(0).returnValue;
                     expect(encryptSpy.calledWith('potus', generatedSalt)).to.be.ok;
@@ -152,8 +157,18 @@ describe('User model', function () {
 
         it("shouldn't allow user with same email address", function (done) {
             var duplicateEmail = "duplicate@email.com",
-                userObj1 = {email: duplicateEmail, password: 'otus', firstName: 'Don', lastName: 'Joe' },
-                userObj2 = {email: duplicateEmail, password: 'secret', firstName: 'John', lastName: 'Smith' };
+                userObj1 = {email: duplicateEmail, password: 'otus', firstName: 'Don', lastName: 'Joe', address: {
+                  street: '123 League Drive',
+                  city: 'Santa Monica',
+                  state: 'CA',
+                  zip: '90012'
+                } },
+                userObj2 = {email: duplicateEmail, password: 'secret', firstName: 'John', lastName: 'Smith', address: {
+                  street: '123 League Drive',
+                  city: 'Santa Monica',
+                  state: 'CA',
+                  zip: '90012'
+                } };
             User.create(userObj1)
             .then(function () {
                 return User.create(userObj2);
@@ -173,7 +188,12 @@ describe('User model', function () {
         });
 
         it("should allow user with valid email address", function () {
-            return User.create({ email: "valid@email.com", password: 'potus', firstName: 'John', lastName: 'Smith' })
+            return User.create({ email: "valid@email.com", password: 'potus', firstName: 'John', lastName: 'Smith', address: {
+              street: '123 League Drive',
+              city: 'Santa Monica',
+              state: 'CA',
+              zip: '90012'
+            } })
             .then(function (user) {
                 return user.save();
             });
@@ -189,7 +209,12 @@ describe('User model', function () {
         ];
 
         invalidEmailAddresses.forEach(function (invalidEmail) {
-            var userObj = { email: invalidEmail, password: 'potus', firstName: 'John', lastName: 'Smith' };
+            var userObj = { email: invalidEmail, password: 'potus', firstName: 'John', lastName: 'Smith', address: {
+              street: '123 League Drive',
+              city: 'Santa Monica',
+              state: 'CA',
+              zip: '90012'
+            } };
             it("should reject invalid email address " + invalidEmail, function (done) {
                 User.create(userObj)
                 .then(function (savedUser) {
@@ -205,10 +230,30 @@ describe('User model', function () {
 
 
         var userRequiredFieldsTests = [
-            {userObj: {password: "secret", firstName: 'John', lastName: 'Smith'}, reqField: "email"},
-            {userObj: {email: "som@thing.com", firstName: 'John', lastName: 'Smith'}, reqField: "password"},
-            {userObj: {email: "som@thing.com", password: "secret", lastName: 'Smith'}, reqField: "firstName"},
-            {userObj: {email: "som@thing.com", password: "secret", firstName: 'John'}, reqField: "lastName"}
+            {userObj: {password: "secret", firstName: 'John', lastName: 'Smith', address: {
+              street: '123 League Drive',
+              city: 'Santa Monica',
+              state: 'CA',
+              zip: '90012'
+            }}, reqField: "email"},
+            {userObj: {email: "som@thing.com", firstName: 'John', lastName: 'Smith', address: {
+              street: '123 League Drive',
+              city: 'Santa Monica',
+              state: 'CA',
+              zip: '90012'
+            }}, reqField: "password"},
+            {userObj: {email: "som@thing.com", password: "secret", lastName: 'Smith', address: {
+              street: '123 League Drive',
+              city: 'Santa Monica',
+              state: 'CA',
+              zip: '90012'
+            }}, reqField: "firstName"},
+            {userObj: {email: "som@thing.com", password: "secret", firstName: 'John',address: {
+              street: '123 League Drive',
+              city: 'Santa Monica',
+              state: 'CA',
+              zip: '90012'
+            }}, reqField: "lastName"}
         ];
 
         userRequiredFieldsTests.forEach(function (test) {

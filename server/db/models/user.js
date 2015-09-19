@@ -19,7 +19,7 @@ var User = new Schema({
 var authUser = User.extend({
   password: {type: String, required: true},
   salt: String,
-  roles: [{type: String, required: true, default: 'buyer'}],
+  roles: [String],
   twitter: {id: String, username: String, token: String, tokenSecret: String},
   facebook: {id: String},
   google: {id: String}
@@ -45,11 +45,13 @@ authUser.pre('save', function(next) {
         this.password = this.constructor.encryptPassword(this.password, this.salt);
     }
 
+    if(!this.roles.length) this.roles = ['buyer'];
+
     next();
 
 });
 
-authUser.path("email").validate(function(email) {
+User.path("email").validate(function(email) {
     return (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).test(email);
 }, "Invalid Email Address");
 

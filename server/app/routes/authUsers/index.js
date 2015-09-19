@@ -1,9 +1,9 @@
 var router = require('express').Router();
-var User = require('mongoose').model('User');
+var AuthUser = require('mongoose').model('AuthUser');
 var _ = require('lodash');
 
 router.param('id', function(req, res, next, id){
-	User.findById(id).then(function(user){
+	AuthUser.findById(id).then(function(user){
 		req.user = user;
 		next();
 	}).then(null, next);
@@ -11,7 +11,7 @@ router.param('id', function(req, res, next, id){
 
 router.get('/', function(req, res, next){
 	req.query.type = 'AuthUser';
-	User.find(req.query).then(function(users){
+	AuthUser.find(req.query).then(function(users){
 		res.json(users);
 	}).then(next);
 });
@@ -21,7 +21,7 @@ router.get('/:id', function(req, res){
 });
 
 router.post('/', function(req, res, next){
-	User.create(req.body).then(function(createdUser){
+	AuthUser.create(req.body).then(function(createdUser){
 		res.status(201).json(createdUser);
 	}).then(null, next);
 });

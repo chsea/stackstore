@@ -13,20 +13,20 @@ app.config(function ($stateProvider) {
         ticketsSold: function(Ticket, events, users, AuthService){
           return AuthService.getLoggedInUser()
           .then(function(user){
-            return Ticket.findAll({seller: user._id, sold: true});
+            return Ticket.findAll({seller: user._id});
           }).then(function(tickets) {
             return tickets.filter(function(ticket) {
-              return ticket.expired();
+              return ticket.expired() && ticket.sold;
             });
           });
         },
         ticketsUnSold: function(Ticket, events, users, AuthService){
           return AuthService.getLoggedInUser()
           .then(function(user){
-            return Ticket.findAll({seller: user._id, sold: false});
+            return Ticket.findAll({seller: user._id});
           }).then(function(tickets) {
             return tickets.filter(function(ticket) {
-              return ticket.expired();
+              return ticket.expired() && !ticket.sold;
             });
           });
         },

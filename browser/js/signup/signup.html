@@ -8,20 +8,38 @@
 
     <md-input-container>
         <label for="email">Email address</label>
-        <input type="text" ng-model="signup.email" class="form-control" id="email" placeholder="enter email" required>
+        <input type="text" ng-model="signup.email" required>
     </md-input-container>
     <md-input-container>
         <label for="login-password">Password</label>
-        <input type="password" ng-model="signup.password" class="form-control" id="login-password" placeholder="enter password" required>
+        <input type="password" ng-model="signup.password" required>
     </md-input-container>
     <md-input-container>
         <label for="first-name">First name</label>
-        <input type="text" ng-model="signup.firstName" class="form-control" id="first-name" placeholder="enter first name" required>
+        <input type="text" ng-model="signup.firstName" required>
     </md-input-container>
     <md-input-container>
         <label for="last-name">Last name</label>
-        <input type="text" ng-model="signup.lastName" class="form-control" id="last-name" placeholder="enter last name" required>
+        <input type="text" ng-model="signup.lastName" required>
     </md-input-container>
+    <div>Billing Address</div>
+    <md-input-container>
+      <label>Street</label>
+      <input name="street" ng-model="signup.address.street" required>
+    </md-input-container>
+    <md-input-container>
+      <label>City</label>
+      <input name="city" ng-model="signup.address.city" required>
+    </md-input-container>
+    <md-input-container>
+      <label>State</label>
+      <input name="state" ng-model="signup.address.state" required>
+    </md-input-container>
+    <md-input-container>
+      <label>Zip Code</label>
+      <input name="zip" ng-model="signup.address.zip" ng-pattern="/\d{5}/" required>
+    </md-input-container>
+    <md-checkbox ng-model="isSeller">Are you a seller?</md-checkbox>
     <md-button type="submit">Submit</md-button>
 </form>
 </div>
