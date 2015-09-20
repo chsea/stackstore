@@ -1,0 +1,69 @@
+<md-button ng-click='newVenueForm = true'>Add a new venue!</md-button>
+<form name="newForm" ng-show='newVenueForm' ng-submit="newForm.$valid && add(venue)">
+  <md-input-container>
+    <label for="name">Name:</label>
+    <input name="name" type="text" ng-model="newVenue.name" required>
+  </md-input-container>
+  <md-input-container>
+    <label for="category">Category:</label>
+    <input name="category" type="text" ng-model="newVenue.category">
+  </md-input-container>
+  <div>Address</div>
+  <md-input-container>
+    <label>Street</label>
+    <input name="street" ng-model="newVenue.address.streetAddress" required>
+  </md-input-container>
+  <md-input-container>
+    <label>City</label>
+    <input name="city" ng-model="newVenue.address.city" required>
+  </md-input-container>
+  <md-input-container>
+    <label>State</label>
+    <md-select ng-model="newVenue.address.state" required>
+      <md-option ng-repeat="state in states" value="{{ state }}">{{ state }}</md-option>
+    </md-select>
+  </md-input-container>
+  <md-input-container>
+    <label>Zip Code</label>
+    <input name="zip" ng-model="newVenue.address.zip" ng-pattern="/\d{5}/" required>
+  </md-input-container>
+  <md-button type="submit">Create Venue</md-button>
+  <!-- Still need to add change image capabilities -->
+</form>
+<div ng-repeat="venue in venues">
+  <venue venue="venue"></venue>
+  <form name="editForm" ng-show='venue.edit' ng-submit="editForm.$valid && update(venue)">
+    <md-input-container>
+      <label for="name">Name:</label>
+      <input name="name" type="text" ng-model="venue.name" required>
+    </md-input-container>
+    <md-input-container>
+      <label for="category">Category:</label>
+      <input name="category" type="text" ng-model="venue.category">
+    </md-input-container>
+    <div>Address</div>
+    <md-input-container>
+      <label>Street</label>
+      <input name="street" ng-model="venue.address.streetAddress" required>
+    </md-input-container>
+    <md-input-container>
+      <label>City</label>
+      <input name="city" ng-model="venue.address.city">
+    </md-input-container>
+    <md-input-container>
+      <label>State</label>
+      <md-select ng-model="venue.address.state">
+        <md-option ng-repeat="state in states" value="{{ state }}">{{ state }}</md-option>
+      </md-select>
+    </md-input-container>
+    <md-input-container>
+      <label>Zip Code</label>
+      <input name="zip" ng-model="venue.address.zip" ng-pattern="/\d{5}/" required>
+    </md-input-container>
+    <md-button type="submit">Update Venue</md-button>
+    <!-- Still need to add change image capabilities -->
+  </form>
+  <div>
+    <md-button ng-show="!venue.edit" ng-click="venue.edit = true">Edit Venue</md-button>
+  </div>
+</div>

@@ -1,8 +1,8 @@
 app.config(function ($stateProvider) {
-  $stateProvider.state('profile', {
-    url: '/profile',
-    templateUrl: 'js/user/profile.html',
-    controller: 'UserController',
+  $stateProvider.state('admin', {
+    url: '/admin',
+    templateUrl: 'js/admin/admin.html',
+    controller: 'AdminController',
     resolve: {
       user: function(User, AuthService){
         return AuthService.getLoggedInUser().then(function(user){
@@ -11,8 +11,6 @@ app.config(function ($stateProvider) {
       }
     }
   });
-});
-
-app.controller('UserController', function($scope, user) {
+}).controller('AdminController', function($scope, user) {
 	$scope.user = user;
 });

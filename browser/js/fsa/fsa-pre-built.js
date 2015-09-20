@@ -64,7 +64,7 @@
         };
 
         this.isAdmin = function() {
-            return Session.user.roles.indexOf('admin') > -1;
+            return Session.user ? Session.user.roles.indexOf('admin') > -1 : false;
         };
 
         this.getLoggedInUser = function (fromServer) {
