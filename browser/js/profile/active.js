@@ -27,12 +27,15 @@ app.config(function ($stateProvider) {
       }
     }
   });
-}).controller('ActiveController', function($scope, $state, ticketsForSale, ticketsBought, DS, events) {
+}).controller('ActiveController', function($scope, $state, ticketsForSale, ticketsBought, DS, events, AuthService) {
   $scope.ticketsForSale = ticketsForSale.map((ticket) => {
     ticket.edit = false;
     return ticket;
   });
   $scope.ticketsBought = ticketsBought;
+
+  $scope.isSeller = () => AuthService.isSeller();
+
   $scope.removeTicket = (ticket) => {
 		ticket.DSDestroy()
 		.then(() => {
@@ -40,6 +43,7 @@ app.config(function ($stateProvider) {
 			$state.go('profile.active', {}, {reload: true});
 		});
 	};
+
   $scope.updatePrice = (ticket) => {
     ticket.DSUpdate({price: ticket.price})
     .then(() => {

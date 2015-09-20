@@ -37,8 +37,9 @@ app.config(function($stateProvider) {
       }
     }
   });
-}).controller('PastController', function($scope, ticketsSold, ticketsBought, ticketsUnSold) {
+}).controller('PastController', function($scope, ticketsSold, ticketsBought, ticketsUnSold, AuthService) {
   $scope.ticketsSold = ticketsSold;
   $scope.ticketsUnSold = ticketsUnSold;
   $scope.ticketsBought = ticketsBought;
+  $scope.isSeller = () => AuthService.isSeller();
 });

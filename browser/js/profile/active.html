@@ -1,5 +1,6 @@
-<div>
+<section ng-show="isSeller()">
   <h1>Currently Selling:</h1>
+  <div ng-show="!ticketsForSale.length">You are not currently selling any tickets.</div>
   <div ng-repeat="ticket in ticketsForSale">
     <ticket ticket='ticket'></ticket>
     <form name="editForm" ng-show='ticket.edit' ng-submit="editForm.$valid && updatePrice(ticket)">
@@ -11,9 +12,11 @@
     </form>
     <div><md-button ng-click='ticket.edit = true' ng-show='!ticket.edit'>Edit Price</md-button><md-button ng-click="removeTicket(ticket)">Stop selling this ticket</md-button></div>
   </div>
-
+</section>
+<section>
   <h1>Your Upcoming Tickets:</h1>
+  <div ng-show="!ticketsBought.length">You have no active tickets.</div>
   <div ng-repeat="ticket in ticketsBought">
     <ticket ticket='ticket'></ticket>
   </div>
-</div>
+</section>
