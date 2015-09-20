@@ -1,8 +1,0 @@
-<form name="createTicket" ng-submit="createTicket.$valid && submitForm()">
-  <label for="seat">Seat</label>
-  <input type="text" ng-model="ticket.seat" class="form-control" placeholder="General Admission">
-  <label for="price" required>Price</label>
-  <input type="number" step="0.01" name="price" ng-model="ticket.price" class="form-control" placeholder="Price">
-  <p ng-show="createTicket.price.$error.required">Please enter a price.</p>
-  <button type="submit">Create the ticket!</button>
-</form>

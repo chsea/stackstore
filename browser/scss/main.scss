@@ -20,6 +20,10 @@ body {
   margin: 0 auto;
 }
 
+.btn>i {
+    vertical-align: middle
+  }
+
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';

@@ -1,0 +1,17 @@
+<form name="sellForm" ng-submit="sellForm.$valid && sellTicket()">
+  <md-input-container>
+    <label for="name">Event*</label>
+    <md-select ng-model="ticket.eventProduct" required>
+      <md-option ng-repeat="event in events" value="{{ event._id }}">{{ event.EventType.name }} at {{ event.Venue.name }} ({{ event.date }})</md-option>
+    </md-select>
+  </md-input-container>
+  <md-input-container>
+    <label for="seat">Seat</label>
+    <input name="seat" type="text" ng-model="ticket.seat" placeholder="General Admission">
+  </md-input-container>
+  <md-input-container>
+    <label for="price" required>Price*</label>
+    <input name="price" type="number" step="0.01" ng-model="ticket.price">
+  </md-input-container>
+  <md-button type="submit">Sell ticket!</md-button>
+</form>

@@ -14,7 +14,12 @@ app.factory('AuthUser', function(DS, $state) {
 			}],
 			isAdmin: ['roles', function(roles) {
 				return roles.indexOf('admin') > -1;
-			}]
+			}],
+			name: ['firstName',
+						 'lastName',
+						 (firstName, lastName) => `${firstName} ${lastName}`],
+			addy: ['address',
+						 (address) => address ? `${address.street}, ${address.city}, ${address.state} ${address.zip}` : null]
 		}
 	});
-}).run(function (User) {});
+}).run(function (AuthUser) {});

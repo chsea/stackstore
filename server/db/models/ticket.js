@@ -8,6 +8,7 @@ var schema = new mongoose.Schema({
     buyer: {type: mongoose.Schema.Types.ObjectId, ref:'User'},
     price: {type: Number, required: true, default: 0.01}, //min $0.01
     seat: {type: String, required: true, default: 'General Admission'},
+    dateSelling: {type: Date, required: true},
     dateSold: {type: Date}, // if sold, obvs not avail anymore
 });
 
