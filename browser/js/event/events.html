@@ -23,9 +23,11 @@
                 </div>
                 <div flex>
                     <p>{{ e.date | date:'mediumDate' }} {{ e.date | date:'shortTime' }}</p>
+                    <p><a ui-sref="venue({id: e.Venue._id})">{{ e.Venue.name }}</a></p>
                 </div>
                 <div flex>
-                    <p><a ui-sref="venue({id: e.Venue._id})">{{ e.Venue.name }}</a></p></div>
+                    Tickets for sale: {{ (tickets | filter:{eventProduct: e._id}).length }}
+                </div>
             </md-grid-tile>
         </md-grid-list>
     </md-content>

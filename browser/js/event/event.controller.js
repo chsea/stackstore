@@ -1,6 +1,7 @@
-app.controller('EventCtrl', function ($scope, $mdBottomSheet, Event, eventData, user) {
+app.controller('EventCtrl', function ($scope, $mdBottomSheet, Event, eventData, user, tickets) {
 	$scope.loggedIn = Boolean(user);
     $scope.eventData = eventData;
+    $scope.tickets = tickets;
     $scope.refreshEventData = function (category) {
     	Event.findAll()
     		.then(function(newData){
