@@ -4,4 +4,5 @@
 <div ng-show="ticket.buyer">Buyer Name: {{ticket.buyer.firstName}} {{ticket.buyer.lastName}}</div>
 <div>Date: {{ ticket.event.date | date:'mediumDate' }}</div>
 <div>Time: {{ ticket.event.date | date:'shortTime' }}</div>
+<div ng-show="ticket.buyer">Sold on: {{ ticket.dateSold | date:'mediumDate' }} at {{ ticket.dateSold | date:'shortTime' }}
 <div ng-show='!ticket.edit'>Price: {{ ticket.price | currency }}</div>

@@ -1,11 +1,11 @@
-app.config(function ($stateProvider) {
+app.config(function($stateProvider) {
   $stateProvider.state('profile.settings', {
     url: '/settings',
-    templateUrl: 'js/user/settings.html',
+    templateUrl: 'js/profile/settings.html',
     controller: 'SettingsController',
     resolve: {
-      user: function(AuthUser, AuthService){
-        return AuthService.getLoggedInUser().then(function(user){
+      user: function(AuthUser, AuthService) {
+        return AuthService.getLoggedInUser().then(function(user) {
           return AuthUser.find(user._id);
         });
       }
@@ -13,13 +13,15 @@ app.config(function ($stateProvider) {
   });
 });
 
-app.controller('SettingsController', function($scope, user, User) {
-	$scope.user = {
+app.controller('SettingsController', function($scope, user, DS) {
+  $scope.user = {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
     address: user.address
   };
+  
+  $scope.states = ('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY').split(' ');
 
   $scope.newPassword = '';
 
@@ -27,7 +29,7 @@ app.controller('SettingsController', function($scope, user, User) {
 
   $scope.submitForm = function() {
     if ($scope.newPassword) $scope.user.password = newPassword;
-    User.update(user._id, $scope.user).then(function() {
+    user.DSUpdate($scope.user).then(() => {
       alert('Settings updated!');
       $state.go('profile.settings', {}, {reload: true});
     });

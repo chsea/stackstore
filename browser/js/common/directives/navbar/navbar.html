@@ -5,7 +5,7 @@
         </div>
         <input default="Search" class="search nav navbar-nav" value="Search">
         <ul class="nav navbar-nav">
-            <li ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
+            <li ng-repeat="item in items" ng-show="!item.auth || (!item.admin && isLoggedIn()) || isAdmin()">
                 <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
             </li>
         </ul>
