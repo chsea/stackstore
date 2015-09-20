@@ -1,16 +1,26 @@
 <div id="events">
-	<div layout="row" layout-margin layout-padding ng-repeat="e in eventData | orderBy:'date' ">
-			<div flex><img ng-src="{{ e.EventType.imgUrl }}" height="30px"/></div>
-			<div flex>
-				<h3>
-					<a ui-sref="event({id: e._id})">
-						{{ e.EventType.name }}
-					</a>
-				</h3>
-			</div>
-			<div flex>
-				<h3>{{ e.date | date:'mediumDate' }} {{ e.date | date:'shortTime' }}</h3>
-			</div>
-			<div flex><h3><a ui-sref="venue({id: e.Venue._id})">{{ e.Venue.name }}</a></h3></div>
-	</div><!--layout row-->
+	<div>Placeholder for date and category filters</div>
+    <md-content layout-padding>
+        <md-grid-list md-cols-gt-md="12" md-cols-sm="3" md-cols-md="8" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter-gt-md="16px" md-gutter-gt-sm="8px" md-gutter="4px">
+            <md-grid-tile style="overflow-y: hidden" md-colspan-gt-sm="12" md-rowspan-gt-sm="1" ng-repeat="e in eventData | orderBy:'date' ">
+                <div flex>
+                	<a ui-sref="event({id: e._id})">
+                		<img ng-src="{{ e.EventType.imgUrl }}" style="width: 100%"/>
+                	</a>
+                </div>
+                <div flex>
+                    <h3>
+						<a ui-sref="event({id: e._id})">
+							{{ e.EventType.name }}
+						</a>
+					</h3>
+                </div>
+                <div flex>
+                    <p>{{ e.date | date:'mediumDate' }} {{ e.date | date:'shortTime' }}</p>
+                </div>
+                <div flex>
+                    <p><a ui-sref="venue({id: e.Venue._id})">{{ e.Venue.name }}</a></p></div>
+            </md-grid-tile>
+        </md-grid-list>
+    </md-content>
 </div>
