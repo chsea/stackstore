@@ -8,7 +8,7 @@
                 <table>
                     <tbody>
                         <tr ng-repeat="date in dates">
-                            <td>
+                            <td ng-show="date.date!=currentDate">
                                 <a ui-sref="event({id: date._id})">
                                 {{ date.date | date:'mediumDate' }} {{ date.date | date:'shortTime' }}
                             </a>
