@@ -1,7 +1,11 @@
+<md-input-container>
+	<input ng-model="searchQuery" ng-model-options="{getterSetter: true}" placeholder="Search by event, venue or date" />
+</md-input-container>
+<md-button ng-click="resetSearchQuery()">Clear search</md-button>
 <section id="event">
     <table><tbody>
     	<th>What</th><th>When</th><th>Where</th>
-    	<tr ng-repeat="e in eventData | orderBy:'date' ">
+    	<tr ng-repeat="e in eventData | filter:searchFilter | orderBy:'date' ">
     		<td><a ui-sref="event({id: e._id})">{{ e.EventType.name }}</a></td>
     		<td>{{ e.date | date:'mediumDate' }} {{ e.date | date:'shortTime' }}</td>
     		<td><a ui-sref="venue({id: e.Venue._id})">{{ e.Venue.name }}</a></td>
