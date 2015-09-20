@@ -18,21 +18,21 @@
   <div>Billing Address</div>
   <md-input-container>
     <label>Street</label>
-    <input name="street" ng-model="user.address.street" required>
+    <input name="street" ng-model="user.address.street">
   </md-input-container>
   <md-input-container>
     <label>City</label>
-    <input name="city" ng-model="user.address.city" required>
+    <input name="city" ng-model="user.address.city">
   </md-input-container>
   <md-input-container>
     <label>State</label>
-    <md-select ng-model="user.address.state" required>
+    <md-select ng-model="user.address.state">
       <md-option ng-repeat="state in states" value="{{ state }}">{{ state }}</md-option>
     </md-select>
   </md-input-container>
   <md-input-container>
     <label>Zip Code</label>
-    <input name="zip" ng-model="user.address.zip" ng-pattern="/\d{5}/" required>
+    <input name="zip" ng-model="user.address.zip" ng-pattern="/\d{5}/">
   </md-input-container>
   <md-checkbox ng-model="becomeSeller" ng-show="!isSeller">Do you want to become a seller?</md-checkbox>
   <md-button type="submit">Submit changes!</md-button>

@@ -8,8 +8,8 @@ app.config(function($stateProvider) {
                 // GET --> /api/events
                 return Event.find($stateParams.id);
             },
-            user: function(User, AuthService) {
-                return AuthService.getLoggedInUser();
+            tickets: function (Ticket) {
+            	return Ticket.findAll();
             }
         }
     });
@@ -24,9 +24,6 @@ app.config(function($stateProvider) {
             },
             tickets: function (Ticket) {
             	return Ticket.findAll();
-            }, 
-            user: function(User, AuthService) {
-                return AuthService.getLoggedInUser();
             }
         }
     });

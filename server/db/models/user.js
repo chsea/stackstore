@@ -12,7 +12,7 @@ var User = new Schema({
     street: {type: String, default: ''},
     city: {type: String, default: ''},
     state: {type: String, default: ''},
-    zip: {type: Number, default: null}
+    zip: {type: String, default: ''}
   }
 }, {collection: 'users', discriminatorKey: 'type'});
 

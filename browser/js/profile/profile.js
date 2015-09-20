@@ -4,9 +4,9 @@ app.config(function($stateProvider) {
     templateUrl: 'js/profile/profile.html',
     controller: 'UserController',
     resolve: {
-      user: function(User, AuthService) {
+      user: function(AuthUser, AuthService) {
         return AuthService.getLoggedInUser().then(function(user) {
-          return User.find(user._id);
+          return AuthUser.find(user._id);
         });
       }
     }

@@ -1,16 +1,21 @@
-<div>
+<section ng-show="isSeller()">
   <h1>Sold Tickets:</h1>
+  <div ng-show="!ticketsSold.length">You have not sold any tickets yet.</div>
   <div ng-repeat="ticket in ticketsSold">
     <ticket ticket='ticket'></ticket>
   </div>
-
+</section>
+<section ng-show="isSeller()">
   <h1>Un-sold Tickets:</h1>
+  <div ng-show="!ticketsUnSold.length">You have no unsold tickets.</div>
   <div ng-repeat="ticket in ticketsUnSold">
     <ticket ticket='ticket'></ticket>
   </div>
-
+</section>
+<section>
   <h1>Tickets Bought:</h1>
+  <div ng-show="!ticketsBought.length">You have not bought any tickets yet.</div>
   <div ng-repeat="ticket in ticketsBought">
     <ticket ticket='ticket'></ticket>
   </div>
-</div>
+</section>

@@ -28,6 +28,7 @@ router.post('/', function(req, res, next){
 
 router.put('/:id', function(req, res, next){
 	_.merge(req.user, req.body);
+	req.user.markModified('roles');
 	req.user.save().then(function(updatedUser){
 		res.send(updatedUser);
 	}).then(null, next);

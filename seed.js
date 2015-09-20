@@ -57,97 +57,95 @@ var seedUsers = function() {
 
 var seedAuthUsers = function() {
 
-    var users = [{
-        email: 'testing@fsa.com',
-        password: 'password',
-        firstName: 'Tim',
-        lastName: 'Othy',
-        address: {
-          street: '123 League Drive',
-          city: 'Santa Monica',
-          state: 'CA',
-          zip: '90012'
-        }
-    }, {
-        email: 'obama@gmail.com',
-        password: 'potus',
-        firstName: 'John',
-        lastName: 'Smith',
-        address: {
-          street: '123 League Drive',
-          city: 'Santa Monica',
-          state: 'CA',
-          zip: '90012'
-        },
-        roles: [
-          'buyer',
-          'seller',
-          'admin'
-        ]
-    }, {
-        email: 'cristina@fsa.com',
-        password: 'millenium',
-        firstName: 'Cristina',
-        lastName: 'Colón',
-        address: {
-          street: '123 League Drive',
-          city: 'Santa Monica',
-          state: 'CA',
-          zip: '90012'
-        },
-        roles: [
-          'buyer',
-          'seller'
-        ]
-    }, {
-        email: 'chsea@fsa.com',
-        password: 'bsbforlife',
-        firstName: 'Chel',
-        lastName: 'Du',
-        address: {
-          street: '123 League Drive',
-          city: 'Santa Monica',
-          state: 'CA',
-          zip: '90012'
-        },
-        roles: [
-          'buyer',
-          'seller'
-        ]
-    }, {
-        email: 'danielp@fsa.com',
-        password: 'millenium',
-        firstName: 'Daniel',
-        lastName: 'Perelly',
-        address: {
-          street: '123 League Drive',
-          city: 'Santa Monica',
-          state: 'CA',
-          zip: '90012'
-        },
-        roles: [
-          'buyer',
-          'seller'
-        ]
-    }, {
-        email: 'danielm@fsa.com',
-        password: 'millenium',
-        firstName: 'Daniel',
-        lastName: 'Moenich',
-        address: {
-          street: '123 League Drive',
-          city: 'Santa Monica',
-          state: 'CA',
-          zip: '90012'
-        }
-    }];
+  var users = [{
+    email: 'testing@fsa.com',
+    password: 'password',
+    firstName: 'Tim',
+    lastName: 'Othy',
+    address: {
+      street: '123 League Drive',
+      city: 'Santa Monica',
+      state: 'CA',
+      zip: '90012'
+    }
+  }, {
+    email: 'obama@gmail.com',
+    password: 'potus',
+    firstName: 'John',
+    lastName: 'Smith',
+    address: {
+      street: '123 League Drive',
+      city: 'Santa Monica',
+      state: 'CA',
+      zip: '90012'
+    },
+    roles: [
+      'buyer',
+      'seller',
+      'admin'
+    ]
+  }, {
+    email: 'cristina@fsa.com',
+    password: 'millenium',
+    firstName: 'Cristina',
+    lastName: 'Colón',
+    address: {
+      street: '123 League Drive',
+      city: 'Santa Monica',
+      state: 'CA',
+      zip: '90012'
+    },
+    roles: [
+      'buyer',
+      'seller'
+    ]
+  }, {
+    email: 'chsea@fsa.com',
+    password: 'bsbforlife',
+    firstName: 'Chel',
+    lastName: 'Du',
+    address: {
+      street: '123 League Drive',
+      city: 'Santa Monica',
+      state: 'CA',
+      zip: '90012'
+    },
+    roles: [
+      'buyer',
+      'seller'
+    ]
+  }, {
+    email: 'danielp@fsa.com',
+    password: 'millenium',
+    firstName: 'Daniel',
+    lastName: 'Perelly',
+    address: {
+      street: '123 League Drive',
+      city: 'Santa Monica',
+      state: 'CA',
+      zip: '90012'
+    },
+    roles: [
+      'buyer',
+      'seller'
+    ]
+  }, {
+    email: 'danielm@fsa.com',
+    password: 'millenium',
+    firstName: 'Daniel',
+    lastName: 'Moenich',
+    address: {
+      street: '123 League Drive',
+      city: 'Santa Monica',
+      state: 'CA',
+      zip: '90012'
+    }
+  }];
 
-    return AuthUser.createAsync(users);
-
+  return AuthUser.createAsync(users);
 };
 
 var seedVenues = function() {
-
     var venues = [{
         name: 'Madison Square Garden',
         address: {
@@ -206,49 +204,49 @@ var seedVenues = function() {
         },
         coordinates: [40.6825236,-73.9750134]
     }, {
-        name: "MetLife Stadium", 
+        name: "MetLife Stadium",
         address: {
             streetAddress: "1 MetLife Stadium Dr",
             city: "East Rutherford",
-            state: "NJ", 
+            state: "NJ",
             zip: 07073,
-        }, 
+        },
         coordinates: [40.8128397,-74.0742091]
     }, {
-        name: "Hammerstein Ballroom", 
+        name: "Hammerstein Ballroom",
         address: {
             streetAddress: "311 W 34th St",
             city: "New York",
-            state: "NY", 
+            state: "NY",
             zip: 10001,
-        }, 
+        },
         coordinates: [40.7529135,-73.9941388]
     }, {
-        name: "Carnegie Hall", 
+        name: "Carnegie Hall",
         address: {
             streetAddress: "881 7th Ave",
             city: "New York",
-            state: "NY", 
+            state: "NY",
             zip: 10019,
-        }, 
+        },
         coordinates: [40.7651258,-73.9799236]
     }, {
-        name: "The Javits Center", 
+        name: "The Javits Center",
         address: {
             streetAddress: "655 W 34th St",
             city: "New York",
-            state: "NY", 
+            state: "NY",
             zip: 10001,
-        }, 
+        },
         coordinates: [40.7579367,-74.0024897]
     }, {
-        name: "Music Hall of Williamsburg", 
+        name: "Music Hall of Williamsburg",
         address: {
             streetAddress: "66 N 6th St",
             city: "Brooklyn",
-            state: "NY", 
+            state: "NY",
             zip: 11211,
-        }, 
+        },
         coordinates: [40.7191396,-73.9617418]
     }];
 
@@ -275,44 +273,42 @@ var seedEventTypes = function () {
         name: 'Rudimental',
         category: 'Concert'
     }, {
-        name: "R. Kelly", 
+        name: "R. Kelly",
         category:"Concert"
     }, {
-        name: "Ariana Grande with Prince Royce", 
+        name: "Ariana Grande with Prince Royce",
         category: "Concert"
     }, {
-        name: "Ariana Grande", 
+        name: "Ariana Grande",
         category: "Concert"
     }, {
-        name: "Marc Anthony and Carlos Vives", 
+        name: "Marc Anthony and Carlos Vives",
         category: "Concert"
     }, {
-        name: "New York Comic Con", 
+        name: "New York Comic Con",
         category: "Conference"
     }, {
         name: "Gwen Stefani", category: "Concert"
     }, {
-        name: "Daddy Yankee", 
+        name: "Daddy Yankee",
         category: "Concert"
     }, {
-        name: "Billy Joel", 
+        name: "Billy Joel",
         category:"Concert"
     }, {
-        name: "The Weeknd", 
+        name: "The Weeknd",
         category:"Concert"
     }, {
         name: 'BSB',
         category: 'Concert'
     }];
 
-    return EventType.createAsync(eventTypes);
-
+  return EventType.createAsync(eventTypes);
 };
-
-
 
 var createdEvents;
 var seedEvents = function() {
+
     var venueDict={};
     var eventTypeDict = {};
     var events = [{
@@ -378,7 +374,7 @@ var seedEvents = function() {
     }, {
         eventTypeName: "Ariana Grande",
         venueName: "Barclays Center",
-        date: new Date(2015,8,27,19,30,0) // Sun Sep 27 at 7:30pm 
+        date: new Date(2015,8,27,19,30,0) // Sun Sep 27 at 7:30pm
     }, {
         eventTypeName: "Marc Anthony and Carlos Vives",
         venueName: "Barclays Center",
@@ -386,7 +382,7 @@ var seedEvents = function() {
     }, {
         eventTypeName: "New York Comic Con",
         venueName: "The Javits Center",
-        date: new Date(2015,9,8,10,0,0) // Thurs Oct 8 at 10am (all day) 
+        date: new Date(2015,9,8,10,0,0) // Thurs Oct 8 at 10am (all day)
     }, {
         eventTypeName: "New York Comic Con",
         venueName: "The Javits Center",
@@ -402,7 +398,7 @@ var seedEvents = function() {
     }, {
         eventTypeName: "Gwen Stefani",
         venueName: "Hammerstein Ballroom",
-        date: new Date(2015,9,17,20,0,0) // Sat Oct 17 at 8pm 
+        date: new Date(2015,9,17,20,0,0) // Sat Oct 17 at 8pm
     }, {
         eventTypeName: "Daddy Yankee",
         venueName: "Madison Square Garden",
@@ -422,164 +418,191 @@ var seedEvents = function() {
     }, {
         eventTypeName: "The Weeknd",
         venueName: "Barclays Center",
-        date: new Date(2015,10,18,19,30,0) // Wed Nov 18 at 7:30pm 
+        date: new Date(2015,10,18,19,30,0) // Wed Nov 18 at 7:30pm
     }, {
         eventTypeName: "The Weeknd",
         venueName: "Barclays Center",
-        date: new Date(2015,10,19,19,30,0) // Thurs Nov 19 at 7:30pm 
+        date: new Date(2015,10,19,19,30,0) // Thurs Nov 19 at 7:30pm
     }];
 
-    return Venue.find({}).select('name _id')
-        .then(function(venues){
-            venues.forEach(
-                function(venue){venueDict[venue.name]=venue._id;
-            });
-            return EventType.find({}).select('name _id').exec();
-        })
-        .then(function (eventTypes) {
-            eventTypes.forEach(function (eventType) {
-                eventTypeDict[eventType.name] = eventType._id;
-            });
-        })
-        .then(function(){
-            events.forEach(function(e){
-                e.Venue = venueDict[e.venueName];
-                e.EventType = eventTypeDict[e.eventTypeName];
-                delete e.venueName;
-                delete e.eventTypeName;
-            });
-        })
-        .then(function(){return Event.createAsync(events); })
-        .then(function(created){createdEvents=created; });
+  return Venue.find({}).select('name _id')
+    .then(function(venues) {
+      venues.forEach(
+        function(venue) {
+          venueDict[venue.name] = venue._id;
+        });
+      return EventType.find({}).select('name _id').exec();
+    })
+    .then(function(eventTypes) {
+      eventTypes.forEach(function(eventType) {
+        eventTypeDict[eventType.name] = eventType._id;
+      });
+    })
+    .then(function() {
+      events.forEach(function(e) {
+        e.Venue = venueDict[e.venueName];
+        e.EventType = eventTypeDict[e.eventTypeName];
+        delete e.venueName;
+        delete e.eventTypeName;
+      });
+    })
+    .then(function() {
+      return Event.createAsync(events);
+    })
+    .then(function(created) {
+      createdEvents = created;
+    });
 };
 
 var seedTickets = function() {
-    var eventDict={};
-    var userDict={};
+  var eventDict = {};
+  var userDict = {};
 
-    var tickets = [{
-        eventProduct: 'BSB',
-        seller: 'obama@gmail.com',
-        buyer: 'chsea@fsa.com',
-        dateSold: new Date(2014,5,26,20,0,0),
-        price: '1000'
-    },{
-        eventProduct: 'BSB',
-        buyer: 'obama@gmail.com',
-        seller: 'chsea@fsa.com',
-        dateSold: new Date(2014,5,26,20,0,0),
-        price: '1000'
-    },{
-        eventProduct: 'BSB',
-        seller: 'obama@gmail.com',
-        price: '1000'
-    },{
-        eventProduct: 'Hamilton',
-        seller: 'obama@gmail.com',
-        price: '1000'
-    }, {
-        eventProduct: 'Hamilton',
-        seller: 'obama@gmail.com',
-        price: '1000'
-    }, {
-        eventProduct: 'Hamilton',
-        seller: 'chsea@fsa.com',
-        buyer: 'obama@gmail.com',
-        price: '700',
-        dateSold: new Date(2014,9,26,20,0,0)
-    }, {
-        eventProduct: 'Hamilton',
-        seller: 'chsea@fsa.com',
-        price: '500'
-    }, {
-        eventProduct: 'Hamilton',
-        seller: 'danielp@fsa.com',
-        price: '500'
-    }, {
-        eventProduct: 'Hamilton',
-        seller: 'danielp@fsa.com',
-        price: '1000'
-    }, {
-        eventProduct: 'Stromae and Janelle Monae',
-        seller: 'danielp@fsa.com',
-        price: '75'
-    }, {
-        eventProduct: 'Stromae and Janelle Monae',
-        seller: 'danielp@fsa.com',
-        price: '75'
-    }, {
-        eventProduct: 'Washington Nationals at New York Mets',
-        seller: 'obama@gmail.com',
-        price: '40'
-    }, {
-        eventProduct: 'Washington Nationals at New York Mets',
-        seller: 'obama@gmail.com',
-        price: '40'
-    }, {
-        eventProduct: 'Washington Nationals at New York Mets',
-        seller: 'obama@gmail.com',
-        price: '40'
-    },{
-        eventProduct: 'Washington Nationals at New York Mets',
-        seller: 'obama@gmail.com',
-        price: '40'
-    }, {
-        eventProduct: 'Washington Nationals at New York Mets',
-        seller: 'cristina@fsa.com',
-        price: '50'
-    }, {
-        eventProduct: 'Washington Nationals at New York Mets',
-        seller: 'obama@gmail.com',
-        price: '50'
-    }, {
-        eventProduct: 'Washington Nationals at New York Mets',
-        seller: 'cristina@fsa.com',
-        price: '50'
-    },{
-        eventProduct: 'Washington Nationals at New York Mets',
-        seller: 'cristina@fsa.com',
-        price: '75'
-    }, {
-        eventProduct: 'Washington Nationals at New York Mets',
-        seller: 'chsea@fsa.com',
-        price: '75'
-    }, {
-        eventProduct: 'Washington Nationals at New York Mets',
-        seller: 'chsea@fsa.com',
-        price: '75'
-    }, {
-        eventProduct: 'Washington Nationals at New York Mets',
-        seller: 'chsea@fsa.com',
-        price: '75'
-    },{
-        eventProduct: 'Washington Nationals at New York Mets',
-        seller: 'chsea@fsa.com',
-        price: '50'
-    }
-    ];
+  var tickets = [{
+    eventProduct: 'BSB',
+    seller: 'obama@gmail.com',
+    buyer: 'chsea@fsa.com',
+    dateSelling: new Date(2014, 4, 26, 20, 0, 0),
+    dateSold: new Date(2014, 5, 26, 20, 0, 0),
+    price: '1000'
+  }, {
+    eventProduct: 'BSB',
+    buyer: 'obama@gmail.com',
+    seller: 'chsea@fsa.com',
+    dateSelling: new Date(2014, 4, 26, 20, 0, 0),
+    dateSold: new Date(2014, 5, 26, 20, 0, 0),
+    price: '1000'
+  }, {
+    eventProduct: 'BSB',
+    seller: 'obama@gmail.com',
+    price: '1000',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Hamilton',
+    seller: 'obama@gmail.com',
+    price: '1000',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Hamilton',
+    seller: 'obama@gmail.com',
+    price: '1000',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Hamilton',
+    seller: 'chsea@fsa.com',
+    buyer: 'obama@gmail.com',
+    price: '700',
+    dateSelling: new Date(2014, 8, 26, 20, 0, 0),
+    dateSold: new Date(2014, 9, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Hamilton',
+    seller: 'chsea@fsa.com',
+    price: '500',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Hamilton',
+    seller: 'danielp@fsa.com',
+    price: '500',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Hamilton',
+    seller: 'danielp@fsa.com',
+    price: '1000',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Stromae and Janelle Monae',
+    seller: 'danielp@fsa.com',
+    price: '75',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Stromae and Janelle Monae',
+    seller: 'danielp@fsa.com',
+    price: '75',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Washington Nationals at New York Mets',
+    seller: 'obama@gmail.com',
+    price: '40',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Washington Nationals at New York Mets',
+    seller: 'obama@gmail.com',
+    price: '40',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Washington Nationals at New York Mets',
+    seller: 'obama@gmail.com',
+    price: '40',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Washington Nationals at New York Mets',
+    seller: 'obama@gmail.com',
+    price: '40',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Washington Nationals at New York Mets',
+    seller: 'cristina@fsa.com',
+    price: '50',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Washington Nationals at New York Mets',
+    seller: 'obama@gmail.com',
+    price: '50',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Washington Nationals at New York Mets',
+    seller: 'cristina@fsa.com',
+    price: '50',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Washington Nationals at New York Mets',
+    seller: 'cristina@fsa.com',
+    price: '75',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Washington Nationals at New York Mets',
+    seller: 'chsea@fsa.com',
+    price: '75',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Washington Nationals at New York Mets',
+    seller: 'chsea@fsa.com',
+    price: '75',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Washington Nationals at New York Mets',
+    seller: 'chsea@fsa.com',
+    price: '75',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }, {
+    eventProduct: 'Washington Nationals at New York Mets',
+    seller: 'chsea@fsa.com',
+    price: '50',
+    dateSelling: new Date(2015, 8, 26, 20, 0, 0)
+  }];
 
-    var eventIds = {};
-    return Event.find().populate('EventType').then(function(events) {
-      events.forEach(function(event){
-        eventIds[event.EventType.name] = event._id;
-      });
-      return User.find().exec();
-    }).then(function(users) {
-      var userIds = {};
-      users.forEach(function(user) {
-        userIds[user.email] = user._id;
-      });
-
-      return userIds;
-    }).then(function(userIds) {
-      tickets.forEach(function(ticket) {
-        ticket.eventProduct = eventIds[ticket.eventProduct];
-        ticket.seller = userIds[ticket.seller];
-        ticket.buyer = userIds[ticket.buyer];
-      });
-    }).then(function() {
-      return Ticket.createAsync(tickets);
+  var eventIds = {};
+  return Event.find().populate('EventType').then(function(events) {
+    events.forEach(function(event) {
+      eventIds[event.EventType.name] = event._id;
     });
+    return User.find().exec();
+  }).then(function(users) {
+    var userIds = {};
+    users.forEach(function(user) {
+      userIds[user.email] = user._id;
+    });
+
+    return userIds;
+  }).then(function(userIds) {
+    tickets.forEach(function(ticket) {
+      ticket.eventProduct = eventIds[ticket.eventProduct];
+      ticket.seller = userIds[ticket.seller];
+      ticket.buyer = userIds[ticket.buyer];
+    });
+  }).then(function() {
+    return Ticket.createAsync(tickets);
+  });
 };
 
 
