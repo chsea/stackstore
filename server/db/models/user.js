@@ -9,10 +9,10 @@ var User = new Schema({
   lastName: {type: String, required: true},
   email: {type: String, required: true, unique: true},
   address: {
-    street: {type: String, default: ''},
-    city: {type: String, default: ''},
-    state: {type: String, default: ''},
-    zip: {type: String, default: ''}
+    street: {type: String},
+    city: {type: String},
+    state: {type: String},
+    zip: {type: String}
   }
 }, {collection: 'users', discriminatorKey: 'type'});
 

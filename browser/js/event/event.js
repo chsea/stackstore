@@ -10,7 +10,8 @@ app.config(function($stateProvider) {
             },
             tickets: function (Ticket) {
             	return Ticket.findAll();
-            }
+            },
+            reviews: (Review, $stateParams) => Review.find($stateParams.id)
         }
     });
     $stateProvider.state('events', {
@@ -24,7 +25,8 @@ app.config(function($stateProvider) {
             },
             tickets: function (Ticket) {
             	return Ticket.findAll();
-            }
+            },
+            reviews: (Review) => Review.findAll()
         }
     });
 });

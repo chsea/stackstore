@@ -27,7 +27,6 @@ var Venue = Promise.promisifyAll(mongoose.model('Venue'));
 var Event = Promise.promisifyAll(mongoose.model('Event'));
 var EventType = Promise.promisifyAll(mongoose.model('EventType'));
 var Ticket = Promise.promisifyAll(mongoose.model('Ticket'));
-var Transaction = Promise.promisifyAll(mongoose.model('Transaction'));
 
 var seedUsers = function() {
   var users = [{

@@ -11,19 +11,15 @@
 
 // JS Data version
 app.factory('Venue', function(DS, $state) {
-	return DS.defineResource({
-		name: 'venues',
-		computed: {
-			addy: ['address',
-						 (address) => `${address.streetAddress}, ${address.city}, ${address.state} ${address.zip}`]
-		},
-		methods: {
-			go: function() {
-				$state.go('venue', {
-					venueId: this._id
-				});
-			}
-		}
-
-	});
-}).run(function (Venue) {});
+  return DS.defineResource({
+    name: 'venues',
+    computed: {
+      addy: ['address', (address) => `${address.streetAddress}, ${address.city}, ${address.state} ${address.zip}`]
+    },
+    methods: {
+      go: function() {
+        $state.go('venue', {id: this._id});
+      }
+    }
+  });
+}).run(function(Venue) {});
