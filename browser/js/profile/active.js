@@ -29,18 +29,22 @@ app.config(function ($stateProvider) {
         }
       }
   });
-}).controller('ActiveController', function($scope, $state, ticketsForSale, ticketsBought, Ticket, events) {
-  $scope.ticketsForSale = ticketsForSale.map((ticket) => { ticket.edit = false; return ticket; });
+}).controller('ActiveController', function($scope, $state, ticketsForSale, ticketsBought, DS, events) {
+  $scope.ticketsForSale = ticketsForSale.map((ticket) => {
+    ticket.edit = false;
+    return ticket;
+  });
   $scope.ticketsBought = ticketsBought;
   $scope.removeTicket = function(ticket) {
-		Ticket.destroy(ticket._id)
+		ticket.DSDestroy()
 		.then(function(){
 			alert('Ticket deleted!');
 			$state.go('profile.active', {}, {reload: true});
 		});
 	};
   $scope.updatePrice = function(ticket) {
-    Ticket.update(ticket._id, {price: ticket.price}).then(function() {
+    ticket.DSUpdate({price: ticket.price})
+    .then(function() {
       alert('Price updated!');
       $state.go('profile.active', {}, {reload: true});
     });

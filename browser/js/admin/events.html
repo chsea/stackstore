@@ -1,0 +1,5 @@
+<md-button ng-click='newEventForm = true'>Add a new event!</md-button>
+<div ng-repeat="event in events">
+  <event event='event'></event>
+  <div><md-button ng-click='event.edit = true'>Edit Event</md-button></div>
+</div>
