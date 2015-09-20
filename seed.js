@@ -330,13 +330,13 @@ var seedTickets = function() {
         eventProduct: 'BSB',
         seller: 'obama@gmail.com',
         buyer: 'chsea@fsa.com',
-        sold: new Date(2014,5,26,20,0,0),
+        dateSold: new Date(2014,5,26,20,0,0),
         price: '1000'
     },{
         eventProduct: 'BSB',
         buyer: 'obama@gmail.com',
         seller: 'chsea@fsa.com',
-        sold: new Date(2014,5,26,20,0,0),
+        dateSold: new Date(2014,5,26,20,0,0),
         price: '1000'
     },{
         eventProduct: 'BSB',
@@ -355,7 +355,7 @@ var seedTickets = function() {
         seller: 'chsea@fsa.com',
         buyer: 'obama@gmail.com',
         price: '700',
-        sold: new Date(2014,9,26,20,0,0)
+        dateSold: new Date(2014,9,26,20,0,0)
     }, {
         eventProduct: 'Hamilton',
         seller: 'chsea@fsa.com',
