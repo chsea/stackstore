@@ -24,12 +24,12 @@ router.get('/', function(req, res, next){
 
 router.post('/checkout', function(req, res, next){
 	//check if logged in
+	console.log(req.session.cart);
 	var userPromise = req.session.passport.user ? 
 	//if logged in, update user
 		AuthUser.findById(req.session.passport.user).then(function(user){
 			user.address = req.body.address;
-			user.email = req.body.email;
-			user.save();
+			return user.save();
 		}) :
 		//if not logged in, check to see if email is in database
 		User.findOne({email: req.body.email}).then(function(user){
