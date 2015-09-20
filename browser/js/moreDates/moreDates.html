@@ -1,7 +1,7 @@
-<div flex id="moreDates" ng-show="dates.length>1">
+<div flex id="moreDates">
     <md-content class="md-padding">
         <md-card>
-            <md-card-content>
+            <md-card-content ng-show="dates.length>1">
                 <div>
                     <h3>Alternate dates</h3>
                 </div>
@@ -17,6 +17,13 @@
                     </tbody>
                 </table>
             </md-card-content>
+
+            <md-card-content ng-show="dates.length==1">
+                <div><h3>One night only!</h3></div>
+                <div><p>Seize the moment.</p></div>
+            </md-card-content>
+
+
         </md-card>
     </md-content>
 </div>
