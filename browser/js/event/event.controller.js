@@ -1,10 +1,8 @@
 app.controller('EventCtrl', function ($scope, $mdBottomSheet, Event, eventData, tickets, SearchQuery) {
 
-	$scope.searchQuery = SearchQuery.query;
-	$scope.resetSearchQuery = SearchQuery.reset;
-
+	$scope.searchQuery = SearchQuery;
 	$scope.searchFilter = function (event, index, array) {
-		var searchExp = SearchQuery.query() || '.',
+		var searchExp = $scope.searchQuery() || '.',
 			regex = new RegExp(searchExp, "gi"),
 			date = new Date(event.date),
 			searchable = [
