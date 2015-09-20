@@ -7,6 +7,9 @@ app.config(function($stateProvider) {
             eventData: function($stateParams, Event) {
                 // GET --> /api/events
                 return Event.find($stateParams.id);
+            },
+            tickets: function (Ticket) {
+            	return Ticket.findAll();
             }
         }
     });
