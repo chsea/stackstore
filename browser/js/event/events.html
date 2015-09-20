@@ -1,5 +1,11 @@
 <div id="events">
-	<div>Placeholder for date and category filters</div>
+	<div>
+        <md-button ng-click="refreshEventData()">All</md-button>
+        <md-button ng-click="refreshEventData('Sports')">Sports</md-button>
+        <md-button ng-click="refreshEventData('Theater')">Theater</md-button>
+        <md-button ng-click="refreshEventData('Concert')">Concerts</md-button>
+        <md-button ng-click="refreshEventData('Conference')">Conferences</md-button>
+    </div>
     <md-content layout-padding>
         <md-grid-list md-cols-gt-md="12" md-cols-sm="3" md-cols-md="8" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter-gt-md="16px" md-gutter-gt-sm="8px" md-gutter="4px">
             <md-grid-tile style="overflow-y: hidden" md-colspan-gt-sm="12" md-rowspan-gt-sm="1" ng-repeat="e in eventData | orderBy:'date' ">
