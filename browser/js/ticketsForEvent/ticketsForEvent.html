@@ -1,7 +1,8 @@
-<div flex id="ticketsForEvent" ng-show="tickets.length">
+<div flex id="ticketsForEvent" >
     <md-content class="md-padding">
         <md-card>
-            <md-card-content>
+
+            <md-card-content ng-show="tickets.length">
                 <div>
                 	<h3>Tickets for sale</h3>
                 </div>
@@ -9,10 +10,23 @@
                 	<tr ng-repeat="ticket in tickets">
                 		<td>{{ ticket.seat }}</td>
                 		<td>{{ ticket.price | currency }}</td>
-                		<td><md-button class="md-raised" ng-click="addToCart(ticket._id)">add to cart</md-button></td>
+                		<td>
+                            <md-button class="md-icon-button launch" ng-click="addToCart(ticket._id)">
+                                <i class="zmdi zmdi-shopping-cart-plus zmdi-hc-lg" style="vertical-align: middle"></i>
+                            </md-button>
+                        </td>
                 	</tr>
                 </tbody></table>
             </md-card-content>
+
+            <md-card-content ng-show="!tickets.length">
+                <h3>Sold out</h3>
+                <p>No tickets available for purchase.</p>
+                <p>
+                    <span ng-show="loggedIn"><a ui-sref="event.create">List one for sale!</a></span>
+                </p>
+            </md-card-content>
+
         </md-card>
     </md-content>
 </div>
