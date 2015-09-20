@@ -1,5 +1,42 @@
 <md-button ng-click='newEventForm = true'>Add a new event!</md-button>
+<form name="newForm" ng-show='newEventForm' ng-submit="newForm.$valid && add(event)">
+  <md-input-container>
+    <label for="name">Type:</label>
+    <md-select ng-model="newEvent.EventType">
+      <md-option ng-repeat="eventType in eventTypes" value="{{ eventType._id }}">{{ eventType.name }}</md-option>
+    </md-select>
+  </md-input-container>
+  <md-input-container>
+    <label for="venue">Venue:</label>
+    <md-select name="venue" ng-model="newEvent.Venue">
+      <md-option ng-repeat="venue in venues" value="{{ venue._id }}">{{ venue.name }}</md-option>
+    </md-select>
+  </md-input-container>
+  <md-input-container>
+    <label for="date">Date:</label>
+    <input name="date" type="text" ng-model="newEvent.date">
+    <!-- Add angular material datepicker? -->
+  </md-input-container>
+  <md-button type="submit">Create Event</md-button>
+</form>
+<div>
 <div ng-repeat="event in events">
   <event event='event'></event>
-  <div><md-button ng-click='event.edit = true'>Edit Event</md-button></div>
+  <form name="editForm" ng-show='event.edit' ng-submit="editForm.$valid && update(event)">
+    <md-input-container>
+      <label for="name">Venue:</label>
+      <md-select ng-model="event.Venue._id">
+        <md-option ng-repeat="venue in venues" value="{{ venue._id }}">{{ venue.name }}</md-option>
+      </md-select>
+    </md-input-container>
+    <md-input-container>
+      <label for="date">Date:</label>
+      <input name="date" type="text" ng-model="event.date">
+      <!-- Add angular material datepicker? -->
+    </md-input-container>
+    <md-button type="submit">Update Event</md-button>
+  </form>
+  <div>
+    <md-button ng-click='event.edit = true'>Edit Event</md-button>
+  </div>
 </div>

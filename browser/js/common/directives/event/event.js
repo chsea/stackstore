@@ -5,8 +5,5 @@ app.directive('event', function(Event) {
     scope: {
       event: '='
     },
-    // link: function(scope) {
-    //   scope.user.sellerResponse = scope.user.isSeller ? 'Yes!' : 'Not yet.';
-    // }
   };
 });

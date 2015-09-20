@@ -1,24 +1,38 @@
-app.config(function ($stateProvider) {
+app.config(function($stateProvider) {
   $stateProvider.state('admin.events', {
-      url: '/events',
-      controller: 'AdminEventsController',
-      templateUrl: 'js/admin/events.html',
-      resolve: {
-        events: function(Event){
-          return Event.findAll();
-        }
-      }
+    url: '/events',
+    controller: 'AdminEventsController',
+    templateUrl: 'js/admin/events.html',
+    resolve: {
+      eventTypes: (EventType) => EventType.findAll(),
+      venues: (Venue) => Venue.findAll(),
+      events: (Event) => Event.findAll()
+    }
   });
-}).controller('AdminEventsController', function($scope, $state, DS, events) {
+}).controller('AdminEventsController', function($scope, $state, DS, events, venues, eventTypes, Event) {
   $scope.events = events.map((event) => {
     event.edit = false;
     return event;
   });
+
+  $scope.newEvent = {};
+  $scope.eventTypes = eventTypes;
+  $scope.venues = venues;
+
   $scope.update = (event) => {
-    event.DSUpdate({date: event.date, venue: event.venue})
+    event.Venue = event.Venue._id;
+    event.DSUpdate(event)
     .then(() => {
-      alert('Promoted!');
-      $state.go('admin.users', {}, {reload: true});
+      alert('Event updated!');
+      $state.go('admin.events', {}, {reload: true});
     });
+  };
+
+  $scope.add = () => {
+    Event.create($scope.newEvent)
+      .then(() => {
+        alert(`Event created!`);
+        $state.go('admin.events', {}, {reload: true});
+      });
   };
 });

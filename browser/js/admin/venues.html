@@ -19,7 +19,9 @@
   </md-input-container>
   <md-input-container>
     <label>State</label>
-    <input name="state" ng-model="newVenue.address.state" required>
+    <md-select ng-model="newVenue.address.state" required>
+      <md-option ng-repeat="state in states" value="{{ state }}">{{ state }}</md-option>
+    </md-select>
   </md-input-container>
   <md-input-container>
     <label>Zip Code</label>
@@ -46,11 +48,13 @@
     </md-input-container>
     <md-input-container>
       <label>City</label>
-      <input name="city" ng-model="venue.address.city"> required
+      <input name="city" ng-model="venue.address.city">
     </md-input-container>
     <md-input-container>
       <label>State</label>
-      <input name="state" ng-model="venue.address.state" required>
+      <md-select ng-model="venue.address.state">
+        <md-option ng-repeat="state in states" value="{{ state }}">{{ state }}</md-option>
+      </md-select>
     </md-input-container>
     <md-input-container>
       <label>Zip Code</label>
