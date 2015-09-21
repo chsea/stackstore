@@ -20,22 +20,30 @@ app.run(function ($rootScope, AuthService, $state) {
     var destinationStateRequiresAuth = function (state) {
         return state.data && state.data.authenticate;
     };
+    var destinationStateRequiresSeller = (state) => state.data && state.data.seller;
+    var destinationStateRequiresAdmin = (state) => state.data && state.data.admin;
 
     // $stateChangeStart is an event fired
     // whenever the process of changing a state begins.
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
 
-        if (!destinationStateRequiresAuth(toState)) {
+        if (!destinationStateRequiresAuth(toState) &&
+        !destinationStateRequiresSeller(toState) && !destinationStateRequiresAdmin(toState)) {
             // The destination state does not require authentication
             // Short circuit with return.
             return;
         }
 
-        if (AuthService.isAuthenticated()) {
-            // The user is authenticated.
-            // Short circuit with return.
+        if (AuthService.isAuthenticated() &&
+        !destinationStateRequiresSeller(toState) && !destinationStateRequiresAdmin(toState)) {
             return;
         }
+
+        if (AuthService.isSeller() && !destinationStateRequiresAdmin(toState)) {
+            return;
+        }
+
+        if (AuthService.isAdmin()) return;
 
         // Cancel navigating to new state.
         event.preventDefault();
@@ -45,7 +53,11 @@ app.run(function ($rootScope, AuthService, $state) {
             // (the second time, AuthService.isAuthenticated() will work)
             // otherwise, if no user is logged in, go to "login" state.
             if (user) {
+              if ((!toState.data.admin && !toState.data.seller) || (!toState.data.admin && user.roles.indexOf('seller') > -1) || user.roles.indexOf('admin') > -1) {
                 $state.go(toState.name, toParams);
+              } else {
+                $state.go('home');
+              }
             } else {
                 $state.go('login');
             }

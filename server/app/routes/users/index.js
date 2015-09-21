@@ -25,6 +25,7 @@ router.post('/', function(req, res, next){
 });
 
 router.put('/:id', function(req, res, next){
+	if (req.session.passport.user != req.params.id) return next({status: 403});
 	for(var i in req.body){
 		req.user[i] = req.body[i];
 	}
@@ -34,6 +35,7 @@ router.put('/:id', function(req, res, next){
 });
 
 router.delete('/:id', function(req, res, next){
+	if (!req.isAdmin) return res.status(403).send(";)");
 	req.user.remove().then(function(deletedUser){
 		res.send(deletedUser);
 	}).then(null, next);

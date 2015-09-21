@@ -28,7 +28,7 @@ router.get('/:id',function(req,res){
 });
 
 router.post('/',function(req,res,next){
-	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
+	if (!req.isAdmin) return res.status(403).send(";)");
 	EventType.create(req.body).then(function (e) {
 		res.status(201).json(e);
 	}, function (err) {
@@ -38,7 +38,7 @@ router.post('/',function(req,res,next){
 });
 
 router.put('/:id',function(req,res,next){
-	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
+	if (!req.isAdmin) return res.status(403).send(";)");
 	EventType.findByIdAndUpdate(req.eType._id,req.body,{new:true}).then(
 		function (saved) {res.json(saved); },
 		function (err) {
@@ -49,6 +49,7 @@ router.put('/:id',function(req,res,next){
 });
 
 router.delete('/:id',function(req,res,next){
+	if (!req.isAdmin) return res.status(403).send(";)");
 	req.eType.remove().then(
 		function(){res.status(204).send(); },
 		function(err){

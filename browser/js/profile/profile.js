@@ -11,6 +11,9 @@ app.config(function($stateProvider) {
       events: (Event) => Event.findAll(),
       ticketsSelling: (Ticket, events, user) => Ticket.findAll({seller: user._id}),
       ticketsBought: (Ticket, events, user) => Ticket.findAll({buyer: user._id})
+    },
+    data: {
+      authenticate: true
     }
   });
 });

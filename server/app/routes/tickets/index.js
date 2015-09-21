@@ -28,7 +28,7 @@ router.get('/:id',function(req,res){
 });
 
 router.post('/',function(req,res, next){
-	// TODO: need to check admin status first, which on fail would give 403 (Forbidden)
+	if (!req.isSeller && !req.isAdmin) return next({status: 403});
 	Ticket.create(req.body).then(function (ticket) {
 		res.status(201).json(ticket);
 	}, function (err) {
@@ -38,7 +38,7 @@ router.post('/',function(req,res, next){
 });
 
 router.put('/:id',function(req,res,next){
-	// TODO: only seller can edit, else 403 (Forbidden)
+	if (req.session.passport.user != req.params.id) return next({status: 403});
 	Ticket.findAndUpdate(req.ticket,req.body).then(
 		function (saved) {res.json(saved); },
 		function (err) {
@@ -49,7 +49,7 @@ router.put('/:id',function(req,res,next){
 });
 
 router.delete('/:id',function(req,res,next){
-	// TODO: only seller and admin can edit, else 403 (Forbidden)
+	if (req.session.passport.user != req.params.id && !req.isAdmin) return next({status: 403});
 	Ticket.remove(req.ticket).then(
 		function(){res.status(204).send(); },
 		function(err){
