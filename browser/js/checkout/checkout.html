@@ -12,9 +12,11 @@
 				<button class='btn' ng-click='removeTicket(ticket._id)'>Remove from cart</button>
 		    </md-card-content>
 		</md-card>
-	</div>
+    </div>
+	<p>Tickets in cart: {{cart.length}}</p>
 	<p>Total: {{total}}</p>
 </section>
+
 <h1 align='center'>Checkout</h1>
 <form id="checkout" name="checkoutForm" ng-submit="checkoutForm.$valid && submitCheckout(checkout)">
     <md-input-container class="form-group">

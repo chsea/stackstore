@@ -15,11 +15,13 @@
 			    </md-card-content>
 			</md-card>
 		</div>
+		<p>Tickets in cart: {{cart.length}}</p>
 		<p>Total: ${{total}}</p>
 		<md-button id='empty-btn' class='btn md-raised' ng-click='empty()'>Empty Cart</md-button>
 		<md-button id='checkout-btn' class='btn md-raised' ui-sref='checkout'>Checkout</md-button>
 	</div>
 </section>
+
 <h1 id='recommendations'>Recommended:</h1>
 <div layout="row" class="event">
     <div flex ng-repeat='rec in recs'>
