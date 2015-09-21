@@ -39,7 +39,9 @@ router.get('/:eventTypeId',function (req,res) {
 			var finalArr = _.sortByOrder(results, 'score', 'desc').slice(0,3).map(r => r._id);
 			
 			// find one actual Event that corresponds to each event type
-			return Promise.map(finalArr,function (elem) { return Event.findOne({"EventType":elem}).populate('EventType'); });
+			return Promise.map(finalArr, function (elem) { 
+				return Event.findOne({"EventType":elem}).populate('EventType'); 
+			});
 		})
 		.then( events => res.json(events) );
 });
