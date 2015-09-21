@@ -3,7 +3,7 @@ var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
     name: {type: String, required: true},
-    imgUrl: {type: String, default: '/images/defaultEvent.jpg'}, 
+    imgUrl: {type: String, default: '/images/defaultEvent.jpg'},
     category: {type: String, required: true, default: 'Other'}
 });
 
