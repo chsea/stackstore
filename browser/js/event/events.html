@@ -1,7 +1,9 @@
-<md-input-container>
-    <input ng-model="searchQuery" ng-model-options="{getterSetter: true}" placeholder="Search by event, venue or date" />
-</md-input-container>
-<md-button ng-show="searchQuery()" ng-click="searchQuery('')">Clear search</md-button>
+<div id="eventSearch" layout="row">
+    <md-input-container id="searchInput" flex="66">
+        <input ng-model="searchQuery" ng-model-options="{getterSetter: true}" placeholder="Search by event, venue or date" />
+    </md-input-container>
+    <md-button flex="33" id="searchRemove" ng-show="searchQuery()" ng-click="searchQuery('')">Clear search</md-button>
+</div>
 <div id="events">
 	<div>
         <md-button ng-click="refreshEventData()">All</md-button>
