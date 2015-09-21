@@ -11,18 +11,17 @@ app.config(function($stateProvider) {
   $scope.users = users;
 
   $scope.resetPw = (user) => {
-    //still needs to built
+    user.DSUpdate({needPwReset: true}).then(() => {
+      alert('Updated!');
+      $state.go('admin.users', {}, {reload: true});
+    });
   };
 
   $scope.promote = (user) => {
     user.roles.push('admin');
-    user.DSUpdate({
-      roles: user.roles
-    }).then(() => {
+    user.DSUpdate({roles: user.roles}).then(() => {
       alert('Promoted!');
-      $state.go('admin.users', {}, {
-        reload: true
-      });
+      $state.go('admin.users', {}, {reload: true});
     });
   };
 });

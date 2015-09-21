@@ -8,6 +8,7 @@ app.controller('checkoutCtrl',function($scope, $state, $q, CartFactory, cart, Au
 	$scope.removeTicket = function(ticketId){
 		CartFactory.delete(ticketId).then(function(newCart){
 			$scope.cart = newCart;
+			$state.go('checkout', {}, {reload: true});
 		});
 	};
 

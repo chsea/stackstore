@@ -25,7 +25,7 @@ router.post('/', function(req, res, next){
 });
 
 router.put('/:id', function(req, res, next){
-	if (req.session.passport.user != req.params.id) return next({status: 403});
+	if (req.session.passport.user != req.params.id && !req.isAdmin) return next({status: 403});
 	for(var i in req.body){
 		req.user[i] = req.body[i];
 	}

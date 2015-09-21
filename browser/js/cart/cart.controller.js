@@ -14,6 +14,7 @@ app.controller('cartCtrl',function($scope, $state, CartFactory, cart, recs){
 	$scope.removeTicket = function(ticketId){
 		CartFactory.delete(ticketId).then(function(newCart){
 			$scope.cart = newCart;
+			$state.go('cart', {}, {reload: true});
 		});
 	};
 
