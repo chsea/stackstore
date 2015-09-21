@@ -16,8 +16,8 @@ app.config(function($stateProvider) {
   });
 
   $scope.newEvent = {};
-  $scope.eventTypes = eventTypes;
-  $scope.venues = venues;
+  $scope.eventTypes = eventTypes.filter((eventType) => !eventType.inactive);
+  $scope.venues = venues.filter((venue) => !venue.inactive);
 
   $scope.update = (e) => {
     e.Venue = e.Venue._id;
@@ -33,6 +33,22 @@ app.config(function($stateProvider) {
       .then(() => {
         alert(`Event created!`);
         $state.go('admin.events', {}, {reload: true});
+      });
+  };
+
+  $scope.inactivate = (e) => {
+    e.DSUpdate({inactive: true})
+      .then(() => {
+        alert('Updated!');
+        $state.go('admin.es', {}, {reload: true});
+      });
+  };
+
+  $scope.activate = (e) => {
+    e.DSUpdate({inactive: false})
+      .then(() => {
+        alert('Updated!');
+        $state.go('admin.venues', {}, {reload: true});
       });
   };
 });

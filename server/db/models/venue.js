@@ -37,7 +37,8 @@ var schema = new mongoose.Schema({
         type: String,
         default: '/images/romanColiseum.jpg'
     },
-    coordinates: [Number] // latitude and longitude
+    coordinates: [Number], // latitude and longitude
+    inactive: {type: Boolean, default: false}
 });
 
 mongoose.model('Venue', schema);

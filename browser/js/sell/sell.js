@@ -14,7 +14,7 @@ app.config(function ($stateProvider) {
   });
 }).controller('SellController', function($scope, $state, Ticket, user, events) {
   $scope.ticket = {};
-  $scope.events = events;
+  $scope.events = events.filter((e) => !e.expired && !e.Venue.inactive && !e.EventType.inactive);
   $scope.sellTicket = () => {
     $scope.ticket.seat = $scope.ticket.seat || "General Admission";
     $scope.ticket.seller = user._id;

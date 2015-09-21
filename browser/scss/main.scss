@@ -24,6 +24,10 @@ body {
     vertical-align: middle
   }
 
+.inactive {
+  color: #999;
+}
+
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';
