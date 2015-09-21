@@ -19,18 +19,21 @@ router.get('/:id', function(req, res){
 });
 
 router.post('/', function(req, res, next){
+	if (!req.isAuthenticated()) return next({status: 403});
 	Review.create(req.body).then(function(review){
 		res.status(201).json(review);
 	}).then(null, next);
 });
 
 router.put('/:id', function(req, res, next){
+	if (!req.isAdmin()) return next({status: 403});
 	req.review.save().then(function(review){
 		res.send(review);
 	}).then(null, next);
 });
 
 router.delete('/:id', function(req, res, next){
+	if (!req.isAdmin()) return next({status: 403});
 	req.review.remove().then(function(review){
 		res.send(review);
 	}).then(null, next);

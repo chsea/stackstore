@@ -10,18 +10,18 @@ app.config(function($stateProvider) {
     }
   });
 }).controller('AdminEventsController', function($scope, $state, DS, events, venues, eventTypes, Event) {
-  $scope.events = events.map((event) => {
-    event.edit = false;
-    return event;
+  $scope.events = events.map((e) => {
+    e.edit = false;
+    return e;
   });
 
   $scope.newEvent = {};
   $scope.eventTypes = eventTypes;
   $scope.venues = venues;
 
-  $scope.update = (event) => {
-    event.Venue = event.Venue._id;
-    event.DSUpdate(event)
+  $scope.update = (e) => {
+    e.Venue = e.Venue._id;
+    e.DSUpdate(e)
     .then(() => {
       alert('Event updated!');
       $state.go('admin.events', {}, {reload: true});
