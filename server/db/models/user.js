@@ -23,6 +23,7 @@ var authUser = User.extend({
   twitter: {id: String, username: String, token: String, tokenSecret: String},
   facebook: {id: String},
   google: {id: String},
+  needPwReset: {type: Boolean, defeault: false},
   inactive: {type: Boolean, default: false}
 });
 

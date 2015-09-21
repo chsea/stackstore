@@ -13,6 +13,7 @@
         <md-button ng-show="!user" ui-sref="login" class="btn login-button">Login</md-button>
         <md-button ng-show="!user" ui-sref="signup" class="btn login-button">Signup</md-button>
         <div ng-show="user" class="welcome">
+          <span>Welcome {{ user.firstName }}!</span>
             <md-button class="btn" ui-sref="profile.active">Profile</md-button>
             <md-button class="btn" ng-click="logout()">Logout</md-button>
         </div>
