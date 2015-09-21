@@ -6,4 +6,4 @@ require('./venue');
 require('./eventtype');
 require('./event');
 require('./ticket');
-require('./transaction');
+require('./review');

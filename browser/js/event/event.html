@@ -18,6 +18,30 @@
 
 </div>
 
+<section>
+	<h1>Reviews:</h1>
+	<div ng-show="!reviews.length">No reviews yet!</div>
+	<div ng-repeat="review in reviews">
+		<review review="review"></review>
+	</div>
+	<div ng-show="!loggedIn">Please <a ui-sref="login">log in</a> to add a review.</div>
+	<md-button ng-show="loggedIn" ng-click="showAddForm = true">Add a review!</md-button>
+	<form ng-show="showAddForm" name="addReviewForm" ng-submit="addReviewForm.$valid && addReview()">
+	  <md-input-container>
+	    <label for="stars">Stars</label>
+	    <md-select name="stars" ng-model="newReview.stars" required>
+	      <md-option ng-repeat="star in stars" value="{{ star }}">{{ star }}</md-option>
+	    </md-select>
+	  </md-input-container>
+	  <md-input-container>
+	    <label for="comment">Comment</label>
+			<!--There's not currently a Material textarea directive.-->
+	    <input name="comment" type="text" ng-model="newReview.comment">
+	  </md-input-container>
+	  <md-button type="submit">Submit Review!</md-button>
+	</form>
+</section>
+
 <md-button ng-click="openBottomSheet()">
 Open a Bottom Sheet!
 </md-button>

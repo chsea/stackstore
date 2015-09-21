@@ -10,15 +10,11 @@ app.factory('Ticket', function(DS, $state) {
 			},
 		},
 		computed: {
-			sold: ['buyer', function(buyer) {
-				return Boolean(buyer);
-			}]
+			sold: ['buyer', (buyer) => Boolean(buyer)]
 		},
 		methods: {
 			go: function() {
-				$state.go('ticket', {
-					userId: this._id
-				});
+				$state.go('ticket', {userId: this._id});
 			},
 			expired: function() {
 				return new Date() > new Date(this.event.date);

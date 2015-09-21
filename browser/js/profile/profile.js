@@ -4,11 +4,13 @@ app.config(function($stateProvider) {
     templateUrl: 'js/profile/profile.html',
     controller: 'UserController',
     resolve: {
-      user: function(AuthUser, AuthService) {
-        return AuthService.getLoggedInUser().then(function(user) {
-          return AuthUser.find(user._id);
-        });
-      }
+      user: (AuthUser, AuthService) => {
+        return AuthService.getLoggedInUser()
+               .then((user) => AuthUser.find(user._id));
+      },
+      events: (Event) => Event.findAll(),
+      ticketsSelling: (Ticket, events, user) => Ticket.findAll({seller: user._id}),
+      ticketsBought: (Ticket, events, user) => Ticket.findAll({buyer: user._id})
     }
   });
 });

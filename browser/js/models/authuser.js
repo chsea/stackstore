@@ -3,18 +3,14 @@ app.factory('AuthUser', function(DS, $state) {
 		name: 'authusers',
 		methods: {
 			go: function() {
-				$state.go('user', {
-					userId: this._id
-				});
+				$state.go('user', {userId: this._id});
 			}
 		},
 		computed: {
-			isSeller: ['roles', function(roles) {
-				return roles.indexOf('seller') > -1;
-			}],
-			isAdmin: ['roles', function(roles) {
-				return roles.indexOf('admin') > -1;
-			}],
+			isSeller: ['roles',
+								 (roles) => roles.indexOf('seller') > -1],
+			isAdmin: ['roles',
+								(roles) => roles.indexOf('admin') > -1],
 			name: ['firstName',
 						 'lastName',
 						 (firstName, lastName) => `${firstName} ${lastName}`],

@@ -2,44 +2,14 @@ app.config(function($stateProvider) {
   $stateProvider.state('profile.past', {
     url: '/past',
     controller: 'PastController',
-    templateUrl: 'js/profile/past.html',
-    resolve: {
-      events: (Event) => Event.findAll(),
-      ticketsSold: function(Ticket, events, AuthService) {
-        return AuthService.getLoggedInUser()
-          .then(function(user) {
-            return Ticket.findAll({seller: user._id});
-          }).then(function(tickets) {
-            return tickets.filter(function(ticket) {
-              return ticket.expired() && ticket.sold;
-            });
-          });
-      },
-      ticketsUnSold: function(Ticket, events, AuthService) {
-        return AuthService.getLoggedInUser()
-          .then(function(user) {
-            return Ticket.findAll({seller: user._id});
-          }).then(function(tickets) {
-            return tickets.filter(function(ticket) {
-              return ticket.expired() && !ticket.sold;
-            });
-          });
-      },
-      ticketsBought: function(Ticket, events, AuthService) {
-        return AuthService.getLoggedInUser()
-          .then(function(user) {
-            return Ticket.findAll({buyer: user._id});
-          }).then(function(tickets) {
-            return tickets.filter(function(ticket) {
-              return ticket.expired();
-            });
-          });
-      }
-    }
+    templateUrl: 'js/profile/past.html'
   });
-}).controller('PastController', function($scope, ticketsSold, ticketsBought, ticketsUnSold, AuthService) {
-  $scope.ticketsSold = ticketsSold;
-  $scope.ticketsUnSold = ticketsUnSold;
-  $scope.ticketsBought = ticketsBought;
-  $scope.isSeller = () => AuthService.isSeller();
+}).controller('PastController', function($scope, ticketsBought, ticketsSelling, user) {
+  $scope.ticketsSold = ticketsSelling
+    .filter((ticket) => ticket.expired() && ticket.sold);
+  $scope.ticketsUnSold = ticketsSelling
+    .filter((ticket) => ticket.expired() && !ticket.sold);
+  $scope.ticketsBought = ticketsBought
+    .filter((ticket) => ticket.expired());
+  $scope.isSeller = () => user.isSeller;
 });
