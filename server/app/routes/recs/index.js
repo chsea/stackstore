@@ -6,11 +6,12 @@ var EventType = mongoose.model('EventType');
 var _ = require('lodash');
 var Promise = require('bluebird');
 
-router.param('eventTypeId',function(req,res,next,eventTypeId){
-	EventType.findOne({"_id": eventTypeId}).then(
+router.param('eventId',function(req,res,next,eventId){
+	Event.findOne({_id: eventId}).populate('EventType').then(
 		function(e){
-			req.eventTypeId = eventTypeId;
-			req.tags = e.tags;
+			console.log(e);
+			req.eventId = eventId;
+			req.tags = e.EventType.tags;
 			next();
 		},
 		function (err) {
@@ -24,11 +25,11 @@ router.get('/',function(req,res){
 	EventType.find().then( results => res.send(results) );
 });
 
-router.get('/:eventTypeId',function (req,res) {
+router.get('/:eventId',function (req,res) {
 	EventType.find({tags: {$in: req.tags} })
 		.then(function (results) {
 			// transform instances to objects and remove the current event type from the list
-			results = results.map(result => result.toObject()).filter(r => r._id!=req.eventTypeId);
+			results = results.map(result => result.toObject()).filter(r => r._id!=req.eventId);
 			
 			// attach a score to each event type
 			results.forEach(function (r) {
