@@ -15,7 +15,10 @@ app.config(function($stateProvider) {
 
   $scope.submitForm = function() {
     if ($scope.becomeSeller) $scope.user.roles.push('seller');
-    if ($scope.newPassword) $scope.user.password = newPassword;
+    if ($scope.newPassword) {
+      if(user.needPwReset) user.needPwReset = !user.needPwReset;
+      $scope.user.password = $scope.newPassword;
+    }
     user.DSUpdate($scope.user).then(() => {
       alert('Settings updated!');
       window.location.reload();

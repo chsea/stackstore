@@ -27,7 +27,7 @@ router.post('/', function(req, res, next){
 });
 
 router.put('/:id', function(req, res, next){
-	if (req.session.passport.user != req.params.id) return next({status: 403});
+	if (req.session.passport.user != req.params.id && !req.isAdmin) return next({status: 403});
 	_.merge(req.user, req.body);
 	req.user.markModified('roles');
 	req.user.save().then(function(updatedUser){
