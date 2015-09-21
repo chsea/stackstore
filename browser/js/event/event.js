@@ -4,7 +4,6 @@ app.config(function($stateProvider) {
     templateUrl: 'js/event/event.html',
     controller: 'EventCtrl',
     resolve: {
-      user: (AuthService) => AuthService.getLoggedInUser(),
       currentEvent: (Event, $stateParams) => Event.find($stateParams.id),
       reviews: (Review, currentEvent) => Review.findAll({eventType: currentEvent.EventType._id})
     }
