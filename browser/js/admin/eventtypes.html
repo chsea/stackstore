@@ -11,7 +11,7 @@
   <md-button type="submit">Create Event</md-button>
 </form>
 <div ng-repeat="eventType in eventTypes">
-  <event-type eventtype="eventType"></event-type>
+  <event-type eventtype="eventType" ng-class="{inactive: eventType.inactive}"></event-type>
   <form name="editForm" ng-show='eventType.edit' ng-submit="editForm.$valid && update(eventType)">
     <md-input-container>
       <label for="name">Name:</label>
@@ -24,6 +24,6 @@
     <md-button type="submit">Update Event Type</md-button>
   </form>
   <div>
-    <md-button ng-show="!eventType.edit" ng-click="eventType.edit = true">Edit Event Type</md-button>
+    <md-button ng-show="!eventType.edit" ng-click="eventType.edit = true">Edit Event Type</md-button><md-button ng-show="!eventType.inactive" ng-click="inactivate(eventType)">Inactivate Event Type</md-button><md-button  ng-show="eventType.inactive" ng-click="activate(eventType)">Activate Event Type</md-button>
   </div>
 </div>

@@ -29,4 +29,20 @@ app.config(function($stateProvider) {
         $state.go('admin.eventTypes', {}, {reload: true});
       });
   };
+
+  $scope.inactivate = (eventType) => {
+    eventType.DSUpdate({inactive: true})
+      .then(() => {
+        alert('Updated!');
+        $state.go('admin.eventTypes', {}, {reload: true});
+      });
+  };
+
+  $scope.activate = (eventType) => {
+    eventType.DSUpdate({inactive: false})
+      .then(() => {
+        alert('Updated!');
+        $state.go('admin.eventTypes', {}, {reload: true});
+      });
+  };
 });

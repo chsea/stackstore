@@ -4,7 +4,8 @@ var mongoose = require('mongoose');
 var schema = new mongoose.Schema({
     EventType: { type: mongoose.Schema.Types.ObjectId, ref: 'EventType', required: true},
     date: {type: Date, required: true},
-    Venue: { type: mongoose.Schema.Types.ObjectId, ref: 'Venue', required:true}
+    Venue: { type: mongoose.Schema.Types.ObjectId, ref: 'Venue', required:true},
+    inactive: {type: Boolean, default: false}
 });
 
 schema.statics.findAndUpdate = function (id, changes) {
