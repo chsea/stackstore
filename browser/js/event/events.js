@@ -9,7 +9,23 @@ app.config(function($stateProvider) {
       tickets: (Ticket) => Ticket.findAll()
     }
   });
-}).controller('EventsCtrl', function($scope, Event, events, tickets) {
+}).controller('EventsCtrl', function($scope, Event, events, tickets, SearchQuery) {
+  $scope.searchQuery = SearchQuery;
+	$scope.searchFilter = function (event, index, array) {
+		var searchExp = $scope.searchQuery() || '.',
+			regex = new RegExp(searchExp, "gi"),
+			date = new Date(event.date),
+			searchable = [
+				event.EventType.name,
+				event.Venue.name,
+				date.toLocaleDateString(),
+				date.toDateString()
+			];
+		return searchable.some(function (searchableField) {
+			return regex.test(searchableField);
+		});
+	};
+
   $scope.eventData = events;
   $scope.tickets = tickets;
   $scope.refreshEventData = function(category) {
