@@ -1,0 +1,29 @@
+<md-button ng-click='newEventTypeForm = true'>Add a new venue!</md-button>
+<form name="newForm" ng-show='newEventTypeForm' ng-submit="newForm.$valid && add(eventType)">
+  <md-input-container>
+    <label for="name">Name:</label>
+    <input name="name" type="text" ng-model="newEventType.name" required>
+  </md-input-container>
+  <md-input-container>
+    <label for="category">Category:</label>
+    <input name="category" type="text" ng-model="newEventType.category" required>
+  </md-input-container>
+  <md-button type="submit">Create Event</md-button>
+</form>
+<div ng-repeat="eventType in eventTypes">
+  <event-type eventtype="eventType"></event-type>
+  <form name="editForm" ng-show='eventType.edit' ng-submit="editForm.$valid && update(eventType)">
+    <md-input-container>
+      <label for="name">Name:</label>
+      <input name="name" type="text" ng-model="eventType.name" required>
+    </md-input-container>
+    <md-input-container>
+      <label for="category">Category:</label>
+      <input name="category" type="text" ng-model="eventType.category" required>
+    </md-input-container>'
+    <md-button type="submit">Update Event Type</md-button>
+  </form>
+  <div>
+    <md-button ng-show="!eventType.edit" ng-click="eventType.edit = true">Edit Event Type</md-button>
+  </div>
+</div>
