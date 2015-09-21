@@ -20,6 +20,20 @@
 
 <section>
 	<h1>Reviews:</h1>
+	<md-button ng-show="loggedIn" ng-click="showAddForm = !showAddForm">Add a review!</md-button>
+	<form name="addReviewForm" ng-submit="addReviewForm.$valid && addReview()">
+	  <md-input-container>
+	    <label for="name">Stars</label>
+	    <md-select ng-model="ticket.eventProduct" required>
+	      <md-option ng-repeat="event in events" value="{{ event._id }}">{{ event.EventType.name }} at {{ event.Venue.name }} ({{ event.date }})</md-option>
+	    </md-select>
+	  </md-input-container>
+	  <md-input-container>
+	    <label for="seat">Comment</label>
+	    <input name="seat" type="text" ng-model="ticket.seat" placeholder="General Admission">
+	  </md-input-container>
+	  <md-button type="submit">Submit Review!</md-button>
+	</form>
 </section>
 
 <md-button ng-click="openBottomSheet()">

@@ -1,4 +1,4 @@
-app.controller('EventCtrl', function ($scope, $mdBottomSheet, Event, eventData, tickets, reviews, user) {
+app.controller('EventCtrl', function ($scope, $mdBottomSheet, Event, eventData, tickets, reviews) {
     $scope.eventData = eventData;
     $scope.tickets = tickets;
     $scope.reviews = reviews;
