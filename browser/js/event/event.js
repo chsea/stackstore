@@ -5,15 +5,14 @@ app.config(function($stateProvider) {
     controller: 'EventCtrl',
     resolve: {
       user: (AuthService) => AuthService.getLoggedInUser(),
-      event: (Event, $stateParams) => Event.find($stateParams.id),
-      reviews: (Review) => Review.findAll()
+      currentEvent: (Event, $stateParams) => Event.find($stateParams.id),
+      reviews: (Review, currentEvent) => Review.findAll({eventType: currentEvent.EventType._id})
     }
   });
-}).controller('EventCtrl', function($scope, $state, user, event, tickets, reviews, Review) {
-  $scope.eventData = event;
+}).controller('EventCtrl', function($scope, $state, user, currentEvent, tickets, reviews, Review) {
+  $scope.eventData = currentEvent;
   $scope.tickets = tickets;
   $scope.reviews = reviews;
-  console.log(reviews);
 
   $scope.loggedIn = Boolean(user);
   $scope.stars = [1, 2, 3, 4, 5];
@@ -21,10 +20,10 @@ app.config(function($stateProvider) {
 
   $scope.addReview = () => {
     $scope.newReview.reviewer = user._id;
-    $scope.newReview.eventType = event.EventType;
+    $scope.newReview.eventType = currentEvent.EventType;
     Review.create($scope.newReview).then(() => {
       alert('Review created!');
-      $state.go('events.event', {id: event._id}, {reload: true});
+      $state.go('events.event', {id: currentEvent._id}, {reload: true});
     });
   };
 });
