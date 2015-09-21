@@ -21,7 +21,7 @@
 </form>
 <div>
 <div ng-repeat="event in events">
-  <event event='event'></event>
+  <event event='event' ng-class="{inactive: event.inactive}"></event>
   <form name="editForm" ng-show='event.edit' ng-submit="editForm.$valid && update(event)">
     <md-input-container>
       <label for="name">Venue:</label>
@@ -37,6 +37,6 @@
     <md-button type="submit">Update Event</md-button>
   </form>
   <div>
-    <md-button ng-click='event.edit = true'>Edit Event</md-button>
+    <md-button ng-click='event.edit = true'>Edit Event</md-button><md-button ng-show="!event.inactive" ng-click="inactivate(event)">Inactivate Event</md-button><md-button  ng-show="event.inactive" ng-click="activate(event)">Activate Event</md-button>
   </div>
 </div>
