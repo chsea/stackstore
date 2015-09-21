@@ -1,34 +1,42 @@
+<ui-view>
+<div id="eventSearch" layout="row">
+    <md-input-container id="searchInput" flex="66">
+        <input ng-model="searchQuery" ng-model-options="{getterSetter: true}" placeholder="Search by event, venue or date" />
+    </md-input-container>
+    <md-button flex="33" id="searchRemove" ng-show="searchQuery()" ng-click="searchQuery('')">Clear search</md-button>
+</div>
 <div id="events">
 	<div>
-        <md-button ng-click="refreshEventData()">All</md-button>
-        <md-button ng-click="refreshEventData('Sports')">Sports</md-button>
-        <md-button ng-click="refreshEventData('Theater')">Theater</md-button>
-        <md-button ng-click="refreshEventData('Concert')">Concerts</md-button>
-        <md-button ng-click="refreshEventData('Conference')">Conferences</md-button>
-    </div>
-    <md-content layout-padding>
-        <md-grid-list md-cols-gt-md="12" md-cols-sm="3" md-cols-md="8" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter-gt-md="16px" md-gutter-gt-sm="8px" md-gutter="4px">
-            <md-grid-tile style="overflow-y: hidden" md-colspan-gt-sm="12" md-rowspan-gt-sm="1" ng-repeat="e in eventData | orderBy:'date' ">
-                <div flex>
-                	<a ui-sref="event({id: e._id})">
-                		<img ng-src="{{ e.EventType.imgUrl }}" style="width: 100%"/>
-                	</a>
-                </div>
-                <div flex>
-                    <h3>
+		<md-button ng-click="refreshEventData()">All</md-button>
+		<md-button ng-click="refreshEventData('Sports')">Sports</md-button>
+		<md-button ng-click="refreshEventData('Theater')">Theater</md-button>
+		<md-button ng-click="refreshEventData('Concert')">Concerts</md-button>
+		<md-button ng-click="refreshEventData('Conference')">Conferences</md-button>
+	</div>
+		<md-content layout-padding>
+			<md-grid-list md-cols-gt-md="12" md-cols-sm="3" md-cols-md="8" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter-gt-md="16px" md-gutter-gt-sm="8px" md-gutter="4px">
+				<md-grid-tile style="overflow-y: hidden" md-colspan-gt-sm="12" md-rowspan-gt-sm="1" ng-repeat="e in events | filter:searchFilter | orderBy:'date' ">
+					<div flex>
 						<a ui-sref="event({id: e._id})">
+							<img ng-src="{{ e.EventType.imgUrl }}" style="width: 100%" />
+						</a>
+					</div>
+					<div flex>
+						<h3>
+							<a ui-sref="event({id: e._id})">
 							{{ e.EventType.name }}
 						</a>
-					</h3>
-                </div>
-                <div flex>
-                    <p>{{ e.date | date:'mediumDate' }} {{ e.date | date:'shortTime' }}</p>
-                    <p><a ui-sref="venue({id: e.Venue._id})">{{ e.Venue.name }}</a></p>
-                </div>
-                <div flex>
-                    Tickets for sale: {{ (tickets | filter:{eventProduct: e._id}).length }}
-                </div>
-            </md-grid-tile>
-        </md-grid-list>
-    </md-content>
+						</h3>
+					</div>
+					<div flex>
+						<p>{{ e.date | date:'mediumDate' }} {{ e.date | date:'shortTime' }}</p>
+						<p><a ui-sref="venue({id: e.Venue._id})">{{ e.Venue.name }}</a></p>
+					</div>
+					<div flex>
+						Tickets for sale: {{ (tickets | filter:{eventProduct: e._id}).length }}
+					</div>
+				</md-grid-tile>
+			</md-grid-list>
+		</md-content>
+	</ui-view>
 </div>

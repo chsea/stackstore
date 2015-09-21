@@ -3,38 +3,19 @@ app.config(function ($stateProvider) {
     url: '/active',
     controller: 'ActiveController',
     templateUrl: 'js/profile/active.html',
-    resolve: {
-      events: (Event) => Event.findAll(),
-      ticketsForSale: function(Ticket, events, AuthService){
-        return AuthService.getLoggedInUser()
-        .then(function(user){
-          return Ticket.findAll({seller: user._id});
-        }).then(function(tickets) {
-          return tickets.filter(function(ticket) {
-            return !ticket.expired() && !ticket.sold;
-          });
-        });
-      },
-      ticketsBought: function(Ticket, events, AuthService){
-        return AuthService.getLoggedInUser()
-        .then(function(user){
-          return Ticket.findAll({buyer: user._id});
-        }).then(function(tickets) {
-          return tickets.filter(function(ticket) {
-            return !ticket.expired();
-          });
-        });
-      }
-    }
   });
-}).controller('ActiveController', function($scope, $state, ticketsForSale, ticketsBought, DS, events, AuthService) {
-  $scope.ticketsForSale = ticketsForSale.map((ticket) => {
-    ticket.edit = false;
-    return ticket;
-  });
-  $scope.ticketsBought = ticketsBought;
+}).controller('ActiveController', function($scope, $state, ticketsSelling, ticketsBought, DS, events, user) {
+  $scope.ticketsForSale = ticketsSelling
+    .filter((ticket) => !ticket.expired() && !ticket.sold)
+    .map((ticket) => {
+      ticket.edit = false;
+      return ticket;
+    });
 
-  $scope.isSeller = () => AuthService.isSeller();
+  $scope.ticketsBought = ticketsBought
+    .filter((ticket) => !ticket.expired());
+
+  $scope.isSeller = () => user.isSeller;
 
   $scope.removeTicket = (ticket) => {
 		ticket.DSDestroy()

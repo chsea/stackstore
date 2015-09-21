@@ -27,7 +27,7 @@ var Venue = Promise.promisifyAll(mongoose.model('Venue'));
 var Event = Promise.promisifyAll(mongoose.model('Event'));
 var EventType = Promise.promisifyAll(mongoose.model('EventType'));
 var Ticket = Promise.promisifyAll(mongoose.model('Ticket'));
-var Transaction = Promise.promisifyAll(mongoose.model('Transaction'));
+var Review = Promise.promisifyAll(mongoose.model('Review'));
 
 var seedUsers = function() {
   var users = [{
@@ -608,7 +608,21 @@ var seedTickets = function() {
   });
 };
 
+var seedReviews = function(users, events) {
+  var comments = ['ok', 'Meh.', 'Awesome!', 'terrible', "Well, It's not the Backstreet Boys."];
+  var reviews = [];
+  for (var i = 0; i < 20; i++) {
+    var review = {
+      eventType: events[Math.floor(Math.random() * events.length)],
+      reviewer: users[Math.floor(Math.random() * users.length)],
+      stars: Math.floor((Math.random() * 5) + 1),
+      comment: comments[Math.floor(Math.random() * comments.length)]
+    };
+    reviews.push(review);
+  }
 
+  return Review.createAsync(reviews);
+};
 
 connectToDb.then(function() {
     // commented out the safety check because need to reseed Users
@@ -619,21 +633,25 @@ connectToDb.then(function() {
     //         } else {
     //             console.log(chalk.magenta('Seems to already have user data, moving on to others.'));
     //     }})
+    var users;
         User.remove({})
         .then(function(){return Event.remove({}); })
         .then(function(){return EventType.remove({}); })
         .then(function(){return Venue.remove({}); })
         .then(function(){return Ticket.remove({}); })
-        .then(function(){
-          return seedUsers();
-        })
+        .then(function(){return Review.remove({}); })
+        .then(function(){return seedUsers();})
         .then(function(){
           return seedAuthUsers();
         })
-        .then(function(){
+        .then(function(seededUsers){
+          users = seededUsers;
           return seedVenues(); })
         .then(function () {
             return seedEventTypes();
+        })
+        .then(function(seededEvents) {
+          return seedReviews(users, seededEvents);
         })
         .then(function(){
           return seedEvents();

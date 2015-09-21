@@ -6,6 +6,10 @@ app.config(function ($stateProvider) {
       resolve: {
   			user: (AuthService) => AuthService.getLoggedInUser(),
         events: (Event) => Event.findAll(),
+      },
+      data: {
+        authenticate: true,
+        seller: true
       }
   });
 }).controller('SellController', function($scope, $state, Ticket, user, events) {

@@ -3,9 +3,7 @@ app.factory('EventType', function(DS, $state) {
 		name: 'eventTypes',
 		methods: {
 			go: function() {
-				$state.go('eventType', {
-					eventId: this._id
-				});
+				$state.go('eventType', {userId: this._id});
 			}
 		}
 	});

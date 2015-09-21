@@ -4,13 +4,18 @@ app.config(function ($stateProvider) {
     templateUrl: 'js/admin/admin.html',
     controller: 'AdminController',
     resolve: {
-      user: function(User, AuthService){
+      user: function(AuthUser, AuthService){
         return AuthService.getLoggedInUser().then(function(user){
-          return User.find(user._id);
+          return AuthUser.find(user._id);
         });
       }
+    },
+    data: {
+      authenticate: true,
+      admin: true
     }
   });
-}).controller('AdminController', function($scope, user) {
+}).controller('AdminController', function($scope, user, AuthService) {
+
 	$scope.user = user;
 });
