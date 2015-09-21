@@ -39,7 +39,7 @@ app.run(function ($rootScope, AuthService, $state) {
             return;
         }
 
-        if (AuthService.isSeller && !destinationStateRequiresAdmin(toState)) {
+        if (AuthService.isSeller() && !destinationStateRequiresAdmin(toState)) {
             return;
         }
 
@@ -53,7 +53,7 @@ app.run(function ($rootScope, AuthService, $state) {
             // (the second time, AuthService.isAuthenticated() will work)
             // otherwise, if no user is logged in, go to "login" state.
             if (user) {
-              if (!toState.data.admin || user.roles.indexOf('admin') > -1) {
+              if ((!toState.data.admin && !toState.data.seller) || (!toState.data.admin && user.roles.indexOf('seller') > -1) || user.roles.indexOf('admin') > -1) {
                 $state.go(toState.name, toParams);
               } else {
                 $state.go('home');
