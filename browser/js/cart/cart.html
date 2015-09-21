@@ -16,8 +16,23 @@
 			</md-card>
 		</div>
 		<p>Total: ${{total}}</p>
-		<recommend>
 		<md-button id='empty-btn' class='btn md-raised' ng-click='empty()'>Empty Cart</md-button>
 		<md-button id='checkout-btn' class='btn md-raised' ui-sref='checkout'>Checkout</md-button>
 	</div>
 </section>
+<h1 id='recommendations'>Recommended:</h1>
+<div layout="row" class="event">
+    <div flex ng-repeat='rec in recs'>
+        <md-content class="md-padding">
+            <md-card>
+                <img ng-src="{{ rec.EventType.imgUrl }}" class="md-card-image" alt="{{ rec.EventType.name }}"/>
+                <md-card-content>
+                    <a ui-sref='event({id: rec._id})'class="md-title">{{ rec.EventType.name }}</a>
+                    <p><a ui-sref="venue({id:rec.Venue._id})">{{ rec.Venue.name }}</a></p>
+                    <p>{{ rec.date | date:'mediumDate' }}</p>
+                    <p>{{ rec.date | date:'shortTime' }}</p>
+                </md-card-content>
+            </md-card>
+        </md-content>
+    </div>
+</div>

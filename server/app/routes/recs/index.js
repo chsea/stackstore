@@ -44,7 +44,7 @@ router.get('/cart',function(req,res,next){
 			//make that mama array
 			tags = tags.concat(ticket.eventProduct.EventType.tags);
 		});
-	}).then(function(){
+		console.log(tags);
 		//evaluate top 3 closest related event types
 		EventType.find({tags: {$in: tags} })
 		.then(function (results) {
@@ -70,6 +70,7 @@ router.get('/cart',function(req,res,next){
 });
 
 router.get('/:eventId',function (req,res,next) {
+	console.log('tags:', req.tags);
 	EventType.find({tags: {$in: req.tags} })
 		.then(function (results) {
 			// transform instances to objects and remove the current event type from the list

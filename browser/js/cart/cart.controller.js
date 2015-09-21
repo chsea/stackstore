@@ -1,6 +1,5 @@
-app.controller('cartCtrl',function($scope, $state, CartFactory, cart){
+app.controller('cartCtrl',function($scope, $state, CartFactory, cart, recs){
 	$scope.cart = cart;
-	console.log(cart[0]);
 
 	$scope.total = cart.reduce(function(a, b){
 		return a + b.price;
@@ -17,4 +16,8 @@ app.controller('cartCtrl',function($scope, $state, CartFactory, cart){
 			$scope.cart = newCart;
 		});
 	};
+
+	console.log(recs);
+
+	$scope.recs = recs;
 });
