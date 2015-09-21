@@ -9,11 +9,22 @@ app.config(function($stateProvider) {
       reviews: (Review) => Review.findAll()
     }
   });
-}).controller('EventCtrl', function($scope, user, event, tickets, reviews) {
+}).controller('EventCtrl', function($scope, $state, user, event, tickets, reviews, Review) {
   $scope.eventData = event;
   $scope.tickets = tickets;
   $scope.reviews = reviews;
+  console.log(reviews);
 
   $scope.loggedIn = Boolean(user);
-  $scope.showAddForm = false;
+  $scope.stars = [1, 2, 3, 4, 5];
+  $scope.newReview = {};
+
+  $scope.addReview = () => {
+    $scope.newReview.reviewer = user._id;
+    $scope.newReview.eventType = event.EventType;
+    Review.create($scope.newReview).then(() => {
+      alert('Review created!');
+      $state.go('events.event', {id: event._id}, {reload: true});
+    });
+  };
 });

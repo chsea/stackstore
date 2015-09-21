@@ -20,17 +20,23 @@
 
 <section>
 	<h1>Reviews:</h1>
-	<md-button ng-show="loggedIn" ng-click="showAddForm = !showAddForm">Add a review!</md-button>
-	<form name="addReviewForm" ng-submit="addReviewForm.$valid && addReview()">
+	<div ng-show="!reviews.length">No reviews yet!</div>
+	<div ng-repeat="review in reviews">
+		<review review="review"></review>
+	</div>
+	<div ng-show="!loggedIn">Please <a ui-sref="login">log in</a> to add a review.</div>
+	<md-button ng-show="loggedIn" ng-click="showAddForm = true">Add a review!</md-button>
+	<form ng-show="showAddForm" name="addReviewForm" ng-submit="addReviewForm.$valid && addReview()">
 	  <md-input-container>
-	    <label for="name">Stars</label>
-	    <md-select ng-model="ticket.eventProduct" required>
-	      <md-option ng-repeat="event in events" value="{{ event._id }}">{{ event.EventType.name }} at {{ event.Venue.name }} ({{ event.date }})</md-option>
+	    <label for="stars">Stars</label>
+	    <md-select name="stars" ng-model="newReview.stars" required>
+	      <md-option ng-repeat="star in stars" value="{{ star }}">{{ star }}</md-option>
 	    </md-select>
 	  </md-input-container>
 	  <md-input-container>
-	    <label for="seat">Comment</label>
-	    <input name="seat" type="text" ng-model="ticket.seat" placeholder="General Admission">
+	    <label for="comment">Comment</label>
+			<!--There's not currently a Material textarea directive.-->
+	    <input name="comment" type="text" ng-model="newReview.comment">
 	  </md-input-container>
 	  <md-button type="submit">Submit Review!</md-button>
 	</form>

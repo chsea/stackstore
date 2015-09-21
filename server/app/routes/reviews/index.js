@@ -9,7 +9,7 @@ router.param('id', function(req, res, next, id){
 });
 
 router.get('/', function(req, res, next){
-	Review.find(req.query).then(function(reviews){
+	Review.find(req.query).populate('reviewer').then(function(reviews){
 		res.json(reviews);
 	}).then(next);
 });

@@ -1,4 +1,4 @@
-app.directive('user', function(AuthUser) {
+app.directive('user', function() {
   return {
     restrict: 'E',
     templateUrl: 'js/common/directives/user/user.html',
