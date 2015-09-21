@@ -17,13 +17,13 @@
 			<md-grid-list md-cols-gt-md="12" md-cols-sm="3" md-cols-md="8" md-row-height-gt-md="1:1" md-row-height="4:3" md-gutter-gt-md="16px" md-gutter-gt-sm="8px" md-gutter="4px">
 				<md-grid-tile style="overflow-y: hidden" md-colspan-gt-sm="12" md-rowspan-gt-sm="1" ng-repeat="e in events | filter:searchFilter | orderBy:'date' ">
 					<div flex>
-						<a ui-sref="events.event({id: e._id})">
+						<a ui-sref="event({id: e._id})">
 							<img ng-src="{{ e.EventType.imgUrl }}" style="width: 100%" />
 						</a>
 					</div>
 					<div flex>
 						<h3>
-							<a ui-sref="events.event({id: e._id})">
+							<a ui-sref="event({id: e._id})">
 							{{ e.EventType.name }}
 						</a>
 						</h3>

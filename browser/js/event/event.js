@@ -1,9 +1,11 @@
 app.config(function($stateProvider) {
-  $stateProvider.state('events.event', {
-    url: '/:id',
+  $stateProvider.state('event', {
+    url: '/event/:id',
     templateUrl: 'js/event/event.html',
     controller: 'EventCtrl',
     resolve: {
+      tickets: (Ticket) => Ticket.findAll(),
+      user: (AuthService) => AuthService.getLoggedInUser(),
       currentEvent: (Event, $stateParams) => Event.find($stateParams.id),
       reviews: (Review, currentEvent) => Review.findAll({eventType: currentEvent.EventType._id})
     }
@@ -22,7 +24,7 @@ app.config(function($stateProvider) {
     $scope.newReview.eventType = currentEvent.EventType;
     Review.create($scope.newReview).then(() => {
       alert('Review created!');
-      $state.go('events.event', {id: currentEvent._id}, {reload: true});
+      $state.go('event', {id: currentEvent._id}, {reload: true});
     });
   };
 });

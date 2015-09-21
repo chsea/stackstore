@@ -22,7 +22,7 @@ app.config(function ($stateProvider) {
     Ticket.create($scope.ticket)
 		.then(() => {
 			alert('Ticket created!');
-			$state.go('events.event', {id: $scope.ticket.eventProduct}, {reload: true});
+			$state.go('event', {id: $scope.ticket.eventProduct}, {reload: true});
 		});
   };
 });
