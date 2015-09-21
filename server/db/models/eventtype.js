@@ -4,11 +4,13 @@ var mongoose = require('mongoose');
 var schema = new mongoose.Schema({
     name: {type: String, required: true},
     imgUrl: {type: String, default: '/images/defaultEvent.jpg'}, 
-    category: {type: String, required: true, default: 'Other'}
+    category: {type: String, required: true, default: 'Other'},
+    tags: [{type: String}]
 });
 
-// schema.statics.findAndUpdate = function (id, changes) {
-// 	return this.findByIdAndUpdate(id,changes,{new: true});
-// };
+schema.pre('save',function (next) {
+	if (!this.tags.length) this.tags.push(this.category);
+	next();
+});
 
 mongoose.model('EventType', schema);

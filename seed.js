@@ -268,7 +268,8 @@ var seedEventTypes = function () {
     }, {
         name: 'Washington Nationals at New York Mets',
         imgUrl: '/images/natsVsMets.jpg',
-        category: 'Sports'
+        category: 'Sports',
+        tags: ['Sports', 'Baseball']
     }, {
         name: 'Rudimental',
         category: 'Concert'
@@ -288,7 +289,9 @@ var seedEventTypes = function () {
         name: "New York Comic Con",
         category: "Conference"
     }, {
-        name: "Gwen Stefani", category: "Concert"
+        name: "Gwen Stefani", 
+        category: "Concert",
+        tags: ['Concert', 'Pop']
     }, {
         name: "Daddy Yankee",
         category: "Concert"
