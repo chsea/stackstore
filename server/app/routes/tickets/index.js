@@ -28,7 +28,7 @@ router.get('/:id',function(req,res){
 });
 
 router.post('/',function(req,res, next){
-	if (!req.isSeller || !req.isAdmin) return next({status: 403});
+	if (!req.isSeller && !req.isAdmin) return next({status: 403});
 	Ticket.create(req.body).then(function (ticket) {
 		res.status(201).json(ticket);
 	}, function (err) {
@@ -49,7 +49,7 @@ router.put('/:id',function(req,res,next){
 });
 
 router.delete('/:id',function(req,res,next){
-	if (req.session.passport.user != req.params.id || !req.isAdmin) return next({status: 403});
+	if (req.session.passport.user != req.params.id && !req.isAdmin) return next({status: 403});
 	Ticket.remove(req.ticket).then(
 		function(){res.status(204).send(); },
 		function(err){
