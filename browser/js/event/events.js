@@ -26,7 +26,7 @@ app.config(function($stateProvider) {
 		});
 	};
 
-  $scope.eventData = events;
+  $scope.events = events;
   $scope.tickets = tickets;
   $scope.refreshEventData = function(category) {
     Event.findAll()
@@ -35,7 +35,7 @@ app.config(function($stateProvider) {
         return newData.filter(e => e.EventType.category == category);
       })
       .then(function(filtered) {
-        $scope.eventData = filtered;
+        $scope.events = filtered;
       });
   };
 });
