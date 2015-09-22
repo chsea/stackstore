@@ -47,8 +47,8 @@ md-toolbar {
   margin-bottom: 0!important;
   height: 75px !important;
   background-color: white;
-  // border-bottom: 1px solid black;
-  // box-shadow: 1px 1px 14px -3px black;
+  /* border-bottom: 1px solid black; */
+  /* box-shadow: 1px 1px 14px -3px black; */
 }
 .main-content {
   box-sizing: content-box;
@@ -76,4 +76,3 @@ md-toolbar {
 @import 'form/main';
 @import 'grid/main';
 @import 'datetimepicker/main';
-@import 'sell/main';
