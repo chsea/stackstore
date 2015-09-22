@@ -20,7 +20,6 @@ app.config(function($stateProvider) {
       $scope.user.password = $scope.newPassword;
     }
     user.DSUpdate($scope.user).then(() => {
-      alert('Settings updated!');
       window.location.reload();
     });
   };
