@@ -18,7 +18,5 @@ app.controller('cartCtrl',function($scope, $state, CartFactory, cart, recs){
 		});
 	};
 
-	console.log(recs);
-
 	$scope.recs = recs;
 });
