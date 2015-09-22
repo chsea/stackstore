@@ -1,6 +1,6 @@
 app.config(function ($stateProvider) {
   $stateProvider.state('profile.active', {
-    url: '/active',
+    url: '/active/:alert',
     controller: 'ActiveController',
     templateUrl: 'js/profile/active.html',
   });
@@ -28,8 +28,10 @@ app.config(function ($stateProvider) {
   $scope.updatePrice = (ticket) => {
     ticket.DSUpdate({price: ticket.price})
     .then(() => {
-      alert('Price updated!');
-      $state.go('profile.active', {}, {reload: true});
+      $state.go('profile.active', {'alert': 'sucess'}, {reload: true});
+    })
+    .then(null, (err) => {
+      $state.go('profile.active', {'alert': 'error'}, {reload: true});
     });
   };
 });

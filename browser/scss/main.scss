@@ -2,9 +2,29 @@
   box-sizing: border-box;
 }
 
+<<<<<<< HEAD
+body, html {
+  background: none;
+  max-height: -webkit-calc(100% - 75px) !important;
+  max-height: -moz-calc(100% - 75px) !important;
+  max-height: calc(100% - 75px) !important;
+  min-height: 0;
+}
+
+#background {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: url('/images/pattern.png') repeat fixed;
+  content: '';
+  z-index: -1;
+=======
 body {
   //background: url('/images/pattern.png') repeat
   /*background: #fdfdfd;*/
+>>>>>>> cc98086fe1bc341f7f0b11a435947662a4c62e9b
 }
 
 @mixin clearfix {
@@ -16,11 +36,33 @@ body {
 }
 
 #main {
+  box-sizing: content-box;
   /*padding-top: 60px;
   width: 1200px;*/
-  margin: 0 auto;
+  margin: 75px auto 0;
+  min-height: -webkit-calc(100% - 75px);
+  min-height: -moz-calc(100% - 75px);
+  min-height: calc(100% - 75px);
+  h1 {
+    font: bold 35px Amatic SC;
+    text-transform: uppercase;
+    margin: 0 0 15px;
+  }
 }
-
+md-toolbar {
+  margin-bottom: 0!important;
+  height: 75px !important;
+  background-color: white;
+  // border-bottom: 1px solid black;
+  // box-shadow: 1px 1px 14px -3px black;
+}
+.main-content {
+  box-sizing: content-box;
+  background-color: white;
+  margin: 0 30px;
+  padding: 20px 30px;
+  height: 100%;
+}
 .btn>i {
     vertical-align: middle
   }
@@ -37,6 +79,7 @@ body {
 @import 'cart/main';
 @import 'checkout/main';
 @import 'eventSearch/main';
+@import 'form/main';
+@import 'grid/main';
 @import 'datetimepicker/main';
 @import 'sell/main';
-

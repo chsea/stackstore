@@ -38,7 +38,7 @@ router.post('/',function(req,res, next){
 });
 
 router.put('/:id',function(req,res,next){
-	if (req.session.passport.user != req.params.id) return next({status: 403});
+	if (req.session.passport.user != req.ticket.seller) return next({status: 403});
 	Ticket.findAndUpdate(req.ticket,req.body).then(
 		function (saved) {res.json(saved); },
 		function (err) {
