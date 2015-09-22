@@ -6,6 +6,10 @@ app.config(function ($stateProvider) {
         resolve: {
         	cart: function (CartFactory) {
         		return CartFactory.getAll(); 
+        	},
+
+        	recs: function(Recommend){
+        		return Recommend.findAll({}, {suffix: '/cart'});
         	}
         }
     });

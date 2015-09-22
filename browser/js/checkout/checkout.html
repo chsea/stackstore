@@ -1,18 +1,23 @@
 <section class='cart'>
 	<h1>Your Cart :^]</h1>
-	<md-card ng-repeat="ticket in cart">
-	    <md-card-content>
-	    	<p><a class="md-title" ui-sref="event({id: ticket.eventProduct._id})">{{ ticket.eventProduct.name }}</a></p>
-			<p>Seat: {{ticket.seat}}</p>
-			<p>Date: {{ticket.eventProduct.date}}</p>
-			<p>Venue: {{ticket.eventProduct.venue.name}}</p>
-			<p>Seller: {{ticket.seller.firstName}} {{ticket.seller.lastName}}</p>
-			<p>Price: {{ticket.price}}</p>
-			<button class='btn' ng-click='removeTicket(ticket._id)'>Remove from cart</button>
-	    </md-card-content>
-	</md-card>
+	<div class='flex' layout='row'>
+		<md-card ng-repeat="ticket in cart">
+		    <md-card-content>
+		    	<p><a class="md-title" ui-sref="event({id: ticket.eventProduct._id})">{{ ticket.eventProduct.EventType.name }}</a></p>
+				<p>Seat: {{ticket.seat}}</p>
+				<p>Date: {{ticket.eventProduct.date}}</p>
+				<p>Venue: {{ticket.eventProduct.Venue.name}}</p>
+				<p>Seller: {{ticket.seller.firstName}} {{ticket.seller.lastName}}</p>
+				<p>Price: ${{ticket.price}}</p>
+				<button class='btn' ng-click='removeTicket(ticket._id)'>Remove from cart</button>
+		    </md-card-content>
+		</md-card>
+    </div>
+	<p>Tickets in cart: {{cart.length}}</p>
 	<p>Total: {{total}}</p>
 </section>
+
+<h1 align='center'>Checkout</h1>
 <form id="checkout" name="checkoutForm" ng-submit="checkoutForm.$valid && submitCheckout(checkout)">
     <md-input-container class="form-group">
         <label for="firstName">First Name</label>
@@ -22,7 +27,7 @@
         <label for="lastName">Last Name</label>
         <input type="text" ng-model="checkout.lastName" class="form-control" id="lastName" required>
     </md-input-container>
-    <md-input-container class="form-group" ng-show='!user'>
+    <md-input-container class="form-group">
         <label for="email">Email</label>
         <input type="text" ng-model="checkout.email" class="form-control" id="email" required ng-pattern='/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i'>
     </md-input-container>

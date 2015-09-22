@@ -22,7 +22,9 @@ var authUser = User.extend({
   roles: [String],
   twitter: {id: String, username: String, token: String, tokenSecret: String},
   facebook: {id: String},
-  google: {id: String}
+  google: {id: String},
+  needPwReset: {type: Boolean, defeault: false},
+  inactive: {type: Boolean, default: false}
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations

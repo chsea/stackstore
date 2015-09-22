@@ -8,6 +8,7 @@ app.controller('checkoutCtrl',function($scope, $state, $q, CartFactory, cart, Au
 	$scope.removeTicket = function(ticketId){
 		CartFactory.delete(ticketId).then(function(newCart){
 			$scope.cart = newCart;
+			$state.go('checkout', {}, {reload: true});
 		});
 	};
 
@@ -32,6 +33,7 @@ app.controller('checkoutCtrl',function($scope, $state, $q, CartFactory, cart, Au
 			$scope.checkout.firstName = user.firstName;
 			$scope.checkout.lastName = user.lastName;
 			$scope.user = user;
+			$scope.checkout.email = user.email;
 			if(user.address){
 				$scope.checkout.address.street = user.address.street;
 				$scope.checkout.address.city = user.address.city;

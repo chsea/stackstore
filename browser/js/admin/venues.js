@@ -30,4 +30,20 @@ app.config(function($stateProvider) {
         $state.go('admin.venues', {}, {reload: true});
       });
   };
+
+  $scope.inactivate = (venue) => {
+    venue.DSUpdate({inactive: true})
+      .then(() => {
+        alert('Updated!');
+        $state.go('admin.venues', {}, {reload: true});
+      });
+  };
+
+  $scope.activate = (venue) => {
+    venue.DSUpdate({inactive: false})
+      .then(() => {
+        alert('Updated!');
+        $state.go('admin.venues', {}, {reload: true});
+      });
+  };
 });

@@ -7,8 +7,11 @@ var AuthUser = mongoose.model('AuthUser');
 var User = mongoose.model('User');
 
 function getAll(cart){
-	return Ticket.find({_id: { $in: cart}}).deepPopulate("eventProduct.venue")
-	.populate("seller").populate("buyer").exec();
+	return Ticket.find({_id: { $in: cart}})
+	.deepPopulate("eventProduct.Venue eventProduct.EventType")
+	.populate("seller")
+	.populate("buyer")
+	.exec();
 }
 
 router.use(function(req, res, next){

@@ -26,13 +26,17 @@ app.config(function($stateProvider) {
 		});
 	};
 
-  $scope.events = events;
+  $scope.events = events.filter((e) => !e.expired && !e.Venue.inactive && !e.EventType.inactive);
+
   $scope.tickets = tickets;
   $scope.refreshEventData = function(category) {
     Event.findAll()
       .then(function(newData) {
-        if (!category) return newData;
-        return newData.filter(e => e.EventType.category == category);
+        //whyyyy doesn't this work???
+        // newDate = newDate.filter((e) => !e.Venue.inactive && !e.EventType.inactive);
+
+        if (!category) return newData.filter((e) => !e.expired && !e.Venue.inactive && !e.EventType.inactive);
+        return newData.filter(e => e.EventType.category == category && !e.expired && !e.Venue.inactive && !e.EventType.inactive);
       })
       .then(function(filtered) {
         $scope.events = filtered;
