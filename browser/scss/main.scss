@@ -2,7 +2,6 @@
   box-sizing: border-box;
 }
 
-<<<<<<< HEAD
 body, html {
   background: none;
   max-height: -webkit-calc(100% - 75px) !important;
@@ -20,11 +19,7 @@ body, html {
   background: url('/images/pattern.png') repeat fixed;
   content: '';
   z-index: -1;
-=======
-body {
-  //background: url('/images/pattern.png') repeat
-  /*background: #fdfdfd;*/
->>>>>>> cc98086fe1bc341f7f0b11a435947662a4c62e9b
+
 }
 
 @mixin clearfix {
@@ -53,8 +48,8 @@ md-toolbar {
   margin-bottom: 0!important;
   height: 75px !important;
   background-color: white;
-  // border-bottom: 1px solid black;
-  // box-shadow: 1px 1px 14px -3px black;
+  /* border-bottom: 1px solid black; */
+  /* box-shadow: 1px 1px 14px -3px black; */
 }
 .main-content {
   box-sizing: content-box;
