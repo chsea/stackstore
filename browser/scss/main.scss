@@ -3,6 +3,7 @@
 }
 
 body {
+  //background: url('/images/pattern.png') repeat
   background: #fdfdfd;
 }
 
@@ -36,3 +37,4 @@ body {
 @import 'cart/main';
 @import 'checkout/main';
 @import 'eventSearch/main';
+@import 'sell/main';
