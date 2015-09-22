@@ -41,12 +41,9 @@ app.controller('checkoutCtrl',function($scope, $state, $q, CartFactory, cart, Au
 
         CartFactory.checkout(checkoutInfo)
         .then(function(data){
-        	//do something better than go to cart
         	$scope.checkedOut = data;
-        	console.log(data);
         }).catch(function (error) {
 			$scope.error = error.data;
-	    	console.log("..", error);	
 		});	
 
     };
