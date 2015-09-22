@@ -63,3 +63,11 @@ navbar {
     margin-top: 12px;
   }
 }
+
+md-menu-item {
+  color: #000000;
+}
+
+md-menu-item>.md-button span {
+  color: #000000;
+}
