@@ -47,7 +47,6 @@ router.post('/checkout', function(req, res, next){
 				user.firstName = req.body.firstName;
 				user.lastName = req.body.lastName;
 				user.email = req.body.email;
-				console.log(req.body.email);
 				return user.save().then(null, next);
 			}
 			//if the email is not in the database, create an anonymous user
