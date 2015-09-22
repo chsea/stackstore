@@ -12,7 +12,9 @@ app.config(function($stateProvider) {
   });
 }).controller('EventCtrl', function($scope, $state, user, currentEvent, tickets, reviews, Review) {
   $scope.eventData = currentEvent;
-  $scope.tickets = tickets;
+  $scope.tickets = tickets.filter(function(ticket){
+      return !ticket.buyer;
+  });
   $scope.reviews = reviews;
 
   $scope.loggedIn = Boolean(user);

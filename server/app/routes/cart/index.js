@@ -26,14 +26,17 @@ router.get('/', function(req, res, next){
 });
 
 router.post('/checkout', function(req, res, next){
+	//test if cart is empty
+	if(!req.session.cart.length) next(new Error('Your cart is empty'));
+	//validate zip code
+	if(!/^\d{5}$/.test(req.body.address.zip)) next(new Error('Invalid zip code'));
 	//check if logged in
-	console.log(req.session.cart);
 	var userPromise = req.session.passport.user ? 
 	//if logged in, update user
 		AuthUser.findById(req.session.passport.user).then(function(user){
 			user.address = req.body.address;
 			return user.save();
-		}) :
+		}).then(null, next) :
 		//if not logged in, check to see if email is in database
 		User.findOne({email: req.body.email}).then(function(user){
 			//update anonymous user's information if found
@@ -41,7 +44,7 @@ router.post('/checkout', function(req, res, next){
 				user.address = req.body.address;
 				user.firstName = req.body.firstName;
 				user.lastName = req.body.lastName;
-				return user.save();
+				return user.save().then(null, next);
 			}
 			//if the email is not in the database, create an anonymous user
 			else{
@@ -52,21 +55,23 @@ router.post('/checkout', function(req, res, next){
 					email: req.body.email
 				});
 			}
-		});
+		}).then(null, next);
 
 	userPromise.then(function(user){
 		Promise.map(req.session.cart, function(ticketId){
 			return Ticket.findById(ticketId).then(function(ticket){
+
 				//make sure ticket isn't sold
 				if(!ticket.dateSold && !ticket.buyer){
 					ticket.dateSold = new Date();
 					ticket.buyer = user._id;
+					return ticket.save();
 				}
-				return ticket.save();
+				next(Error('Sorry, one or more of the tickets in your cart is no longer available'));
 			});
 		}).then(function(){
 			req.session.cart = [];
-			res.send('checked out and stuff');
+			res.send('checkout success');
 		}).then(null, next);
 	});
 });

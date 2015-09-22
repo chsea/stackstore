@@ -12,37 +12,37 @@
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
-            </md-menu-bar>
-
-            <md-menu-bar flex>
                 <md-menu>
-                    <md-button ng-click="$mdOpenMenu()" class="btn">
+                    <md-button ng-click="$mdOpenMenu()" >
                         <i aria-label="User" class="zmdi zmdi-account-box-o zmdi-hc-2x"></i>
                     </md-button>
                     <md-menu-content>
                         <md-menu-item ng-show="!user">
-                            <md-button ui-sref="login" class="btn login-button">Login</md-button>
+                            <md-button ui-sref="login">Login</md-button>
                         </md-menu-item>
                         <md-menu-item ng-show="!user">
-                            <md-button ui-sref="signup" class="btn login-button">Signup</md-button>
+                            <md-button ui-sref="signup">Signup</md-button>
                         </md-menu-item>
                         <md-menu-item ng-show="user">
                             <span>Welcome {{ user.firstName }}!</span>
                         </md-menu-item>
                         <md-menu-item ng-show="user">
-                            <md-button class="btn" ui-sref="profile.active">Profile</md-button>
+                            <md-button ui-sref="profile.active">Profile</md-button>
+                        </md-menu-item>
+                        <md-menu-item ng-show="isSeller()">
+                            <md-button ui-sref="sell">Sell some tickets</md-button>
                         </md-menu-item>
                         <md-menu-item ng-show="user">
-                            <md-button class="btn" ng-click="logout()">Logout</md-button>
+                            <md-button ng-click="logout()">Logout</md-button>
                         </md-menu-item>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
-                <md-menu>
-                    <md-button class="btn" ui-sref="cart" aria-label="view cart">
-                        <i class="zmdi zmdi-shopping-cart zmdi-hc-2x"></i>
+
+                    <md-button ui-sref="cart" style="vertical-align:bottom">
+                        <i aria-label="view cart" class="zmdi zmdi-shopping-cart zmdi-hc-2x"></i>
                     </md-button>
-                </md-menu>
+
             </md-menu-bar>
-    </div> <!-- layout=row -->
+
 </md-toolbar>
