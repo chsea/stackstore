@@ -38,13 +38,16 @@ app.controller('checkoutCtrl',function($scope, $state, $q, CartFactory, cart, Au
     $scope.submitCheckout = function (checkoutInfo) {
 
     	$scope.error = null;
+    	if(!checkoutInfo.email) $scope.error = 'Invalid email address';
+    	else{
+	        CartFactory.checkout(checkoutInfo)
+	        .then(function(data){
+	        	$scope.checkedOut = data;
+	        }).catch(function (error) {
+				$scope.error = error.data;
+			});	
+    	}
 
-        CartFactory.checkout(checkoutInfo)
-        .then(function(data){
-        	$scope.checkedOut = data;
-        }).catch(function (error) {
-			$scope.error = error.data;
-		});	
 
     };
 
