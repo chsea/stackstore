@@ -47,13 +47,14 @@ md-toolbar {
   margin-bottom: 0!important;
   height: 75px !important;
   background-color: white;
+  position: fixed;
   /* border-bottom: 1px solid black; */
   /* box-shadow: 1px 1px 14px -3px black; */
 }
 .main-content {
   box-sizing: content-box;
   background-color: white;
-  margin: 0 30px;
+  margin: 0 50px;
   padding: 20px 30px;
   height: 100%;
 }

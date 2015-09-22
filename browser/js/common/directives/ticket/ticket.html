@@ -1,7 +1,7 @@
 <div class="title"><strong>{{ticket.event.EventType.name}}</strong>
 <br><em>at</em> {{ticket.event.Venue.name}}</div>
 <div class="blue-border">Seller: {{ticket.seller.firstName}} {{ticket.seller.lastName}}</div>
-<div ng-show="ticket.buyer">Buyer Name: {{ticket.buyer.firstName}} {{ticket.buyer.lastName}}</div>
+<div  class="pink-border" ng-show="ticket.buyer">Buyer Name: {{ticket.buyer.firstName}} {{ticket.buyer.lastName}}</div>
 <div class="green-border">When: {{ ticket.event.date | date:'mediumDate' }} - {{ ticket.event.date | date:'shortTime' }}</div>
-<div ng-show="ticket.buyer">Sold on: {{ ticket.dateSold | date:'mediumDate' }} at {{ ticket.dateSold | date:'shortTime' }}</div>
+<div class="cyan-border" ng-show="ticket.buyer">Sold on: {{ ticket.dateSold | date:'mediumDate' }} at {{ ticket.dateSold | date:'shortTime' }}</div>
 <div class="orange-border" ng-show='!ticket.edit'>Price: {{ ticket.price | currency }}</div>
