@@ -1,3 +1,29 @@
+.sidebar {
+  float: right;
+  position: fixed;
+  width: 200px;
+  ul {
+    margin: 50px 20px 0 0;
+    text-align: right;
+  }
+  li {
+    list-style: none;
+    padding-right: 10px;
+  }
+  li:hover {
+    border-right: 5px solid #A9CF54;
+    -webkit-transition: border 0.3s;
+    transition: border 0.3s;
+  }
+}
+.activeItem {
+  border-right: 5px solid #A9CF54;
+  -webkit-transition: border 0.3s;
+  transition: border 0.3s;
+}
+.sidecontent {
+  margin-left: 200px;
+}
 .flex-container {
   display: -webkit-box;
   display: -moz-box;
@@ -7,14 +33,15 @@
 
   flex-flow: row wrap;
   -webkit-flex-flow: row wrap;
-  justify-content: space-around;
+  margin-left: -25px;
+  margin-bottom: 25px;
 }
 
 .flex-item {
   width: 400px;
   border: 1px dashed black;
   padding: 15px 15px 15px 0;
-  margin: 10px 0;
+  margin: 10px 0 0 25px;
   .title {
     font-size: 15px;
     text-align: center;
