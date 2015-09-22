@@ -1,15 +1,20 @@
-#sellForm {
+.single-page-form {
   background-color: white;
   width: 70%;
-  margin: 50px auto 0;
+  margin: 125px auto 50px;
   padding: 50px;
   text-align: center;
   border-bottom: 5px solid #ACF0F2;
   h1 {
+    font: bold 35px Amatic SC;
     text-transform: uppercase;
     margin: 0 0 15px;
   }
   md-input-container {
     text-align: left;
+  }
+  button {
+    font: 25px Amatic SC;
+    margin-top: 25px;
   }
 }
