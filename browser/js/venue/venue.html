@@ -1,9 +1,33 @@
-<section id="event">
-    <div>
-    	<h3>{{ venue.name }}</h3>
-    	<h3>{{ venue.seatMapUrl }}</h3>
-    	<p>Address: {{ venue.address.streetAddress }}, {{ venue.address.city }}, {{ venue.address.state }} {{ venue.address.zip }}</p>
-    	<img src="{{ venue.seatingMapUrl }}"/>
-    	<upcoming-events></upcoming-events>
-    </div>
-</section>
+<div class="main-content">
+<div layout="row" id="event">
+	<div flex>
+		<md-content class="md-padding">
+			<md-card>
+			    <img ng-src="{{ venue.imageUrl }}" class="md-card-image" alt="{{ venue.name }} seat map"/>
+			    <md-card-content>
+			    	<h2 class="md-title">{{ venue.name }}</h2>
+			    	<p>
+			    		Address: {{ venue.address.streetAddress }}, {{ venue.address.city }}, {{ venue.address.state }} {{ venue.address.zip }}
+			    	</p>
+			    	<p><a ui-sref="venue({id:eventData.Venue._id})">{{ eventData.Venue.name }}</a></p>
+			    	<p>{{ eventData.date | date:'mediumDate' }}</p>
+			    	<p>{{ eventData.date | date:'shortTime' }}</p>
+			    </md-card-content>
+			</md-card>
+		</md-content>
+	</div>
+
+	<div flex>
+		<md-content class="md-padding">
+			<md-card>
+			    <img ng-src="{{ venue.seatingMapUrl }}" class="md-card-image" alt="{{ venue.name }} seat map"/>
+			    <md-card-content>
+			    <p>Seat map</p>
+			    </md-card-content>
+			</md-card>
+		</md-content>
+	</div>
+
+    <upcoming-events></upcoming-events>
+
+    <div class="main-content">

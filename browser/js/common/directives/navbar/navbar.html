@@ -1,50 +1,49 @@
-<md-toolbar class="md-menu-toolbar">
-    <div layout="row">
-        <md-toolbar-filler flex="5" layout layout-align="center center" id="logo">
-            <fullstack-logo></fullstack-logo>
-        </md-toolbar-filler>
-            <md-menu-bar flex="75">
-                <md-menu>
-                    <md-button class="btn" ng-click="$mdOpenMenu()">Browse</md-button>
-                    <md-menu-content>
-                        <md-menu-item ng-repeat="item in items" ng-repeat="item in items" ng-show="!item.authBuyer && !item.seller && !item.admin || (item.auth && !isSeller()) || (!item.admin && !item.authBuyer && isSeller()) ||  !item.authBuyer && isAdmin()">
-                            <md-button><a ui-sref="{{item.state}}">{{item.label}}</a></md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
-            </md-menu-bar>
+<md-toolbar layout="row" layout-align="space-between center">
+            
+            <md-toolbar-filler layout flex layout-align="left center">
+                <md-button ui-sref="home">
+                    <i aria-label="StackStub home" class="zmdi zmdi-ticket-star zmdi-hc-3x"></i>
+                </md-button>
+            </md-toolbar-filler>
 
-            <md-menu-bar flex>
+            <span flex layout layout-align="left center">StackStub</span>
+            
+            <md-menu-bar>
+
                 <md-menu>
-                    <md-button ng-click="$mdOpenMenu()" class="btn">
+                    <md-button ng-click="$mdOpenMenu()" >
                         <i aria-label="User" class="zmdi zmdi-account-box-o zmdi-hc-2x"></i>
                     </md-button>
                     <md-menu-content>
                         <md-menu-item ng-show="!user">
-                            <md-button ui-sref="login" class="btn login-button">Login</md-button>
+                            <md-button ui-sref="login">Login</md-button>
                         </md-menu-item>
                         <md-menu-item ng-show="!user">
-                            <md-button ui-sref="signup" class="btn login-button">Signup</md-button>
+                            <md-button ui-sref="signup">Signup</md-button>
                         </md-menu-item>
                         <md-menu-item ng-show="user">
                             <span>Welcome {{ user.firstName }}!</span>
                         </md-menu-item>
                         <md-menu-item ng-show="user">
-                            <md-button class="btn" ui-sref="profile.active">Profile</md-button>
+                            <md-button ui-sref="profile.active">Profile</md-button>
+                        </md-menu-item>
+                        <md-menu-item ng-show="isSeller()">
+                            <md-button ui-sref="sell">Sell some tickets</md-button>
+                        </md-menu-item>
+                        <md-menu-item ng-show="isAdmin()">
+                            <md-button ui-sref="admin">Admin panel</md-button>
                         </md-menu-item>
                         <md-menu-item ng-show="user">
-                            <md-button class="btn" ng-click="logout()">Logout</md-button>
+                            <md-button ng-click="logout()">Logout</md-button>
                         </md-menu-item>
                         </md-menu-item>
                     </md-menu-content>
                 </md-menu>
-                <md-menu>
-                    <md-button class="btn" ui-sref="cart" aria-label="view cart">
-                        <i class="zmdi zmdi-shopping-cart zmdi-hc-2x"></i>
+
+                    <md-button ui-sref="cart" style="vertical-align:bottom">
+                        <i aria-label="view cart" class="zmdi zmdi-shopping-cart zmdi-hc-2x"></i>
                     </md-button>
-                </md-menu>
+
             </md-menu-bar>
-    </div> <!-- layout=row -->
+            
 </md-toolbar>
-        
-        

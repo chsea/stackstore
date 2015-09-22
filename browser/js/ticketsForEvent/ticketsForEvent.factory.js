@@ -8,6 +8,6 @@ app.factory('TicketsForEventFactory', function ($http){
 	}
 	return {
 		getAll: getAll,
-		getAlternateDates: getAlternateDates
+		getAlternateDates: getAlternateDates,
 	};
 });

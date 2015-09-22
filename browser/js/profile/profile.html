@@ -1,7 +1,12 @@
-<h1>Hi {{user.firstName}}!</h1>
-<ul>
-  <li><a ui-sref="profile.active">Active Tickets</a></li>
-  <li><a ui-sref="profile.past">Past Transactions</a></li>
-  <li><a ui-sref="profile.settings">Edit Settings</a></li>
-</ul>
-<ui-view></ui-view>
+<div class="main-content">
+  <div class="sidebar">
+    <ul>
+      <li ui-sref-active="activeItem"><a ui-sref="profile.active">Active Tickets</a></li>
+      <li ui-sref-active="activeItem"><a ui-sref="profile.past">Past Transactions</a></li>
+      <li ui-sref-active="activeItem"><a ui-sref="profile.settings">Edit Settings</a></li>
+    </ul>
+  </div>
+  <div class="sidecontent">
+    <ui-view></ui-view>
+  </div>
+</div>

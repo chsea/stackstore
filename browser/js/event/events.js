@@ -1,12 +1,12 @@
 app.config(function($stateProvider) {
-  $stateProvider.state('events', {
-    url: '/events',
+  $stateProvider.state('home', {
+    url: '/',
     templateUrl: 'js/event/events.html',
     controller: 'EventsCtrl',
     resolve: {
       user: (AuthService) => AuthService.getLoggedInUser(),
-      events: (Event) => Event.findAll(),
-      tickets: (Ticket) => Ticket.findAll()
+      events: (Event) => Event.findAll({}, {bypassCache: true}),
+      tickets: (Ticket) => Ticket.findAll({}, {bypassCache: true})
     }
   });
 }).controller('EventsCtrl', function($scope, Event, events, tickets, SearchQuery) {
@@ -28,7 +28,10 @@ app.config(function($stateProvider) {
 
   $scope.events = events.filter((e) => !e.expired && !e.Venue.inactive && !e.EventType.inactive);
 
-  $scope.tickets = tickets;
+  $scope.tickets = tickets.filter(function(ticket){
+      return !ticket.buyer;
+  });
+
   $scope.refreshEventData = function(category) {
     Event.findAll()
       .then(function(newData) {

@@ -27,39 +27,42 @@ router.get('/',function(req,res){
 
 router.get('/cart',function(req,res,next){
 	var tags = [];
+	var eventTypesInCart = [];
 
-	//populate those bad boys
+	//populate the cart
 	Ticket.find({_id: { $in: req.session.cart}})
 	.deepPopulate("eventProduct.EventType")
 	.then(function(tickets){
-		//remove duplicate event types
-		var accountedForEventTypes = [];
+		//create array of all tags in cart
 		tickets.forEach(function(ticket){
-			if(accountedForEventTypes.indexOf(ticket.eventProduct.EventType._id) > -1){
+			//ignore duplicate event types
+			if(eventTypesInCart.indexOf(ticket.eventProduct.EventType._id.toString()) > -1){
 				return;
 			}
-			accountedForEventTypes.push(ticket.eventProduct.EventType._id);
+			eventTypesInCart.push(ticket.eventProduct.EventType._id.toString());
 
 			//make that mama array
 			tags = tags.concat(ticket.eventProduct.EventType.tags);
 		});
 		//evaluate top 3 closest related event types
-		EventType.find({tags: {$in: tags} })
+		EventType.find()
 		.then(function (results) {
-			// transform instances to objects and remove the current event type from the list
-			results = results.map(result => result.toObject()).filter(r => r._id!=req.currEventTypeId);
+			// transform instances from mongoose documents to ordinary objects 
+			// and remove event types already in cart
+			results = results.map(result => result.toObject())
+				.filter(r => eventTypesInCart.indexOf(r._id.toString()) === -1);
 			
 			// attach a score to each event type
 			results.forEach(function (r) {
-				r.score = tags.filter( tag => r.tags.indexOf(tag)>-1 ).length;
+				r.score = tags.filter( tag => r.tags.indexOf(tag) > -1 ).length;
 			});
 			
-			// sort by score, take top three, and keep just their _ids
-			var finalArr = _.sortByOrder(results, 'score', 'desc').slice(0,3).map(r => r._id);
+			// sort by score and take top three
+			var recEventTypes = _.sortByOrder(results, 'score', 'desc').slice(0,3);
 			
 			// find one actual Event that corresponds to each event type
-			return Promise.map(finalArr, function (elem) { 
-				return Event.findOne({"EventType":elem}).populate('EventType'); 
+			return Promise.map(recEventTypes, function (elem) { 
+				return Event.findOne({"EventType":elem._id}).populate('EventType'); 
 			});
 		})
 		.then( events => res.json(events) )
@@ -75,7 +78,7 @@ router.get('/:eventId',function (req,res,next) {
 			
 			// attach a score to each event type
 			results.forEach(function (r) {
-				r.score = req.tags.filter( tag => r.tags.indexOf(tag)>-1 ).length;
+				r.score = req.tags.filter( tag => r.tags.indexOf(tag) > -1 ).length;
 			});
 			
 			// sort by score, take top three, and keep just their _ids

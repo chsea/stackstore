@@ -12,11 +12,8 @@
       <md-option ng-repeat="venue in venues" value="{{ venue._id }}">{{ venue.name }}</md-option>
     </md-select>
   </md-input-container>
-  <md-input-container>
-    <label for="date">Date:</label>
-    <input name="date" type="text" ng-model="newEvent.date">
-    <!-- Add angular material datepicker? -->
-  </md-input-container>
+  <date-time-picker date="newEvent.date"></date-time-picker>
+  {{eventDate | json}}
   <md-button type="submit">Create Event</md-button>
 </form>
 <div>
@@ -29,11 +26,7 @@
         <md-option ng-repeat="venue in venues" value="{{ venue._id }}">{{ venue.name }}</md-option>
       </md-select>
     </md-input-container>
-    <md-input-container>
-      <label for="date">Date:</label>
-      <input name="date" type="text" ng-model="event.date">
-      <!-- Add angular material datepicker? -->
-    </md-input-container>
+    <date-time-picker date="event.date"></date-time-picker>
     <md-button type="submit">Update Event</md-button>
   </form>
   <div>

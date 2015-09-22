@@ -1,15 +1,18 @@
-<section id="upcomingEvents">
-    <div>
-    	<h3>Upcoming events</h3>
-    </div>
-    <table><tbody>
-    	<th>event</th>
-    	<th>date</th>
-    	<th>time</th>
-    	<tr ng-repeat="e in events">
-    		<td><a ui-sref="event({id:e._id})">{{ e.EventType.name }}</a></td>
-    		<td>{{ e.date | date:'mediumDate' }}</td>
-    		<td>{{ e.date | date:'shortTime' }}</td>
-    	</tr>
-    </tbody></table>
-</section>
+<div flex>
+    <md-content class="md-padding">
+        <md-card>
+            <md-card-content>
+                <div>
+                	<h3>Upcoming events</h3>
+                </div>
+                <table><tbody>
+                	<tr ng-repeat="e in events">
+                		<td><a ui-sref="event({id:e._id})">{{ e.EventType.name }}</a></td>
+                		<td>{{ e.date | date:'mediumDate' }}</td>
+                		<td>{{ e.date | date:'shortTime' }}</td>
+                	</tr>
+                </tbody></table>
+            </md-card-content>
+        </md-card>
+    </md-content>
+</div>
