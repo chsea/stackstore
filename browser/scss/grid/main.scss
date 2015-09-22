@@ -1,0 +1,26 @@
+.gridEl {
+  border: 1px dashed black;
+  padding: 15px 15px 15px 0;
+  margin: 10px 0;
+  .title {
+    font-size: 15px;
+    text-align: center;
+    margin-bottom: 7px;
+  }
+  .buttons {
+    text-align: center;
+    margin: 0 auto;
+  }
+  .blue-border {
+    border-left: 5px solid #ACF0F2;
+    padding-left: 10px;
+  }
+  .green-border {
+    border-left: 5px solid #BEEB9F;
+    padding-left: 10px;
+  }
+  .orange-border {
+    border-left: 5px solid #EB7F00;
+    padding-left: 10px;
+  }
+}
