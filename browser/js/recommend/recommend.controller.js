@@ -1,5 +1,5 @@
-app.controller('RecommendCtrl',function($scope, $state, $stateParams, Recommend){
-	Recommend.find($stateParams.id).then(function(recs){
+app.controller('RecommendCtrl',function($scope, $state, $stateParams, TicketsForEventFactory){
+	TicketsForEventFactory.getRecs($stateParams.id).then(function(recs){
 		$scope.recs = recs;
 	});
 });
