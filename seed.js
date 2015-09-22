@@ -653,9 +653,9 @@ var seedTickets = function(users, events) {
   var eventIds = {};
   var eventDate = {};
   return Event.find().populate('EventType').then(function(events) {
-    events.forEach(function(event) {
-      eventIds[event.EventType.name] = event._id;
-      eventDate[event._id] = event.date;
+    events.forEach(function(curEvent) {
+      eventIds[curEvent.EventType.name] = curEvent._id;
+      eventDate[curEvent._id] = curEvent.date;
     });
     return User.find().exec();
   }).then(function(users) {
@@ -674,22 +674,22 @@ var seedTickets = function(users, events) {
   }).then(function() {
     for (var i = 0; i < 100; i++) {
       var ticket = {
-        eventProduct: events[Math.floor(Math.random() * events.length)],
-        seller: users[Math.floor(Math.random() * users.length)],
-        buyer: users[Math.floor(Math.random() * users.length)],
+        eventProduct: events[Math.floor(Math.random() * events.length)]._id,
+        seller: users[Math.floor(Math.random() * users.length)]._id,
+        buyer: users[Math.floor(Math.random() * users.length)]._id,
         price: Math.floor(Math.random() * 2000).toFixed(2),
       };
       var date = new Date(eventDate[ticket.eventProduct]);
-      date.setMonth(date.getMonth() - 6);
+      date.setMonth(date.getMonth() - 2);
       ticket.dateSelling = date;
       date.setMonth(date.getMonth() + 1);
       ticket.dateSold = date;
       tickets.push(ticket);
     }
-    for (var j =0; i < 300; i++) {
+    for (var j =0; j < 300; j++) {
       var ticket2 = {
-        eventProduct: events[Math.floor(Math.random() * events.length)],
-        seller: users[Math.floor(Math.random() * users.length)],
+        eventProduct: events[Math.floor(Math.random() * events.length)]._id,
+        seller: users[Math.floor(Math.random() * users.length)]._id,
         price: Math.floor(Math.random() * 2000).toFixed(2),
       };
       var date2 = new Date(eventDate[ticket2.eventProduct]);
