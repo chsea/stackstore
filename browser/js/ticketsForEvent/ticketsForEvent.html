@@ -7,11 +7,11 @@
                 	<h3>Tickets for sale</h3>
                 </div>
                 <table><tbody>
-                	<tr ng-repeat="ticket in tickets">
+                	<tr ng-repeat="ticket in tickets | orderBy:'price'">
                 		<td>{{ ticket.seat }}</td>
                 		<td>{{ ticket.price | currency }}</td>
                 		<td>
-                            <md-button class="md-icon-button launch" ng-click="addToCart(ticket._id)">
+                            <md-button class="md-icon-button launch" aria-label="add to card" ng-click="addToCart(ticket._id)">
                                 <i class="zmdi zmdi-shopping-cart-plus zmdi-hc-lg" style="vertical-align: middle"></i>
                             </md-button>
                         </td>

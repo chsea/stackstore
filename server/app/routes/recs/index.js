@@ -10,8 +10,7 @@ var Promise = require('bluebird');
 router.param('eventId',function(req,res,next,eventId){
 	Event.findOne({_id: eventId}).populate('EventType').then(
 		function(e){
-			console.log(e);
-			req.eventId = eventId;
+			req.currEventTypeId = e.EventType._id.toString();
 			req.tags = e.EventType.tags;
 			next();
 		},
@@ -44,12 +43,11 @@ router.get('/cart',function(req,res,next){
 			//make that mama array
 			tags = tags.concat(ticket.eventProduct.EventType.tags);
 		});
-		console.log(tags);
 		//evaluate top 3 closest related event types
 		EventType.find({tags: {$in: tags} })
 		.then(function (results) {
 			// transform instances to objects and remove the current event type from the list
-			results = results.map(result => result.toObject()).filter(r => r._id!=req.eventId);
+			results = results.map(result => result.toObject()).filter(r => r._id!=req.currEventTypeId);
 			
 			// attach a score to each event type
 			results.forEach(function (r) {
@@ -70,11 +68,10 @@ router.get('/cart',function(req,res,next){
 });
 
 router.get('/:eventId',function (req,res,next) {
-	console.log('tags:', req.tags);
 	EventType.find({tags: {$in: req.tags} })
 		.then(function (results) {
 			// transform instances to objects and remove the current event type from the list
-			results = results.map(result => result.toObject()).filter(r => r._id!=req.eventId);
+			results = results.map(result => result.toObject()).filter(r => r._id!=req.currEventTypeId);
 			
 			// attach a score to each event type
 			results.forEach(function (r) {
