@@ -34,7 +34,7 @@
         </md-input-container>
         <md-input-container class="form-group">
             <label for="email">Email</label>
-            <input type="text" ng-model="checkout.email" class="form-control" id="email" required>
+            <input type="text" ng-model="checkout.email" class="form-control" id="email" required ng-pattern='/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i'>
         </md-input-container>
         <md-input-container class="form-group">
             <label for="Street">Street</label>
@@ -50,7 +50,7 @@
         </md-input-container>
         <md-input-container class="form-group">
             <label for="Zip">Zip</label>
-            <input type="text" ng-model="checkout.address.zip" class="form-control" id="zip" required>
+            <input type="text" ng-model="checkout.address.zip" class="form-control" id="zip" required ng-pattern='/^\d{5}$/'>
         </md-input-container>
         <md-input-container class="form-group">
             <label for="creditCard">Credit Card</label>
