@@ -18,6 +18,10 @@
                     </tr>
                     <tr ng-show='ticket.added'>
                         <td class='carted'>Added to cart!</td>
+                        <td>
+                            <button ng-click='removeTicket(ticket._id)'>Remove
+                            </md-button>
+                        </td>
                     </tr>
                 </tbody></table>
             </md-card-content>
