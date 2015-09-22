@@ -9,6 +9,7 @@ var mongoose = require('mongoose');
 require('../../../server/db/models');
 
 var AuthUser = mongoose.model('AuthUser');
+var User = mongoose.model('User');
 
 describe('Authenticated User model', function () {
 
@@ -76,7 +77,7 @@ describe('Authenticated User model', function () {
                 var pass = 'testing';
                 var salt = '1093jf10j23ej===12j';
 
-                User.encryptPassword(pass, salt);
+                AuthUser.encryptPassword(pass, salt);
 
                 expect(hashUpdateSpy.getCall(0).args[0]).to.be.equal(pass);
                 expect(hashUpdateSpy.getCall(1).args[0]).to.be.equal(salt);
@@ -112,8 +113,8 @@ describe('Authenticated User model', function () {
             };
 
             beforeEach(function () {
-                encryptSpy = sinon.spy(User, 'encryptPassword');
-                saltSpy = sinon.spy(User, 'generateSalt');
+                encryptSpy = sinon.spy(AuthUser, 'encryptPassword');
+                saltSpy = sinon.spy(AuthUser, 'generateSalt');
             });
 
             afterEach(function () {
@@ -152,128 +153,128 @@ describe('Authenticated User model', function () {
 
     });
 
-
     describe("creation", function () {
 
-        it("shouldn't allow user with same email address", function (done) {
-            var duplicateEmail = "duplicate@email.com",
-                userObj1 = {email: duplicateEmail, password: 'otus', firstName: 'Don', lastName: 'Joe', address: {
+        var userModels = [User, AuthUser];
+
+        // run tests for both user models
+        userModels.forEach(function (userModel) {
+            it("shouldn't allow " +userModel.modelName+ " with same email address", function (done) {
+                var duplicateEmail = "duplicate@email.com",
+                    userObj1 = {email: duplicateEmail, password: 'otus', firstName: 'Don', lastName: 'Joe', address: {
+                      street: '123 League Drive',
+                      city: 'Santa Monica',
+                      state: 'CA',
+                      zip: '90012'
+                    } },
+                    userObj2 = {email: duplicateEmail, password: 'secret', firstName: 'John', lastName: 'Smith', address: {
+                      street: '123 League Drive',
+                      city: 'Santa Monica',
+                      state: 'CA',
+                      zip: '90012'
+                    } };
+                userModel.create(userObj1)
+                .then(function () {
+                    return User.create(userObj2);
+                })
+                .then(function () {
+                    done(new Error("shouldn't allow to save user with already used email address"));
+                })
+                .then(null, function (error) {
+                    try {
+                        expect(error.message).to.contain("duplicate key error");
+                        done();
+                    } catch (e) {
+                        done(e);
+                    }
+                });
+            });
+
+            it("should allow " +userModel.modelName+ " with valid email address", function () {
+                return userModel.create({ email: "valid@email.com", password: 'potus', firstName: 'John', lastName: 'Smith', address: {
                   street: '123 League Drive',
                   city: 'Santa Monica',
                   state: 'CA',
                   zip: '90012'
-                } },
-                userObj2 = {email: duplicateEmail, password: 'secret', firstName: 'John', lastName: 'Smith', address: {
+                } })
+                .then(function (user) {
+                    return user.save();
+                });
+            });
+
+            var invalidEmailAddresses = [
+                "123",
+                "test@com",
+                "test@something..com",
+                "test@something.",
+                "test@@something.com",
+                "@something.com"
+            ];
+
+            invalidEmailAddresses.forEach(function (invalidEmail) {
+                var userObj = { email: invalidEmail, password: 'potus', firstName: 'John', lastName: 'Smith', address: {
                   street: '123 League Drive',
                   city: 'Santa Monica',
                   state: 'CA',
                   zip: '90012'
                 } };
-            User.create(userObj1)
-            .then(function () {
-                return User.create(userObj2);
-            })
-            .then(function () {
-                done(new Error("shouldn't allow to save user with already used email address"));
-            })
-            .then(null, function (error) {
-                try {
-                    expect(error.message).to.contain("duplicate key error");
-                    done();
-                } catch (e) {
-                    done(e);
-                }
-            });
-
-        });
-
-        it("should allow user with valid email address", function () {
-            return User.create({ email: "valid@email.com", password: 'potus', firstName: 'John', lastName: 'Smith', address: {
-              street: '123 League Drive',
-              city: 'Santa Monica',
-              state: 'CA',
-              zip: '90012'
-            } })
-            .then(function (user) {
-                return user.save();
-            });
-        });
-
-        var invalidEmailAddresses = [
-            "123",
-            "test@com",
-            "test@something..com",
-            "test@something.",
-            "test@@something.com",
-            "@something.com"
-        ];
-
-        invalidEmailAddresses.forEach(function (invalidEmail) {
-            var userObj = { email: invalidEmail, password: 'potus', firstName: 'John', lastName: 'Smith', address: {
-              street: '123 League Drive',
-              city: 'Santa Monica',
-              state: 'CA',
-              zip: '90012'
-            } };
-            it("should reject invalid email address " + invalidEmail, function (done) {
-                User.create(userObj)
-                .then(function (savedUser) {
-                    done(new Error("Invalid email address should throw validation error"));
-                })
-                .then(null, function (error) {
-                    expect(error.errors.hasOwnProperty("email")).to.equal(true);
-                    expect(error.errors.email.properties.message).to.equal("Invalid Email Address");
-                    done();
-                });
-            });
-        });
-
-
-        var userRequiredFieldsTests = [
-            {userObj: {password: "secret", firstName: 'John', lastName: 'Smith', address: {
-              street: '123 League Drive',
-              city: 'Santa Monica',
-              state: 'CA',
-              zip: '90012'
-            }}, reqField: "email"},
-            {userObj: {email: "som@thing.com", firstName: 'John', lastName: 'Smith', address: {
-              street: '123 League Drive',
-              city: 'Santa Monica',
-              state: 'CA',
-              zip: '90012'
-            }}, reqField: "password"},
-            {userObj: {email: "som@thing.com", password: "secret", lastName: 'Smith', address: {
-              street: '123 League Drive',
-              city: 'Santa Monica',
-              state: 'CA',
-              zip: '90012'
-            }}, reqField: "firstName"},
-            {userObj: {email: "som@thing.com", password: "secret", firstName: 'John',address: {
-              street: '123 League Drive',
-              city: 'Santa Monica',
-              state: 'CA',
-              zip: '90012'
-            }}, reqField: "lastName"}
-        ];
-
-        userRequiredFieldsTests.forEach(function (test) {
-            it("should require " + test.reqField, function (done) {
-                User.create(test.userObj)
-                .then(function(){
-                    done(new Error("User should require a " + test.reqField + "."));
-                })
-                .then(null, function(err){
-                    try {
-                        expect(err.errors.hasOwnProperty(test.reqField)).to.equal(true);
-                        expect(err.errors[test.reqField].name).to.equal('ValidatorError');
+                it("should reject " +userModel.modelName+ " with invalid email address " + invalidEmail, function (done) {
+                    userModel.create(userObj)
+                    .then(function (savedUser) {
+                        done(new Error("Invalid email address should throw validation error"));
+                    })
+                    .then(null, function (error) {
+                        expect(error.errors.hasOwnProperty("email")).to.equal(true);
+                        expect(error.errors.email.properties.message).to.equal("Invalid Email Address");
                         done();
-                    } catch (e) {
-                        console.error("ERROR:", e);
-                        done(e);
-                    }
+                    });
                 });
             });
-        });
+
+
+            var userRequiredFieldsTests = [
+                {userObj: {password: "secret", firstName: 'John', lastName: 'Smith', address: {
+                  street: '123 League Drive',
+                  city: 'Santa Monica',
+                  state: 'CA',
+                  zip: '90012'
+                }}, reqField: "email"},
+                {userObj: {email: "som@thing.com", password: "secret", lastName: 'Smith', address: {
+                  street: '123 League Drive',
+                  city: 'Santa Monica',
+                  state: 'CA',
+                  zip: '90012'
+                }}, reqField: "firstName"},
+                {userObj: {email: "som@thing.com", password: "secret", firstName: 'John',address: {
+                  street: '123 League Drive',
+                  city: 'Santa Monica',
+                  state: 'CA',
+                  zip: '90012'
+                }}, reqField: "lastName"}
+            ];
+
+            userRequiredFieldsTests.forEach(function (test) {
+                it("should require " + test.reqField + "for" + userModel.modelName, function (done) {
+                    userModel.create(test.userObj)
+                    .then(function(){
+                        done(new Error("User should require a " + test.reqField + "."));
+                    })
+                    .then(null, function(err){
+                        try {
+                            expect(err.errors.hasOwnProperty(test.reqField)).to.equal(true);
+                            expect(err.errors[test.reqField].name).to.equal('ValidatorError');
+                            done();
+                        } catch (e) {
+                            console.error("ERROR:", e);
+                            done(e);
+                        }
+                    });
+                });
+            });
+
+        }); // end forEach userModels
+
+
     });
 
 });

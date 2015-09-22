@@ -53,9 +53,12 @@ authUser.pre('save', function(next) {
 
 });
 
-User.path("email").validate(function(email) {
-    return (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).test(email);
-}, "Invalid Email Address");
+var emailValidation = function (email) {
+  return (/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i).test(email);
+};
+
+User.path("email").validate(emailValidation, "Invalid Email Address");
+authUser.path("email").validate(emailValidation, "Invalid Email Address");
 
 authUser.pre('save', function (next) {
     if (this.password === undefined &&
