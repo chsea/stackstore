@@ -1,9 +1,13 @@
 <md-toolbar layout="row" layout-align="space-between center">
-
-            <md-toolbar-filler>
-                <fullstack-logo></fullstack-logo>
+            
+            <md-toolbar-filler layout flex layout-align="left center">
+                <md-button ui-sref="home">
+                    <i aria-label="StackStub home" class="zmdi zmdi-ticket-star zmdi-hc-3x"></i>
+                </md-button>
             </md-toolbar-filler>
-        
+
+            <span flex layout layout-align="left center">StackStub</span>
+            
             <md-menu-bar>
                 <md-menu>
                     <md-button ng-click="$mdOpenMenu()" >
@@ -37,7 +41,7 @@
                     </md-button>
 
             </md-menu-bar>
-
+            
 </md-toolbar>
         
         
