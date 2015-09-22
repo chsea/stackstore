@@ -56,8 +56,6 @@ router.get('/cart',function(req,res,next){
 			results.forEach(function (r) {
 				r.score = tags.filter( tag => r.tags.indexOf(tag) > -1 ).length;
 			});
-
-			console.log(_.sortByOrder(results, 'score', 'desc'));
 			
 			// sort by score and take top three
 			var recEventTypes = _.sortByOrder(results, 'score', 'desc').slice(0,3);
