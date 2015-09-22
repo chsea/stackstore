@@ -4,7 +4,7 @@
 
 body {
   //background: url('/images/pattern.png') repeat
-  background: #fdfdfd;
+  /*background: #fdfdfd;*/
 }
 
 @mixin clearfix {
@@ -27,10 +27,6 @@ body {
 
 .inactive {
   color: #999;
-}
-
-#logo {
-  background-color: #ffffff;
 }
 
 @import 'directives/main';
