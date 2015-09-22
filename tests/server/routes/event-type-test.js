@@ -5,6 +5,7 @@ var Event = mongoose.model('Event');
 var EventType = mongoose.model('EventType');
 var Venue = mongoose.model('Venue');
 var Promise = require("bluebird");
+var AuthUser = mongoose.model('AuthUser');
 
 var expect = require('chai').expect;
 
@@ -16,13 +17,13 @@ var app = require('../../../server/app');
 
 describe('Event Types Routes', function () {
 
-  before(function () {
-    process.env.TEST = true;
-  });
+	before(function () {
+		//process.env.TEST = true;
+	});
 
-  before(function () {
-    process.env.TEST = false;
-  });
+	before(function () {
+		//process.env.TEST = false;
+	});
 
 	beforeEach('Establish DB connection', function (done) {
 		if (mongoose.connection.db) return done();
@@ -40,106 +41,140 @@ describe('Event Types Routes', function () {
 	});
 
 
-  var createEventTypes = function (count) {
-    var promises = [];
-    while (count > 0) {
-      promises.push(createEventType());
-      count -= 1;
-    }
-    return Promise.all(promises);
-  };
+	var createEventTypes = function (count) {
+		var promises = [];
+		while (count > 0) {
+			promises.push(createEventType());
+			count -= 1;
+		}
+		return Promise.all(promises);
+	};
 
 
-  var createEventType = function () {
-    return EventType.create({
-            name: 'Backstreet Boys'
-    });
-  };
+	var createEventType = function () {
+		return EventType.create({
+						name: 'Backstreet Boys'
+		});
+	};
 
 	describe('Get request', function () {
 		it('should get all event types', function (done) {
-      createEventTypes(2)
-      .then(function () {
-        guestAgent.get('/api/eventtypes')
-        .expect(200)
-        .end(function(err, res){
-          if(err) done(err);
-          expect(res.body.length).to.equal(2);
-          done();
-        });
-      });
+			createEventTypes(2)
+			.then(function () {
+				guestAgent.get('/api/eventtypes')
+				.expect(200)
+				.end(function(err, res){
+					if(err) done(err);
+					expect(res.body.length).to.equal(2);
+					done();
+				});
+			});
 		});
 
 		it('should get an event type by id', function (done) {
-      createEventType()
-      .then(function (createdEventType) {
-        var request = '/api/eventtypes/' + createdEventType._id;
-        guestAgent.get(request)
-        .end(function(err, res){
-            if(err) done(err);
-            expect(res.body._id).to.equal(createdEventType._id.toString());
-            done();
-        });
-      });
+			createEventType()
+			.then(function (createdEventType) {
+				var request = '/api/eventtypes/' + createdEventType._id;
+				guestAgent.get(request)
+				.end(function(err, res){
+						if(err) done(err);
+						expect(res.body._id).to.equal(createdEventType._id.toString());
+						done();
+				});
+			});
 		});
 
 	});
 
-	it('should create a new event type', function (done) {
-    createEventType()
-    .then(function (createdEventType) {
-      guestAgent.post('/api/eventtypes')
-      .send({name: 'Concert'})
-      .expect(201)
-      .end(function(err, res) {
-        guestAgent.get('/api/eventtypes')
-        .expect(200)
-        .end(function(err, res){
-          if(err) done(err);
-          expect(res.body.length).to.equal(2);
-          done();
-        });
-      });
-    });
+
+
+	describe("for logged in users", function () {
+
+		var adminObj = {
+					firstName: 'John',
+					lastName: 'Smiwth',
+					email: 'email@email.com',
+					password: 'pwd',
+					roles: ['seller', 'admin']
+				},
+				loggedInAgent,
+				admin;
+
+
+		beforeEach(function (done) {
+			AuthUser.create(adminObj)
+			.then(function (createdUser) {
+				admin = createdUser;
+				done();
+			})
+			.then(null, done);
+		});
+
+		beforeEach('Create loggedIn user agent and authenticate', function (done) {
+			loggedInAgent = supertest.agent(app);
+			loggedInAgent.post('/login').send(adminObj).end(done);
+		});
+
+		it('should create a new event type', function (done) {
+			createEventType()
+			.then(function (createdEventType) {
+				loggedInAgent.post('/api/eventtypes')
+				.send({name: 'Concert'})
+				.expect(201)
+				.end(function(err, res) {
+					loggedInAgent.get('/api/eventtypes')
+					.expect(200)
+					.end(function(err, res){
+						if(err) done(err);
+						expect(res.body.length).to.equal(2);
+						done();
+					});
+				});
+			});
+
+		});
+
+
+		it('should update an event', function (done) {
+			createEventType()
+			.then(function (createdEventType) {
+				var name = "Updated concert name";
+				loggedInAgent.put('/api/eventtypes/' + createdEventType._id)
+				.send({name: name})
+				.expect(200)
+				.end(function(err, res) {
+					loggedInAgent.get('/api/eventtypes/' + createdEventType._id)
+					.expect(200)
+					.end(function(err, res){
+						if(err) done(err);
+						expect(res.body.name).to.equal(name);
+						done();
+					});
+				});
+			});
+
+		});
+
+		it('should delete an event type', function (done) {
+
+			createEventType().
+			then(function (createdEventType) {
+				loggedInAgent.delete('/api/eventtypes/' + createdEventType._id)
+				.expect(204)
+				.end(function(err, res) {
+					console.log("ERROR", err);
+					loggedInAgent.get('/api/eventtypes')
+					.expect(200)
+					.end(function(err, res){
+						if(err) done(err);
+						expect(res.body.length).to.equal(0);
+						done();
+					});
+				});
+			});
+
+		});
 
 	});
 
-  it('should update an event', function (done) {
-    createEventType()
-    .then(function (createdEventType) {
-      var name = "Updated concert name";
-      guestAgent.put('/api/eventtypes/' + createdEventType._id)
-      .send({name: name})
-      .expect(200)
-      .end(function(err, res) {
-        guestAgent.get('/api/eventtypes/' + createdEventType._id)
-        .expect(200)
-        .end(function(err, res){
-          if(err) done(err);
-          expect(res.body.name).to.equal(name);
-          done();
-        });
-      });
-    });
-
-  });
-
-  it('should delete an event type', function (done) {
-
-    createEventType().
-    then(function (createdEventType) {
-      guestAgent.delete('/api/eventtypes/' + createdEventType._id)
-      .expect(204)
-      .end(function(err, res) {
-        guestAgent.get('/api/eventtypes')
-        .expect(200)
-        .end(function(err, res){
-          if(err) done(err);
-          expect(res.body.length).to.equal(0);
-          done();
-        });
-      });
-    });
-
-  });
 });
