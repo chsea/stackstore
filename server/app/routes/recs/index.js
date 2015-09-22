@@ -73,12 +73,6 @@ router.get('/:eventId',function (req,res,next) {
 		.then(function (results) {
 			// transform instances to objects and remove the current event type from the list
 			results = results.map(result => result.toObject()).filter(r => r._id!=req.currEventTypeId);
-			// results = results.map(result => result.toObject()).filter(function (r) {
-			// 	console.log('r._id',r._id, 'req.eventId',req.currEventTypeId);
-			// 	var result = r._id!=req.currEventTypeId.toString();
-			// 	console.log(result);
-			// 	return result;
-			// });
 			
 			// attach a score to each event type
 			results.forEach(function (r) {
