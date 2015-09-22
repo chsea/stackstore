@@ -1,22 +1,30 @@
+<alert type="danger" ng-show="error">There was an error with your update.</alert>
+<alert type="success" ng-show="error">Your ticket was updated!</alert>
 <section ng-show="isSeller()">
   <h1>Currently Selling:</h1>
   <div ng-show="!ticketsForSale.length">You are not currently selling any tickets.</div>
-  <div ng-repeat="ticket in ticketsForSale">
-    <ticket ticket='ticket'></ticket>
-    <form name="editForm" ng-show='ticket.edit' ng-submit="editForm.$valid && updatePrice(ticket)">
-      <md-input-container>
-          <label for="price">Price:</label>
-          <input type="number" step="0.01" ng-model="ticket.price">
-      </md-input-container>
-      <md-button type="submit" ng-show='ticket.edit'>Update Price</md-button>
-    </form>
-    <div><md-button ng-click='ticket.edit = true' ng-show='!ticket.edit'>Edit Price</md-button><md-button ng-click="removeTicket(ticket)">Stop selling this ticket</md-button></div>
+  <div class="row">
+  <div class="col-md-4 col-lg-3" ng-repeat="ticket in ticketsForSale">
+    <div class="gridEl">
+      <ticket ticket='ticket'></ticket>
+      <form name="editForm" ng-show='ticket.edit' ng-submit="editForm.$valid && updatePrice(ticket)">
+        <md-input-container>
+            <label for="price">Price:</label>
+            <input type="number" step="0.01" ng-model="ticket.price">
+        </md-input-container>
+        <md-button type="submit" ng-show='ticket.edit'>Update Price</md-button>
+      </form>
+      <div class="buttons"><md-button ng-click='ticket.edit = true' ng-show='!ticket.edit'>Edit Price</md-button><md-button ng-click="removeTicket(ticket)">Stop Selling</md-button></div>
+    </div>
   </div>
+</div>
 </section>
 <section>
   <h1>Your Upcoming Tickets:</h1>
   <div ng-show="!ticketsBought.length">You have no active tickets.</div>
-  <div ng-repeat="ticket in ticketsBought">
-    <ticket ticket='ticket'></ticket>
+  <div class="row">
+    <div class="col-md-4 col-lg-3" ng-repeat="ticket in ticketsBought">
+      <ticket ticket='ticket'></ticket>
+    </div>
   </div>
 </section>
