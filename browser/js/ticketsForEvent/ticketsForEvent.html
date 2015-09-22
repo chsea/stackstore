@@ -7,7 +7,7 @@
                 	<h3>Tickets for sale</h3>
                 </div>
                 <table><tbody>
-                	<tr ng-repeat="ticket in tickets">
+                	<tr ng-repeat="ticket in tickets | orderBy:'price'">
                 		<td>{{ ticket.seat }}</td>
                 		<td>{{ ticket.price | currency }}</td>
                 		<td>
