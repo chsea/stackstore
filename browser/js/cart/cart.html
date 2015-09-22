@@ -8,7 +8,9 @@
 			    <md-card-content>
 			    	<p><a class="md-title" ui-sref="event({id: ticket.eventProduct._id})">{{ ticket.eventProduct.EventType.name }}</a></p>
 					<p>Seat: {{ticket.seat}}</p>
-					<p>Date: {{ticket.eventProduct.date}}</p>
+					<p>
+						Date: {{ticket.eventProduct.date | date:'mediumDate'}} {{ ticket.eventProduct.date | date:'shortTime'}}
+					</p>
 					<p>Venue: {{ticket.eventProduct.Venue.name}}</p>
 					<p>Seller: {{ticket.seller.firstName}} {{ticket.seller.lastName}}</p>
 					<p>Price: ${{ticket.price}}</p>

@@ -33,6 +33,7 @@ app.controller('checkoutCtrl',function($scope, $state, $q, CartFactory, cart, Au
 			$scope.checkout.firstName = user.firstName;
 			$scope.checkout.lastName = user.lastName;
 			$scope.user = user;
+			$scope.checkout.email = user.email;
 			if(user.address){
 				$scope.checkout.address.street = user.address.street;
 				$scope.checkout.address.city = user.address.city;
