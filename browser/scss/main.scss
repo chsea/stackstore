@@ -34,20 +34,27 @@ body, html {
   /*padding-top: 60px;
   width: 1200px;*/
   margin: 75px auto 0;
-  height: -webkit-calc(100% - 75px);
-  height: -moz-calc(100% - 75px);
-  height: calc(100% - 75px);
+  min-height: -webkit-calc(100% - 75px);
+  min-height: -moz-calc(100% - 75px);
+  min-height: calc(100% - 75px);
+  h1 {
+    font: bold 35px Amatic SC;
+    text-transform: uppercase;
+    margin: 0 0 15px;
+  }
 }
-nav {
+md-toolbar {
+  margin-bottom: 0!important;
+  height: 75px !important;
   background-color: white;
-  height: 75px;
-  border-bottom: 1px solid black;
-  box-shadow: 1px 1px 14px -3px black;
+  // border-bottom: 1px solid black;
+  // box-shadow: 1px 1px 14px -3px black;
 }
 .main-content {
   box-sizing: content-box;
   background-color: white;
-  margin: 0 20px;
+  margin: 0 30px;
+  padding: 20px 30px;
   height: 100%;
 }
 .btn>i {
@@ -71,3 +78,4 @@ nav {
 @import 'checkout/main';
 @import 'eventSearch/main';
 @import 'form/main';
+@import 'grid/main';

@@ -6,7 +6,7 @@ app.config(function($stateProvider) {
     resolve: {
       user: (AuthUser, AuthService) => {
         return AuthService.getLoggedInUser()
-               .then((user) => AuthUser.find(user._id));
+               .then((user) => AuthUser.find(user._id, {bypassCache: true}));
       },
       events: (Event) => Event.findAll(),
       ticketsSelling: (Ticket, events, user) => Ticket.findAll({seller: user._id}),
