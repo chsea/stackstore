@@ -3,9 +3,8 @@
 <section ng-show="isSeller()">
   <h1>Currently Selling:</h1>
   <div ng-show="!ticketsForSale.length">You are not currently selling any tickets.</div>
-  <div class="row">
-  <div class="col-md-4 col-lg-3" ng-repeat="ticket in ticketsForSale">
-    <div class="gridEl">
+  <div class="flex-container">
+  <div class="flex-item" ng-repeat="ticket in ticketsForSale">
       <ticket ticket='ticket'></ticket>
       <form name="editForm" ng-show='ticket.edit' ng-submit="editForm.$valid && updatePrice(ticket)">
         <md-input-container>
@@ -15,7 +14,6 @@
         <md-button type="submit" ng-show='ticket.edit'>Update Price</md-button>
       </form>
       <div class="buttons"><md-button ng-click='ticket.edit = true' ng-show='!ticket.edit'>Edit Price</md-button><md-button ng-click="removeTicket(ticket)">Stop Selling</md-button></div>
-    </div>
   </div>
 </div>
 </section>
