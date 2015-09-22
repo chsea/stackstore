@@ -1,0 +1,6 @@
+<div class="dateTimePicker">
+    <md-datepicker ng-model="getSetDate" ng-model-options="{getterSetter: true}"></md-datepicker>
+      {{date.getHours()}}:{{date.getMinutes() === 0 ? '00' : date.getMinutes()}}
+    <md-slider class="timePicker" ng-model="getSetTime" ng-model-options="{getterSetter: true}" step="30" min="0" max="1440"></md-slider>
+</div>
+
