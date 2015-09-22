@@ -1,17 +1,15 @@
-<md-toolbar class="md-menu-toolbar navbar navbar-fixed-top">
-    <div layout="row">
-        <md-toolbar-filler flex="5" layout layout-align="center center" id="logo">
-            <fullstack-logo></fullstack-logo>
-        </md-toolbar-filler>
-            <md-menu-bar flex="75">
-                <md-menu>
-                    <md-button class="btn" ng-click="$mdOpenMenu()">Browse</md-button>
-                    <md-menu-content>
-                        <md-menu-item ng-repeat="item in items" ng-repeat="item in items" ng-show="!item.authBuyer && !item.seller && !item.admin || (item.auth && !isSeller()) || (!item.admin && !item.authBuyer && isSeller()) ||  !item.authBuyer && isAdmin()">
-                            <md-button><a ui-sref="{{item.state}}">{{item.label}}</a></md-button>
-                        </md-menu-item>
-                    </md-menu-content>
-                </md-menu>
+<md-toolbar layout="row" layout-align="space-between center">
+            
+            <md-toolbar-filler layout flex layout-align="left center">
+                <md-button ui-sref="home">
+                    <i aria-label="StackStub home" class="zmdi zmdi-ticket-star zmdi-hc-3x"></i>
+                </md-button>
+            </md-toolbar-filler>
+
+            <span flex layout layout-align="left center">StackStub</span>
+            
+            <md-menu-bar>
+
                 <md-menu>
                     <md-button ng-click="$mdOpenMenu()" >
                         <i aria-label="User" class="zmdi zmdi-account-box-o zmdi-hc-2x"></i>
@@ -44,5 +42,5 @@
                     </md-button>
 
             </md-menu-bar>
-
+            
 </md-toolbar>

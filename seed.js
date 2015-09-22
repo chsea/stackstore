@@ -248,6 +248,33 @@ var seedVenues = function() {
             zip: 11211,
         },
         coordinates: [40.7191396,-73.9617418]
+    }, {
+        name: "Eugene O'Neill Theater",
+        address: {
+            streetAddress: "230 W 49th St.", 
+            city: "New York", 
+            state: "NY", 
+            zip: 10019
+        }, 
+        coordinates: [40.7610652,-73.9857316]
+    }, {
+        name: 'Brooks Atkinson Theatre', 
+        address: {
+            streetAddress: '256 W 47th St',
+            city: 'New York', 
+            state: 'NY', 
+            zip: 10036
+        }, 
+        coordinates: [40.7599499,-73.9869449]
+    }, {
+        name: 'Barrymore Theatre', 
+        address: {
+            streetAddress: '243 West 47th Street', 
+            city: 'New York', 
+            state: 'NY',
+            zip: 10036
+        }, 
+        coordinates: [40.7601496,-73.9861939]
     }];
 
     return Venue.createAsync(venues);
@@ -345,11 +372,21 @@ var seedEventTypes = function () {
         imgUrl: '/images/nyRangers.jpg',
         category: 'Sports',
         tags: ['Sports', 'Hockey', 'Boston Bruins', 'New York Rangers']
-    // }, {
-    //     name: '',
-    //     imgUrl: '/images/',
-    //     category: 'Sports',
-    //     tags: ['Sports', 'Hockey']
+    }, {
+        name: 'The Book of Mormon',
+        imgUrl: '/images/bookOfMormon.jpg',
+        category: 'Theater',
+        tags: ['Theater', 'Musical']
+    }, {
+        name: 'Spring Awakening', 
+        imgUrl: '/images/springAwakening.jpg', 
+        category: 'Theater', 
+        tags: ['Theater', 'Musical']
+    }, {
+        name: 'The Curious Incident of the Dog in the Night-Time', 
+        imgUrl: '/images/curious.jpg', 
+        category: 'Theater', 
+        tags: ['Theater', 'Play']
     }];
 
   return EventType.createAsync(eventTypes);
@@ -500,10 +537,82 @@ var seedEvents = function() {
         eventTypeName: 'Boston Bruins at New York Rangers Preseason',
         venueName: 'Madison Square Garden',
         date: new Date(2015,8,30,19,0,0)
-    // }, {
-    //     eventTypeName: '',
-    //     venueName: 'Madison Square Garden',
-    //     date: new Date(2015,8,21,19,0,0)
+    }, {
+        eventTypeName: 'The Book of Mormon',
+        venueName: "Eugene O'Neill Theater",
+        date: new Date(2015,8,23,19,0,0)
+    }, {
+        eventTypeName: 'The Book of Mormon',
+        venueName: "Eugene O'Neill Theater",
+        date: new Date(2015,8,24,19,0,0)
+    }, {
+        eventTypeName: 'The Book of Mormon',
+        venueName: "Eugene O'Neill Theater",
+        date: new Date(2015,8,25,20,0,0)
+    }, {
+        eventTypeName: 'The Book of Mormon',
+        venueName: "Eugene O'Neill Theater",
+        date: new Date(2015,8,26,14,0,0)
+    }, {
+        eventTypeName: 'The Book of Mormon',
+        venueName: "Eugene O'Neill Theater",
+        date: new Date(2015,8,26,20,0,0)
+    }, {
+        eventTypeName: 'The Book of Mormon',
+        venueName: "Eugene O'Neill Theater",
+        date: new Date(2015,8,27,14,0,0)
+    }, {
+        eventTypeName: 'The Book of Mormon',
+        venueName: "Eugene O'Neill Theater",
+        date: new Date(2015,8,27,19,0,0)
+    }, {
+        eventTypeName: 'Spring Awakening', 
+        venueName: 'Brooks Atkinson Theatre', 
+        date: new Date(2015,8,24,19,0,0)
+    }, {
+        eventTypeName: 'Spring Awakening', 
+        venueName: 'Brooks Atkinson Theatre', 
+        date: new Date(2015,8,25,20,0,0)
+    }, {
+        eventTypeName: 'Spring Awakening', 
+        venueName: 'Brooks Atkinson Theatre', 
+        date: new Date(2015,8,26,14,0,0)
+    }, {
+        eventTypeName: 'Spring Awakening', 
+        venueName: 'Brooks Atkinson Theatre', 
+        date: new Date(2015,8,26,20,0,0)
+    }, {
+        eventTypeName: 'Spring Awakening', 
+        venueName: 'Brooks Atkinson Theatre', 
+        date: new Date(2015,8,27,15,0,0)
+    }, {
+        eventTypeName: 'Spring Awakening', 
+        venueName: 'Brooks Atkinson Theatre', 
+        date: new Date(2015,8,28,19,0,0)
+    }, {
+        eventTypeName: 'The Curious Incident of the Dog in the Night-Time', 
+        venueName: 'Barrymore Theatre', 
+        date: new Date(2015,8,23,19,30,0)
+    }, {
+        eventTypeName: 'The Curious Incident of the Dog in the Night-Time', 
+        venueName: 'Barrymore Theatre', 
+        date: new Date(2015,8,24,19,0,0)
+    }, {
+        eventTypeName: 'The Curious Incident of the Dog in the Night-Time', 
+        venueName: 'Barrymore Theatre', 
+        date: new Date(2015,8,25,20,0,0)
+    }, {
+        eventTypeName: 'The Curious Incident of the Dog in the Night-Time', 
+        venueName: 'Barrymore Theatre', 
+        date: new Date(2015,8,26,14,0,0)
+    }, {
+        eventTypeName: 'The Curious Incident of the Dog in the Night-Time', 
+        venueName: 'Barrymore Theatre', 
+        date: new Date(2015,8,26,20,0,0)
+    }, {
+        eventTypeName: 'The Curious Incident of the Dog in the Night-Time', 
+        venueName: 'Barrymore Theatre', 
+        date: new Date(2015,8,27,15,0,0)
     }];
 
   return Venue.find({}).select('name _id')
