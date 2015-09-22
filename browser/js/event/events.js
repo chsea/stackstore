@@ -1,6 +1,6 @@
 app.config(function($stateProvider) {
-  $stateProvider.state('events', {
-    url: '/events',
+  $stateProvider.state('home', {
+    url: '/',
     templateUrl: 'js/event/events.html',
     controller: 'EventsCtrl',
     resolve: {
