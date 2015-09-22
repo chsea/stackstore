@@ -260,79 +260,91 @@ var seedEventTypes = function () {
     var eventTypes = [{
         name: 'Stromae and Janelle Monae',
         imgUrl: '/images/stromae.jpeg',
-        category: 'Concert'
+        category: 'Concert',
+        tags: ['Concert', 'Hip Hop', 'House', 'Electronic']
     }, {
         name: 'Hamilton',
         imgUrl: '/images/hamilton.jpg',
-        category: 'Theater'
+        category: 'Theater',
+        tags: ['Theater', 'Musical', 'Broadway']
     }, {
         name: 'Washington Nationals at New York Mets',
         imgUrl: '/images/natsVsMets.jpg',
         category: 'Sports',
-        tags: ['Sports', 'Baseball']
+        tags: ['Sports', 'Baseball', 'Washington Nationals', 'New York Mets']
     }, {
         name: 'Rudimental',
-        category: 'Concert'
+        category: 'Concert',
+        tags: ['Concert', 'Electronic']
     }, {
         name: "R. Kelly",
         category:"Concert",
-        imgUrl: '/images/rkelly.jpg'
+        imgUrl: '/images/rkelly.jpg',
+        tags: ['Concert', 'R&B', 'Soul', 'Hip Hop']
     }, {
         name: "Ariana Grande with Prince Royce",
         category: "Concert",
-        imgUrl: '/images/ariana.jpeg'
+        imgUrl: '/images/ariana.jpeg',
+        tags: ['Concert','Pop', 'R&B']
     }, {
         name: "Ariana Grande",
         category: "Concert",
-        imgUrl: '/images/ariana.jpeg'
+        imgUrl: '/images/ariana.jpeg',
+        tags: ['Concert', 'Pop', 'R&B']
     }, {
         name: "Marc Anthony and Carlos Vives",
         category: "Concert",
-        imgUrl: '/images/marc.jpg'
+        imgUrl: '/images/marc.jpg',
+        tags: ['Concert', 'Latin', 'Salsa', 'Latin Pop']
     }, {
         name: "New York Comic Con",
         category: "Conference",
-        imgUrl: '/images/comiccon.png'
+        imgUrl: '/images/comiccon.png',
+        tags: ['Conference', 'Comics']
     }, {
         name: "Gwen Stefani",
         category: "Concert",
         imgUrl: '/images/gwen.jpg',
-        tags: ['Concert', 'Pop']
+        tags: ['Concert', 'Pop', 'Dance Pop', 'Synth Pop', 'New Wave', 'Hip Hop']
     }, {
         name: "Daddy Yankee",
-        category: "Concert"
+        category: "Concert",
+        tags: ['Concert', 'Reggaeton', 'Hip Hop', 'Latin Pop']
     }, {
         name: "Billy Joel",
         category:"Concert",
-        imgUrl: '/images/billyjoel.jpg'
+        imgUrl: '/images/billyjoel.jpg',
+        tags: ['Concert', 'Rock', 'Rock and Roll', 'Soft Rock', 'Pop Rock', 'Pop']
     }, {
         name: "The Weeknd",
         category:"Concert",
-        imgUrl: '/images/weeknd.jpg'
+        imgUrl: '/images/weeknd.jpg',
+        tags: ['Concert', 'R&B', 'Alternative R&B']
     }, {
         name: 'BSB',
         category: 'Concert',
-        imgUrl: '/images/bsb.png'
+        imgUrl: '/images/bsb.png',
+        tags: ['Concert', 'Pop', 'Pop Rock', 'Boy Bands']
     }, {
         name: 'Chicago White Sox at New York Yankees',
         imgUrl: '/images/whiteSoxVsYankees.jpg',
         category: 'Sports',
-        tags: ['Sports', 'Baseball']
+        tags: ['Sports', 'Baseball', 'New York Yankees', 'Chicago White Sox']
     }, {
         name: 'New Jersey Devils at New York Rangers Preseason',
         imgUrl: '/images/nyRangers.jpg',
         category: 'Sports',
-        tags: ['Sports', 'Hockey']
+        tags: ['Sports', 'Hockey', 'New Jersey Devils', 'New York Rangers']
     }, {
         name: 'Philadelphia Flyers at New York Rangers Preseason',
         imgUrl: '/images/nyRangers.jpg',
         category: 'Sports',
-        tags: ['Sports', 'Hockey']
+        tags: ['Sports', 'Hockey', 'Philadelphia Flyers', 'New York Rangers']
     }, {
         name: 'Boston Bruins at New York Rangers Preseason',
         imgUrl: '/images/nyRangers.jpg',
         category: 'Sports',
-        tags: ['Sports', 'Hockey']
+        tags: ['Sports', 'Hockey', 'Boston Bruins', 'New York Rangers']
     // }, {
     //     name: '',
     //     imgUrl: '/images/',

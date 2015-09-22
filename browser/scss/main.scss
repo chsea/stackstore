@@ -4,7 +4,7 @@
 
 body {
   //background: url('/images/pattern.png') repeat
-  background: #fdfdfd;
+  /*background: #fdfdfd;*/
 }
 
 @mixin clearfix {
@@ -29,10 +29,6 @@ body {
   color: #999;
 }
 
-#logo {
-  background-color: #ffffff;
-}
-
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';
@@ -41,4 +37,6 @@ body {
 @import 'cart/main';
 @import 'checkout/main';
 @import 'eventSearch/main';
+@import 'datetimepicker/main';
 @import 'sell/main';
+
