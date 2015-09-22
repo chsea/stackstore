@@ -1,4 +1,4 @@
-app.controller('TicketsForEventCtrl',function ($scope, $state, $stateParams, TicketsForEventFactory, CartFactory){
+app.controller('TicketsForEventCtrl',function ($scope, CartFactory){
 	$scope.addToCart = function(id){
 		CartFactory.add(id).finally(function(){
 			$scope.tickets.forEach(function(ticket){

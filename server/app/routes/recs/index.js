@@ -27,18 +27,18 @@ router.get('/',function(req,res){
 
 router.get('/cart',function(req,res,next){
 	var tags = [];
+	var accountedForEventTypes = [];
 
 	//populate those bad boys
 	Ticket.find({_id: { $in: req.session.cart}})
 	.deepPopulate("eventProduct.EventType")
 	.then(function(tickets){
 		//remove duplicate event types
-		var accountedForEventTypes = [];
 		tickets.forEach(function(ticket){
-			if(accountedForEventTypes.indexOf(ticket.eventProduct.EventType._id) > -1){
+			if(accountedForEventTypes.indexOf(ticket.eventProduct.EventType._id.toString()) > -1){
 				return;
 			}
-			accountedForEventTypes.push(ticket.eventProduct.EventType._id);
+			accountedForEventTypes.push(ticket.eventProduct.EventType._id.toString());
 
 			//make that mama array
 			tags = tags.concat(ticket.eventProduct.EventType.tags);
@@ -47,7 +47,7 @@ router.get('/cart',function(req,res,next){
 		EventType.find({tags: {$in: tags} })
 		.then(function (results) {
 			// transform instances to objects and remove the current event type from the list
-			results = results.map(result => result.toObject()).filter(r => r._id!=req.currEventTypeId);
+			results = results.map(result => result.toObject()).filter(r => accountedForEventTypes.indexOf(r._id.toString())==-1);
 			
 			// attach a score to each event type
 			results.forEach(function (r) {
