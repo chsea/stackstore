@@ -268,39 +268,76 @@ var seedEventTypes = function () {
     }, {
         name: 'Washington Nationals at New York Mets',
         imgUrl: '/images/natsVsMets.jpg',
-        category: 'Sports'
+        category: 'Sports',
+        tags: ['Sports', 'Baseball']
     }, {
         name: 'Rudimental',
         category: 'Concert'
     }, {
         name: "R. Kelly",
-        category:"Concert"
+        category:"Concert",
+        imgUrl: '/images/rkelly.jpg'
     }, {
         name: "Ariana Grande with Prince Royce",
-        category: "Concert"
+        category: "Concert",
+        imgUrl: '/images/ariana.jpeg'
     }, {
         name: "Ariana Grande",
-        category: "Concert"
+        category: "Concert",
+        imgUrl: '/images/ariana.jpeg'
     }, {
         name: "Marc Anthony and Carlos Vives",
-        category: "Concert"
+        category: "Concert",
+        imgUrl: '/images/marc.jpg'
     }, {
         name: "New York Comic Con",
-        category: "Conference"
+        category: "Conference", 
+        imgUrl: '/images/comiccon.png'
     }, {
-        name: "Gwen Stefani", category: "Concert"
+        name: "Gwen Stefani", 
+        category: "Concert",
+        imgUrl: '/images/gwen.jpg',
+        tags: ['Concert', 'Pop']
     }, {
         name: "Daddy Yankee",
         category: "Concert"
     }, {
         name: "Billy Joel",
-        category:"Concert"
+        category:"Concert",
+        imgUrl: '/images/billyjoel.jpg'
     }, {
         name: "The Weeknd",
-        category:"Concert"
+        category:"Concert",
+        imgUrl: '/images/weeknd.jpg'
     }, {
         name: 'BSB',
-        category: 'Concert'
+        category: 'Concert',
+        imgUrl: '/images/bsb.png'
+    }, {
+        name: 'Chicago White Sox at New York Yankees',
+        imgUrl: '/images/whiteSoxVsYankees.jpg',
+        category: 'Sports',
+        tags: ['Sports', 'Baseball']
+    }, {
+        name: 'New Jersey Devils at New York Rangers Preseason',
+        imgUrl: '/images/nyRangers.jpg',
+        category: 'Sports',
+        tags: ['Sports', 'Hockey']
+    }, {
+        name: 'Philadelphia Flyers at New York Rangers Preseason',
+        imgUrl: '/images/nyRangers.jpg',
+        category: 'Sports',
+        tags: ['Sports', 'Hockey']
+    }, {
+        name: 'Boston Bruins at New York Rangers Preseason',
+        imgUrl: '/images/nyRangers.jpg',
+        category: 'Sports',
+        tags: ['Sports', 'Hockey']
+    // }, {
+    //     name: '',
+    //     imgUrl: '/images/',
+    //     category: 'Sports',
+    //     tags: ['Sports', 'Hockey']
     }];
 
   return EventType.createAsync(eventTypes);
@@ -423,6 +460,38 @@ var seedEvents = function() {
         eventTypeName: "The Weeknd",
         venueName: "Barclays Center",
         date: new Date(2015,10,19,19,30,0) // Thurs Nov 19 at 7:30pm
+    }, {
+        eventTypeName: 'Chicago White Sox at New York Yankees', 
+        venueName: 'Yankee Stadium', 
+        date: new Date(2015,8,24,19,5,0)
+    }, {
+        eventTypeName: 'Chicago White Sox at New York Yankees', 
+        venueName: 'Yankee Stadium', 
+        date: new Date(2015,8,25,19,5,0)
+    }, {
+        eventTypeName: 'Chicago White Sox at New York Yankees', 
+        venueName: 'Yankee Stadium', 
+        date: new Date(2015,8,26,16,5,0)
+    }, {
+        eventTypeName: 'Chicago White Sox at New York Yankees', 
+        venueName: 'Yankee Stadium', 
+        date: new Date(2015,8,27,13,5,0)
+    }, {
+        eventTypeName: 'New Jersey Devils at New York Rangers Preseason', 
+        venueName: 'Madison Square Garden', 
+        date: new Date(2015,8,21,19,0,0)
+    }, {
+        eventTypeName: 'Philadelphia Flyers at New York Rangers Preseason', 
+        venueName: 'Madison Square Garden', 
+        date: new Date(2015,8,28,19,0,0)
+    }, {
+        eventTypeName: 'Boston Bruins at New York Rangers Preseason', 
+        venueName: 'Madison Square Garden', 
+        date: new Date(2015,8,30,19,0,0)
+    // }, {
+    //     eventTypeName: '', 
+    //     venueName: 'Madison Square Garden', 
+    //     date: new Date(2015,8,21,19,0,0)
     }];
 
   return Venue.find({}).select('name _id')

@@ -1,0 +1,46 @@
+<h1 id='recommendations'>Recommended:</h1>
+<div layout="row" class="event">
+    <div flex ng-repeat='rec in recs'>
+        <md-content class="md-padding">
+            <md-card>
+                <img ng-src="{{ rec.EventType.imgUrl }}" class="md-card-image" alt="{{ rec.EventType.name }}"/>
+                <md-card-content>
+                    <a ui-sref='event({id: rec._id})'class="md-title">{{ rec.EventType.name }}</a>
+                    <p><a ui-sref="venue({id:rec.Venue._id})">{{ rec.Venue.name }}</a></p>
+                    <p>{{ rec.date | date:'mediumDate' }}</p>
+                    <p>{{ rec.date | date:'shortTime' }}</p>
+                </md-card-content>
+            </md-card>
+        </md-content>
+    </div>
+</div>
+
+
+
+
+
+<!-- <div flex id="recommendations">
+    <md-content class="md-padding">
+        <md-card>
+            <md-card-content>
+                <div>
+                    <h3>Recommended for you</h3>
+                </div>
+                <table>
+                    <tbody>
+                        <tr ng-repeat="rec in recs">
+                            <td>
+                                <a ui-sref="event({id: date._id})">
+                                {{rec.EventType.name}}
+                                </a>
+                            </td>
+                            <td>
+                                {{ rec.date | date:'mediumDate' }} {{ date.date | date:'shortTime' }}
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-card-content>
+        </md-card>
+    </md-content>
+</div> -->

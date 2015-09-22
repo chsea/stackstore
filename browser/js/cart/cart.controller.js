@@ -1,4 +1,4 @@
-app.controller('cartCtrl',function($scope, $state, CartFactory, cart){
+app.controller('cartCtrl',function($scope, $state, CartFactory, cart, recs){
 	$scope.cart = cart;
 
 	$scope.total = cart.reduce(function(a, b){
@@ -17,4 +17,8 @@ app.controller('cartCtrl',function($scope, $state, CartFactory, cart){
 			$state.go('cart', {}, {reload: true});
 		});
 	};
+
+	console.log(recs);
+
+	$scope.recs = recs;
 });
