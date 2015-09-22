@@ -2,9 +2,22 @@
   box-sizing: border-box;
 }
 
-body {
-  background: url('/images/pattern.png') repeat
-  // background: #fdfdfd;
+body, html {
+  background: none;
+  max-height: -webkit-calc(100% - 75px) !important;
+  max-height: -moz-calc(100% - 75px) !important;
+  max-height: calc(100% - 75px) !important;
+}
+
+#background {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: url('/images/pattern.png') repeat fixed;
+  content: '';
+  z-index: -1;
 }
 
 @mixin clearfix {
@@ -16,11 +29,26 @@ body {
 }
 
 #main {
+  box-sizing: content-box;
   /*padding-top: 60px;
   width: 1200px;*/
-  margin: 0 auto;
+  margin: 75px auto 0;
+  height: -webkit-calc(100% - 75px);
+  height: -moz-calc(100% - 75px);
+  height: calc(100% - 75px);
 }
-
+nav {
+  background-color: white;
+  height: 75px;
+  border-bottom: 1px solid black;
+  box-shadow: 1px 1px 14px -3px black;
+}
+.main-content {
+  box-sizing: content-box;
+  background-color: white;
+  margin: 0 20px;
+  height: 100%;
+}
 .btn>i {
     vertical-align: middle
   }
@@ -37,4 +65,4 @@ body {
 @import 'cart/main';
 @import 'checkout/main';
 @import 'eventSearch/main';
-@import 'sell/main';
+@import 'form/main';
