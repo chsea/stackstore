@@ -6,6 +6,7 @@ var EventType = mongoose.model('EventType');
 var Venue = mongoose.model('Venue');
 var Promise = require("bluebird");
 var AuthUser = mongoose.model('AuthUser');
+var loggedInUserAgent = require('../../helper/loggedInUserAgent');
 
 var expect = require('chai').expect;
 
@@ -90,30 +91,15 @@ describe('Event Types Routes', function () {
 
 	describe("for logged in users", function () {
 
-		var adminObj = {
-					firstName: 'John',
-					lastName: 'Smiwth',
-					email: 'email@email.com',
-					password: 'pwd',
-					roles: ['seller', 'admin']
-				},
-				loggedInAgent,
-				admin;
+	      var loggedInAgent;
 
+	      beforeEach('Create loggedIn user agent and authenticate', function () {
+	        return loggedInUserAgent.get(['seller', 'admin'])
+	        .then(function (userAgent) {
+	          loggedInAgent = userAgent;
+	        });
+	      });
 
-		beforeEach(function (done) {
-			AuthUser.create(adminObj)
-			.then(function (createdUser) {
-				admin = createdUser;
-				done();
-			})
-			.then(null, done);
-		});
-
-		beforeEach('Create loggedIn user agent and authenticate', function (done) {
-			loggedInAgent = supertest.agent(app);
-			loggedInAgent.post('/login').send(adminObj).end(done);
-		});
 
 		it('should create a new event type', function (done) {
 			createEventType()

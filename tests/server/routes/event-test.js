@@ -8,6 +8,7 @@ var Venue = mongoose.model('Venue');
 var Promise = require("bluebird");
 var eventCreator = require('../../helper/eventCreator');
 var expect = require('chai').expect;
+var loggedInUserAgent = require('../../helper/loggedInUserAgent');
 
 var dbURI = 'mongodb://localhost:27017/testingDB';
 var clearDB = require('mocha-mongoose')(dbURI);
@@ -71,30 +72,13 @@ describe('Events Route', function () {
 
   describe('for logged in users', function () {
 
+      var loggedInAgent;
 
-    var adminObj = {
-            firstName: 'John',
-            lastName: 'Smiwth',
-            email: 'email@email.com',
-            password: 'pwd',
-            roles: ['seller', 'admin']
-          },
-          loggedInAgent,
-          admin;
-
-
-      beforeEach(function (done) {
-        AuthUser.create(adminObj)
-        .then(function (createdUser) {
-          admin = createdUser;
-          done();
-        })
-        .then(null, done);
-      });
-
-      beforeEach('Create loggedIn user agent and authenticate', function (done) {
-        loggedInAgent = supertest.agent(app);
-        loggedInAgent.post('/login').send(adminObj).end(done);
+      beforeEach('Create loggedIn user agent and authenticate', function () {
+        return loggedInUserAgent.get(['seller', 'admin'])
+        .then(function (userAgent) {
+          loggedInAgent = userAgent;
+        });
       });
 
 

@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 require('../../../server/db/models');
 var Venue = mongoose.model('Venue');
 var AuthUser = mongoose.model('AuthUser');
+var loggedInUserAgent = require('../../helper/loggedInUserAgent');
 
 var expect = require('chai').expect;
 
@@ -70,33 +71,14 @@ describe('Venues Route', function () {
 	});
 
 
-	var adminObj = {
-				firstName: 'John',
-				lastName: 'Smiwth',
-				email: 'email@email.com',
-				password: 'pwd',
-				roles: ['seller', 'admin']
-			},
-			loggedInAgent,
-			admin;
+	var loggedInAgent;
 
-
-	beforeEach(function (done) {
-		AuthUser.create(adminObj)
-		.then(function (createdUser) {
-			admin = createdUser;
-			done();
-		})
-		.then(null, done);
+	beforeEach('Create loggedIn user agent and authenticate', function () {
+		return loggedInUserAgent.get(['seller', 'admin'])
+		.then(function (userAgent) {
+			loggedInAgent = userAgent;
+		});
 	});
-
-	beforeEach('Create loggedIn user agent and authenticate', function (done) {
-		loggedInAgent = supertest.agent(app);
-		loggedInAgent.post('/login').send(adminObj).end(done);
-	});
-
-
-
 
 	afterEach('Clear test database', function (done) {
 		clearDB(done);
