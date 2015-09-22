@@ -1,5 +1,5 @@
 <md-toolbar layout="row" layout-align="space-between center">
-            
+
             <md-toolbar-filler layout flex layout-align="left center">
                 <md-button ui-sref="home">
                     <i aria-label="StackStub home" class="zmdi zmdi-ticket-star zmdi-hc-3x"></i>
@@ -7,7 +7,7 @@
             </md-toolbar-filler>
 
             <span flex layout layout-align="left center">StackStub</span>
-            
+
             <md-menu-bar>
 
                 <md-menu>
@@ -31,7 +31,7 @@
                             <md-button ui-sref="sell">Sell some tickets</md-button>
                         </md-menu-item>
                         <md-menu-item ng-show="isAdmin()">
-                            <md-button ui-sref="admin">Admin panel</md-button>
+                            <md-button ui-sref="admin.tickets">Admin panel</md-button>
                         </md-menu-item>
                         <md-menu-item ng-show="user">
                             <md-button ng-click="logout()">Logout</md-button>
@@ -45,5 +45,5 @@
                     </md-button>
 
             </md-menu-bar>
-            
+
 </md-toolbar>

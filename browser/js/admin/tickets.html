@@ -1,4 +1,6 @@
-<div ng-repeat="ticket in tickets">
+<div class="flex-container">
+<div class="flex-item" ng-repeat="ticket in tickets">
   <ticket ticket='ticket'></ticket>
   <div><md-button ng-click='delete(ticket)'>Delete Ticket</md-button></div>
+</div>
 </div>
