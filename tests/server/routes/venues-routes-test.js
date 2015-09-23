@@ -2,6 +2,8 @@
 var mongoose = require('mongoose');
 require('../../../server/db/models');
 var Venue = mongoose.model('Venue');
+var AuthUser = mongoose.model('AuthUser');
+var loggedInUserAgent = require('../../helper/loggedInUserAgent');
 
 var expect = require('chai').expect;
 
@@ -68,20 +70,24 @@ describe('Venues Route', function () {
 			});
 	});
 
+
+	var loggedInAgent;
+
+	beforeEach('Create loggedIn user agent and authenticate', function () {
+		return loggedInUserAgent.get(['seller', 'admin'])
+		.then(function (userAgent) {
+			loggedInAgent = userAgent;
+		});
+	});
+
 	afterEach('Clear test database', function (done) {
 		clearDB(done);
 	});
 
 	describe('POST /api/venues', function () {
 
-		var guestAgent;
-
-		beforeEach('Create guest agent', function () {
-			guestAgent = supertest.agent(app);
-		});
-
 		it('should get a 201 response and return the created venue', function (done) {
-			guestAgent
+			loggedInAgent
 				.post('/api/venues')
 				.send(WH)
 				.expect(201)
@@ -146,14 +152,8 @@ describe('Venues Route', function () {
 
 	describe('PUT /api/venues', function () {
 
-		var guestAgent;
-
-		beforeEach('Create guest agent', function () {
-			guestAgent = supertest.agent(app);
-		});
-
 		it('should modify an existing venue', function (done) {
-			guestAgent
+			loggedInAgent
 				.put('/api/venues/'+msgID)
 				.send({name: 'THE GARDEN'})
 				.expect(200)
@@ -161,7 +161,7 @@ describe('Venues Route', function () {
 		});
 
 		it('should return the modified venue', function (done) {
-			guestAgent
+			loggedInAgent
 				.put('/api/venues/'+msgID)
 				.send({name: 'THE GARDEN'})
 				.expect(200)
@@ -172,7 +172,7 @@ describe('Venues Route', function () {
 		});
 
 		it('should error if you attempt to modify a nonexistent venue', function (done) {
-			guestAgent
+			loggedInAgent
 				.put('/api/venues/nonexistentvenueID')
 				.send({name: 'THE GARDEN'})
 				.end(function (response, error) {
