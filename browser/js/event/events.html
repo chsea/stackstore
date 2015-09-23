@@ -22,18 +22,26 @@
 						</a>
 					</div>
 					<div flex>
-						<h3>
+						<h3 class="md-title grid-text">
 							<a ui-sref="event({id: e._id})">
-							{{ e.EventType.name }}
-						</a>
+								{{ e.EventType.name }}
+							</a>
 						</h3>
 					</div>
 					<div flex>
-						<p>{{ e.date | date:'mediumDate' }} {{ e.date | date:'shortTime' }}</p>
-						<p><a ui-sref="venue({id: e.Venue._id})">{{ e.Venue.name }}</a></p>
+						<p class="md-body-1 grid-text">
+							{{ e.date | date:'mediumDate' }} {{ e.date | date:'shortTime' }}
+						</p>
+						<p class="md-body-1 grid-text">
+							<a ui-sref="venue({id: e.Venue._id})">
+								{{ e.Venue.name }}
+							</a>
+						</p>
 					</div>
 					<div flex>
-						Tickets for sale: {{ (tickets | filter:{eventProduct: e._id}).length }}
+						<p class="md-body-1 grid-text">
+							Tickets for sale: {{ (tickets | filter:{eventProduct: e._id}).length }}
+						</p>
 					</div>
 				</md-grid-tile>
 			</md-grid-list>

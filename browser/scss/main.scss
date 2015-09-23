@@ -69,6 +69,10 @@ md-toolbar {
   color: #999;
 }
 
+.grid-text {
+  margin: 0 .75em 0 0.75em;
+}
+
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';
