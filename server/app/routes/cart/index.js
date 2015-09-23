@@ -27,13 +27,13 @@ router.get('/', function(req, res, next){
 
 router.post('/checkout', function(req, res, next){
 	//test if cart is empty
-	if(!req.session.cart.length) next(new Error('Your cart is empty'));
+	if(!req.session.cart.length) return next(new Error('Your cart is empty'));
 
 	//validate zip code
-	if(!/^\d{5}$/.test(req.body.address.zip)) next(new Error('Invalid zip code'));
+	if(!/^\d{5}$/.test(req.body.address.zip)) return next(new Error('Invalid zip code'));
 
 	//check if logged in
-	var userPromise = req.session.passport.user ? 
+	var userPromise = req.session.passport.user ?
 	//if logged in, update user
 		AuthUser.findById(req.session.passport.user).then(function(user){
 			user.address = req.body.address;

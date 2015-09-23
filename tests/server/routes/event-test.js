@@ -3,10 +3,12 @@ var mongoose = require('mongoose');
 require('../../../server/db/models');
 var Event = mongoose.model('Event');
 var EventType = mongoose.model('EventType');
+var AuthUser = mongoose.model('AuthUser');
 var Venue = mongoose.model('Venue');
 var Promise = require("bluebird");
 var eventCreator = require('../../helper/eventCreator');
 var expect = require('chai').expect;
+var loggedInUserAgent = require('../../helper/loggedInUserAgent');
 
 var dbURI = 'mongodb://localhost:27017/testingDB';
 var clearDB = require('mocha-mongoose')(dbURI);
@@ -67,61 +69,82 @@ describe('Events Route', function () {
 
 	});
 
-	it('should create a new event', function (done) {
-    eventCreator.createEvent()
-    .then(function (createdEvent) {
-      guestAgent.post('/api/events')
-      .send({Venue: createdEvent.Venue._id, EventType: createdEvent.EventType._id, date: new Date()})
-      .expect(201)
-      .end(function(err, res) {
-        guestAgent.get('/api/events')
-        .expect(200)
-        .end(function(err, res){
-          if(err) done(err);
-          expect(res.body.length).to.equal(2);
-          done();
+
+  describe('for logged in users', function () {
+
+      var loggedInAgent;
+
+      beforeEach('Create loggedIn user agent and authenticate', function () {
+        return loggedInUserAgent.get(['seller', 'admin'])
+        .then(function (userAgent) {
+          loggedInAgent = userAgent;
         });
       });
-    });
 
-	});
 
-  it('should update an event', function (done) {
-    eventCreator.createEvent()
-    .then(function (createdEvent) {
-      var date = new Date(1984, 5, 19);
-      guestAgent.put('/api/events/' + createdEvent._id)
-      .send({date: date})
-      .expect(200)
-      .end(function(err, res) {
-        guestAgent.get('/api/events/' + createdEvent._id)
-        .expect(200)
-        .end(function(err, res){
-          if(err) done(err);
-          expect(res.body.date).to.equal(date.toISOString());
-          done();
+
+    it('should create a new event', function (done) {
+      eventCreator.createEvent()
+      .then(function (createdEvent) {
+        loggedInAgent.post('/api/events')
+        .send({Venue: createdEvent.Venue._id, EventType: createdEvent.EventType._id, date: new Date()})
+        .expect(201)
+        .end(function(err, res) {
+          loggedInAgent.get('/api/events')
+          .expect(200)
+          .end(function(err, res){
+            if(err) done(err);
+            expect(res.body.length).to.equal(2);
+            done();
+          });
         });
       });
+
     });
+
+    it('should update an event', function (done) {
+      eventCreator.createEvent()
+      .then(function (createdEvent) {
+        var date = new Date(1984, 5, 19);
+        loggedInAgent.put('/api/events/' + createdEvent._id)
+        .send({date: date})
+        .expect(200)
+        .end(function(err, res) {
+          loggedInAgent.get('/api/events/' + createdEvent._id)
+          .expect(200)
+          .end(function(err, res){
+            if(err) done(err);
+            expect(res.body.date).to.equal(date.toISOString());
+            done();
+          });
+        });
+      });
+
+    });
+
+    it('should delete an event', function (done) {
+
+      eventCreator.createEvent().
+      then(function (createdEvent) {
+        loggedInAgent.delete('/api/events/' + createdEvent._id)
+        .expect(204)
+        .end(function(err, res) {
+          loggedInAgent.get('/api/events')
+          .expect(200)
+          .end(function(err, res){
+            if(err) done(err);
+            expect(res.body.length).to.equal(0);
+            done();
+          });
+        });
+      });
+
+    });
+
 
   });
 
-  it('should delete an event', function (done) {
 
-    eventCreator.createEvent().
-    then(function (createdEvent) {
-      guestAgent.delete('/api/events/' + createdEvent._id)
-      .expect(204)
-      .end(function(err, res) {
-        guestAgent.get('/api/events')
-        .expect(200)
-        .end(function(err, res){
-          if(err) done(err);
-          expect(res.body.length).to.equal(0);
-          done();
-        });
-      });
-    });
 
-  });
+
 });

@@ -1,7 +1,7 @@
 // Instantiate all models
 var mongoose = require('mongoose');
 require('../../../server/db/models');
-var User = mongoose.model('User');
+var User = mongoose.model('AuthUser');
 
 var expect = require('chai').expect;
 

@@ -4,13 +4,14 @@ var clearDB = require('mocha-mongoose')(dbURI);
 var sinon = require('sinon');
 var expect = require('chai').expect;
 var mongoose = require('mongoose');
+var eventCreator = require('../../helper/eventCreator');
 
 // Require in all models.
 require('../../../server/db/models');
 
 var EventProduct = mongoose.model('Event');
 var Ticket = mongoose.model('Ticket');
-var User = mongoose.model('User');
+var AuthUser = mongoose.model('AuthUser');
 
 describe('Ticket model', function () {
   beforeEach('Establish DB connection', function (done) {
@@ -21,7 +22,7 @@ describe('Ticket model', function () {
   var ticket, eventId;
   beforeEach('create user/event/tickets', function(done) {
     var userId;
-    User
+    AuthUser
     .create({firstName: 'Omri', lastName: 'Bernstein', email: 'zeke@zeke.zeke', password: 'groovy', address: {
       street: '123 League Drive',
       city: 'Santa Monica',
@@ -30,10 +31,14 @@ describe('Ticket model', function () {
     }})
     .then(function(user) {
       userId = user._id;
-      return EventProduct.create({name: 'BSB at MSG', date: new Date()});
+      return eventCreator.createEvent();
     }).then(function(e) {
       eventId = e._id;
-      return Ticket.create([{eventProduct: e._id, seller: userId}, {eventProduct: e._id, seller: userId, sold: true}]);
+      var currentDate = new Date();
+      return Ticket.create([
+        {eventProduct: e._id, seller: userId, dateSelling: currentDate},
+        {eventProduct: e._id, seller: userId, dateSelling: currentDate, dateSold: currentDate}
+      ]);
     }).then(function(tickets) {
       ticket = tickets[0];
       done();
