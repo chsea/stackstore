@@ -1,11 +1,15 @@
 <div class="main-content">
-<h1>Hi Administrator!</h1>
-<ul>
-  <li><a ui-sref="admin.users">Users</a></li>
-  <li><a ui-sref="admin.venues">Venues</a></li>
-  <li><a ui-sref="admin.eventTypes">Event Types</a></li>
-  <li><a ui-sref="admin.events">Events</a></li>
-  <li><a ui-sref="admin.tickets">Tickets</a></li>
-</ul>
-<ui-view></ui-view>
+  <div class="sidebar">
+    <h1>Hi Administrator!</h1>
+    <ul>
+      <li><a ui-sref="admin.users">Users</a></li>
+      <li><a ui-sref="admin.venues">Venues</a></li>
+      <li><a ui-sref="admin.eventTypes">Event Types</a></li>
+      <li><a ui-sref="admin.events">Events</a></li>
+      <li><a ui-sref="admin.tickets">Tickets</a></li>
+    </ul>
+  </div>
+  <div class="sidecontent">
+    <ui-view></ui-view>
+  </div>
 </div>

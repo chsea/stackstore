@@ -25,8 +25,10 @@
 <section>
 	<h1>Reviews:</h1>
 	<div ng-show="!reviews.length">No reviews yet!</div>
-	<div ng-repeat="review in reviews">
-		<review review="review"></review>
+	<div class="flex-container">
+    <div class="flex-item"  ng-repeat="review in reviews">
+			<review review="review"></review>
+		</div>
 	</div>
 	<div ng-show="!loggedIn">Please <a ui-sref="login">log in</a> to add a review.</div>
 	<md-button ng-show="loggedIn" ng-click="showAddForm = true">Add a review!</md-button>
