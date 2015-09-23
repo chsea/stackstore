@@ -30,7 +30,8 @@
   <md-button type="submit">Create Venue</md-button>
   <!-- Still need to add change image capabilities -->
 </form>
-<div ng-repeat="venue in venues">
+<div class="flex-container">
+<div class="flex-item" ng-repeat="venue in venues">
   <venue venue="venue" ng-class="{inactive: venue.inactive}"></venue>
   <form name="editForm" ng-show='venue.edit' ng-submit="editForm.$valid && update(venue)">
     <md-input-container>
@@ -66,4 +67,5 @@
   <div>
     <md-button ng-show="!venue.edit && !venue.inactive" ng-click="venue.edit = true">Edit Venue</md-button><md-button ng-show="!venue.inactive" ng-click="inactivate(venue)">Inactivate Venue</md-button><md-button  ng-show="venue.inactive" ng-click="activate(venue)">Activate Venue</md-button>
   </div>
+</div>
 </div>

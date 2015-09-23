@@ -8,6 +8,9 @@ body, html {
   max-height: -moz-calc(100% - 75px) !important;
   max-height: calc(100% - 75px) !important;
   min-height: 0;
+  min-height: -webkit-calc(100% - 75px);
+  min-height: -moz-calc(100% - 75px);
+  min-height: calc(100% - 75px);
 }
 
 #background {

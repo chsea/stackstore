@@ -22,6 +22,9 @@
   transition: border 0.3s;
 }
 .sidecontent {
+  min-height: -webkit-calc(100% - 75px);
+  min-height: -moz-calc(100% - 75px);
+  min-height: calc(100% - 75px);
   margin-left: 200px;
 }
 .flex-container {
